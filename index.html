@@ -1,0 +1,399 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Web Chex Mining</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="./css/main.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap" rel="stylesheet">
+    </head>
+    <body>
+
+        <script type="importmap">
+            {
+                "imports": {
+                  "animejs": "https://ga.jspm.io/npm:animejs@3.2.2/lib/anime.es.js",
+                  "interactjs": "https://ga.jspm.io/npm:interactjs@1.10.27/dist/interact.min.js",
+                  "perfect-scrollbar": "https://ga.jspm.io/npm:perfect-scrollbar@1.5.5/dist/perfect-scrollbar.esm.js",
+                  "three": "https://ga.jspm.io/npm:three@0.166.0/build/three.module.js",
+                  "fractional": "https://ga.jspm.io/npm:fractional@1.0.0/index.js"
+                }
+            }
+        </script>
+
+        <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js" crossorigin="anonymous"></script>
+
+        <audio class="audioElement">
+            <source src="./media/exotic.wav" type="audio/wav">
+            <source src="./media/pristine.wav" type="audio/wav">
+            <source src="./media/pure.wav" type="audio/wav">
+            <source src="./media/virtuous.wav" type="audio/wav">
+            <source src="./media/angelic.wav" type="audio/wav">
+        </audio>
+
+        <audio class="bgMusic"  src="./media/into-the-mines.mp3" loop=true></audio>
+
+        <div class="settingsGuiContainer">
+           
+            <div class="guiText"> > Settings </div>
+
+            <div class="guiSettingsMain">
+
+                <div class="guiTextMainSpawnEff"> > Spawn Effects Volume: </div> <div class="spawnEffectsVolVal guiTextMainSpVal">35</div>
+
+                <div class="slidecontainer">
+                    <input type="range" min="0" max="100" value="15" class="sliderSpawnVol">
+                </div>
+
+                <div class="guiTextMainBgMusic"> > Music Volume: </div> <div class="bgMusicVolVal guiTextMainBgVal">5</div>
+
+                <div class="slidecontainer">
+                    <input type="range" min="0" max="100" value="5" class="sliderBgVol">
+                </div>
+
+
+                <div class="checkboxContainer">
+                    <input type="checkbox" class="stopOnChillVal">
+                    <span class="checkmark"></span>
+                </div> <div class='guiTextSettingsContainerSOC'> > Disable Stop on Chill</div>
+
+                <div class="resetButtonContainer">
+                    <button class="resetDataButton">Reset Data</button>
+                </div>
+
+                <div class="debugInfoContainer">
+                    <div class="version"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="oreIndexGuiTopbar draggable" style="visibility: hidden;">
+
+            <div class="guiText oreIndex"> > Ore Index </div>
+
+            <input class="guiSearch" type="text" placeholder="Search..">
+
+            <div class="oreIndexMainContainer">
+
+
+
+            </div>
+
+        </div>
+
+        <div class="mainGuiContainer">
+
+            <div class="bgContainer">
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+                <div class="bgSquare"></div>
+            </div>
+
+            <div class="mainGuiText lastOreMined"> > Last Ore Mined: </div> <div class="mainGuiText lastOreMinedVal"></div>
+            <div class="mainGuiText pickaxeLabel"> > Using Pickaxe: </div> <div class="mainGuiText pickaxeLabelVal">Default Pickaxe (Tier 0)</div>
+            <div class="mainGuiText oreRarity"> > Last Ore Rarity: </div> <div class="mainGuiText lastOreRarityVal"></div>
+
+            <button class="settingsButton"></button>
+            <button class="oreIndexButton"></button>
+            <button class="pickaxeButton notMining"></button>
+
+        </div>
+
+        <div class="topGuiContainer">
+
+            <div class="topBar">
+
+                <div class="blocksMined">Blocks Mined: 0</div>
+
+                <div class="timeWasted">Time Wasted: 0</div>
+
+            </div>
+
+            <div class=""></div>
+
+        </div>
+
+        <div class="titleText">Web Chex Mining</div>
+
+        <div class="guiContainerInventory draggable">
+
+            <div class="guiSubContainer"></div>
+
+            <div class="guiText"> > Inventory </div>
+
+            <div class="guiInventoryMain inventoryGroup">
+
+                <!-- <div class="common">hello!</div>
+                <div class="uncommon">hello!</div>
+                <div class="rare">hello!</div>
+                <div class="master">hello!</div>
+                <div class="unreal">hello!</div>
+                <div class="exotic">hello!</div>
+                <div class="pristine">hello!</div>
+                <div class="pure">hello!</div>
+                <div class="virtuous">hello!</div>
+                <div class="angelic">hello!</div>
+                <div class="dreamlike">hello!</div> -->
+                
+
+            </div>
+
+        </div>
+
+        <div class="guiContainerPickaxes draggable">
+
+            <div class="guiSubContainer"></div>
+
+            <div class="guiText"> > Pickaxes </div>
+
+            <div class="guiPickaxesMain">
+
+                <div class="guiPickaxes buttonGroup">
+                    <button class="pickaxeButton1">The Chexaxe (Tier 2)</button>
+                    <button class="pickaxeButton2">Chexforge Ravager (Tier 2)</button>
+                    <button class="pickaxeButton3">Chexquartz Excavator (Tier 3)</button>
+                    <button class="pickaxeButton4">Titanium Chexblaster (Tier 3)</button>
+                    <button class="pickaxeButton5 hidden">Mystic Chexcrusher (Tier 4)</button>
+                    <button class="pickaxeButton6 hidden">Chexglow Dagger (Tier 5)</button>
+                    <button class="pickaxeButton7 hidden">Prism of Chexology (Tier 5)</button>
+                    <button class="pickaxeButton8 hidden">Chexnihilator (Tier 6)</button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="guiContainerPickaxe Chexaxe draggable" style="visibility: hidden;">
+
+            <div class="guiSubContainer"></div>
+
+            <div class="guiText Chexaxe"> > The Chexaxe </div>
+
+            <div class="guiPickaxesMain">
+
+                <div class="guiPickaxeInfo">
+
+                    your first pickaxe in the entire game!!! <br><br>
+                    
+                    it mines a block a second, and even comes with a luck boost <br>
+                    -----------------------------------
+                    <br><br>
+
+                    Abilities:<br><br>
+
+                    <div class="luckText">20% Luck Boost</div>
+
+                    <div class="miningSpeedText">Breaks 1 block every second.</div>
+
+                </div>
+
+                <div class="guiPickaxeRecipe">
+                    Recipe:<br>
+                    <div class="Chexerite Chexaxe">0/1 Chexerite</div>
+                    <div class="Virotite Chexaxe">0/1 Virotite</div>
+                    <div class="Emerald Chexaxe">0/2 Emerald</div>
+                    <div class="Diamond Chexaxe">0/5 Diamond</div>
+                    <div class="Silver Chexaxe">0/20 Silver</div>
+                    <div class="Coal Chexaxe">0/25 Coal</div>
+                    <div class="Tin Chexaxe">0/35 Tin</div>
+                    <div class="Copper Chexaxe">0/65 Copper</div>
+                    <div class="Stone Chexaxe">0/1000 Stone</div>
+                </div>
+
+                <div class="guiPickaxeChexaxeCraftButtonContainer">
+                    <button class="craftButton Chexaxe">Craft</button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="guiContainerPickaxe CR draggable" style="visibility: hidden;">
+
+            <div class="guiSubContainer"></div>
+
+            <div class="guiText CR"> > Chexforge Ravager </div>
+
+            <div class="guiPickaxesMain">
+
+                <div class="guiPickaxeInfo">
+
+                    your second pickaxe in the entire game!! (unless you chose to go with this first) <br><br>
+                    
+                    it mines at a good speed! oh... where's the luck boost... there is none... :[ <br>
+                    -----------------------------------
+                    <br><br>
+
+                    Abilities:<br><br>
+
+                    <div class="miningSpeedText">Breaks 1 block every 0.1 seconds.</div>
+
+                </div>
+
+                <div class="guiPickaxeRecipe">
+                    Recipe:<br>
+                    <div class="Chexerite Chexforge-Ravager">0/1 Chexerite</div>
+                    <div class="Amber Chexforge-Ravager">0/3 Amber</div>
+                    <div class="Diamond Chexforge-Ravager">0/3 Diamond</div>
+                    <div class="Gold Chexforge-Ravager">0/15 Gold</div>
+                    <div class="Quartz Chexforge-Ravager">0/22 Quartz</div>
+                    <div class="Coal Chexforge-Ravager">0/35 Coal</div>
+                    <div class="Tin Chexforge-Ravager">0/45 Tin</div>
+                    <div class="Iron Chexforge-Ravager">0/35 Iron</div>
+                    <div class="Stone Chexforge-Ravager">0/600 Stone</div>
+                </div>
+
+                <div class="guiPickaxeChexforgeRavagerCraftButtonContainer">
+                    <button class="craftButton ChexforgeRavager">Craft</button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="guiContainerPickaxe CE draggable" style="visibility: hidden;">
+
+            <div class="guiSubContainer"></div>
+
+            <div class="guiText CE"> > Chexquartz Excavator </div>
+
+            <div class="guiPickaxesMain">
+
+                <div class="guiPickaxeInfo">
+
+                    forged from the elusive chexquartz, which wasnt an ore in this game until i decided to make it now! <br><br>
+                    
+                    not only does this mine at a good speed, but it has a luck boost! now we're advancing in the game! <br>
+                    -----------------------------------
+                    <br><br>
+
+                    Abilities:<br><br>
+
+                    <div class="luckText">20% Luck Boost</div>
+
+                    <div class="miningSpeedText">Breaks 1 block every 0.225 seconds.</div>
+
+
+
+                </div>
+
+                <div class="guiPickaxeRecipe">
+                    Recipe:<br>
+                    <div class="Chexquartz Chexquartz-Excavator">0/1 Chexquartz</div>
+                    <div class="Cobalt Chexquartz-Excavator">0/5 Cobalt</div>
+                    <div class="Chexerite Chexquartz-Excavator">0/7 Chexerite</div>
+                    <div class="Virotite Chexquartz-Excavator">0/12 Virotite</div>
+                    <div class="Quartz Chexquartz-Excavator">0/140 Quartz</div>
+                    <div class="Rhodochrosite Chexquartz-Excavator">0/50 Rhodochrosite</div>
+                    <div class="Iron Chexquartz-Excavator">0/67 Iron</div>
+                    <div class="Tin Chexquartz-Excavator">0/72 Tin</div>
+                    <div class="Copper Chexquartz-Excavator">0/152 Copper</div>
+                    <div class="Clay Chexquartz-Excavator">0/1000 Clay</div>
+                </div>
+
+                <div class="guiPickaxeChexquartzExcavatorCraftButtonContainer">
+                    <button class="craftButton ChexquartzExcavator">Craft</button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="guiContainerPickaxe TC draggable" style="visibility: hidden;">
+
+            <div class="guiSubContainer"></div>
+
+            <div class="guiText TC"> > Titanium Chexblaster </div>
+
+            <div class="guiPickaxesMain">
+
+                <div class="guiPickaxeInfo">
+
+                    well i'll be darned, its a gun. a blaster might i add! you might think blaster = big radius of blocks mined, but it's pretty much a sniper <br><br>
+                    
+                    holy moly the luck boost on this is nuts! <br><br>
+
+                    due to the low power of chexquartz, this thing takes a WHILE to charge again after firing a shot <br><br>
+
+                    maybe there's a better version of chexquartz that you can find later??? hmm?????????? maybe??????? <br>
+
+                    -----------------------------------
+                    <br><br>
+
+                    Abilities:<br><br>
+
+                    <div class="luckText">125% Luck Boost</div>
+
+                    <div class="miningSpeedText">Breaks 1 block every 9 seconds.</div>
+
+                </div>
+
+                <div class="guiPickaxeRecipe">
+                    Recipe:<br>
+                    <div class="Chexquartz Titanium-Chexblaster">0/1 Chexquartz</div>
+                    <div class="Titanite Titanium-Chexblaster">0/5 Titanite</div>
+                    <div class="Combrolium Titanium-Chexblaster">0/2 Combrolium</div>
+                    <div class="Chexerite Titanium-Chexblaster">0/4 Chexerite</div>
+                    <div class="Amber Titanium-Chexblaster">0/2 Amber</div>
+                    <div class="Emerald Titanium-Chexblaster">0/1 Emerald</div>
+                    <div class="Quartz Titanium-Chexblaster">0/15 Quartz</div>
+                    <div class="Iron Titanium-Chexblaster">0/20 Iron</div>
+                    <div class="Rhodochrosite Titanium-Chexblaster">0/40 Rhodochrosite</div>
+                    <div class="Copper Titanium-Chexblaster">0/150 Copper</div>
+                    <div class="Clay Titanium-Chexblaster">0/1500 Clay</div>
+                    <div class="Stone Titanium-Chexblaster">0/3000 Stone</div>
+                </div>
+
+                <div class="guiPickaxeTitaniumChexblasterCraftButtonContainer">
+                    <button class="craftButton TitaniumChexblaster">Craft</button>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <script type="module" src="./js/game/settingsHandler.mjs"></script>
+        <script type="module" src="./js/background.js"></script>
+        <script type="module" src="./js/smoothDrag.js"></script>
+        <script type="module" src="./js/buttonHover.js"></script>
+        <script type="module" src="./js/game/timer.js"></script>   
+        <script type="module" src="./js/main.mjs"></script>  
+        <script type="module" src="./js/game/pickaxes/pickaxesMain.mjs"></script>
+        <script type="module" src="./js/game/pickaxes/pickaxeGUI.mjs"></script>
+        <script type="module" src="./js/game/saveInterval.mjs"></script>
+        <script type="module" src="./js/game/indexGuiHandler.mjs"></script>
+        <script type="module" src="./js/game/mainGame.mjs"></script>
+    </body>
+</html>

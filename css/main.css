@@ -1,0 +1,685 @@
+html {
+    overflow: hidden;
+}
+
+body {
+    background-color: rgba(0,0,0,0.9);;
+}
+
+.titleText {
+    display: flex;
+    font-size: 60px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.guiContainerPickaxes {
+    user-select: none;
+    left: 87%;
+    top: 96.9%;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 14px 14px 0px 0px;
+    border-radius: 14px 14px 0px 0px; 
+    position: absolute;
+    cursor: pointer;
+    width: 250px;
+    height: 30px;
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,212,255,0) 100%);
+    background-color: rgba(0,0,0,0.1);
+    z-index: 1;
+    display: block;
+}
+
+.guiContainerPickaxe {
+    display: block;
+    user-select: none;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 14px 14px 0px 0px;
+    border-radius: 14px 14px 0px 0px; 
+    position: absolute;
+    cursor: pointer;
+    width: 250px;
+    height: 30px;
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,212,255,0) 100%);
+    background-color: rgba(0,0,0,0.1);
+    z-index: 1;
+}
+
+.guiContainerInventory {
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 14px 14px 0px 0px;
+    border-radius: 14px 14px 0px 0px; 
+    left: 74%;
+    top: 96.9%;
+    position: absolute;
+    width: 250px;
+    height: 30px;
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,212,255,0) 100%);
+    background-color: rgba(0,0,0,0.1);
+    z-index: 1;
+    cursor: pointer;
+    display: block;
+}
+
+.craftButton {
+    position: absolute;
+    display: flex;
+    background-color: transparent;
+    border-color: white;
+    border: 2px solid;
+    margin-bottom: 30px;
+    font-size: 15px;
+    left: 38%;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.settingsGuiContainer {
+    position: absolute;
+    width: 250px;
+    top: 50%;
+    left: -800px;
+    height: 30px;
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,212,255,0) 100%);
+    background-color: rgba(0,0,0,0.1);
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 14px 14px 0px 0px;
+    border-radius: 14px 14px 0px 0px; 
+    z-index: 1;
+    display: block;
+}
+
+.oreIndexGuiTopbar {
+    position: absolute;
+    width: 750px;
+    top: 25%;
+    left: 32.5%;
+    height: 30px;
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,212,255,0) 100%);
+    background-color: rgba(0,0,0,0.1);
+    z-index: 1;
+    cursor: pointer;
+    display: block;
+}
+
+.oreIndexMainContainer {
+    position: absolute;
+    display: flex;
+    flex-flow: column wrap;
+    width: 750px;
+    top: 100%;
+    height: 500px;
+    background-color: rgba(0,0,0,0.3);
+    z-index: 1;
+    cursor: pointer;
+}
+
+.pickaxeButton.notMining {
+    background-color: transparent;
+    border: 0;
+    color: white;
+    position: absolute;
+    top: 94.2%;
+    left: 6%;
+    width: 36px;
+    height: 36px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2300fd72' d='M14.79 10.62L3.5 21.9l-1.4-1.4L13.38 9.21zm4.48-2.89l.59-.59l-.79-.79l.64-.64l-1.42-1.42l-.64.64l-.79-.79l-.59.59c-1.74-1.42-3.7-2.56-5.8-3.36l-.83 1.79c1.75.92 3.36 2.03 4.86 3.34L14 7l3 3l.5-.5c1.31 1.5 2.42 3.11 3.34 4.86l1.79-.83c-.8-2.1-1.94-4.06-3.36-5.8'/%3E%3C/svg%3E");
+}
+
+.lastOreMinedVal {
+    position: absolute;
+    left: -100px;
+    font-size: 45px;
+    color: white;
+}
+
+.pickaxeLabelVal {
+    position: absolute;
+    font-size: 25px;
+    top: 65px;
+    left: -240px;
+}
+
+.lastOreRarityVal {
+    position: absolute;
+    font-size: 15px;
+    top: 110px;
+    left: -300px;
+}
+
+.pickaxeButton.mining {
+    background-color: transparent;
+    border: 0;
+    color: white;
+    position: absolute;
+    top: 94.2%;
+    left: 6%;
+    width: 36px;
+    height: 36px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fd0006' d='M14.79 10.62L3.5 21.9l-1.4-1.4L13.38 9.21zm4.48-2.89l.59-.59l-.79-.79l.64-.64l-1.42-1.42l-.64.64l-.79-.79l-.59.59c-1.74-1.42-3.7-2.56-5.8-3.36l-.83 1.79c1.75.92 3.36 2.03 4.86 3.34L14 7l3 3l.5-.5c1.31 1.5 2.42 3.11 3.34 4.86l1.79-.83c-.8-2.1-1.94-4.06-3.36-5.8'/%3E%3C/svg%3E");
+}
+
+.guiText {
+    position: absolute;
+    display: flex;
+    font-size: 15px;
+    top: 5px;
+    left: 38%;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 0;
+    user-select: none;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.guiText.Chexaxe {
+    left: 32%;
+}
+
+.guiText.CR {
+    left: 27%;
+}
+
+.guiText.CE {
+    left: 25%;
+}
+
+.guiText.TC {
+    left: 25%;
+}
+
+.guiText.oreIndex {
+    left: 45%;
+}
+
+.debugInfoContainer {
+    position: absolute;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+    top: 89%;
+    margin: 5px;
+}
+
+.guiPickaxeInfo {
+    margin: 10px;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.luckText {
+    color: lime;
+}
+
+.miningSpeedText {
+    color: yellow;
+}
+
+.guiPickaxeRecipe {
+    margin: 10px;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+    -webkit-border-radius: 14px 14px 14px 14px;
+    border-radius: 14px 14px 14px 14px;
+}
+
+.guiTextSettingsContainerSOC {
+    position: absolute;
+    font-size: 15px;
+    color: white;
+    width: 100%;
+    position: absolute;
+    top: 40%;
+    left: 10%;
+    z-index: 5;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.guiTextMainSpawnEff {
+    position: absolute;
+    display: flex;
+    font-size: 18px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 5;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.guiTextMainBgMusic {
+    position: absolute;
+    display: flex;
+    font-size: 18px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 5;
+    top: 60px;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.guiTextMainSpVal {
+    position: absolute;
+    font-size: 18px;
+    color: white;
+    z-index: 5;
+    left: 50px;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.guiTextMainBgVal {
+    position: absolute;
+    font-size: 18px;
+    color: white;
+    z-index: 5;
+    top: 60px;
+    left: 60%;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.checkboxContainer {
+    position: absolute;
+    top: 40%;
+}
+
+.resetButtonContainer {
+    position: relative;
+    top: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resetDataButton {
+    border: 2px solid red;
+    color: white;
+    font-size: 24px;
+    background-color: transparent;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.spawnEffectsVolVal {
+    left: 80%;
+}
+
+.sliderSpawnVol {
+    position: absolute;
+    width: 100%;
+    top: 30px;
+}
+
+.sliderBgVol {
+    position: absolute;
+    width: 100%;
+    top: 90px;
+}
+
+.guiPickaxesMain {
+    position: absolute;
+    width: 250px;
+    height: 300px;
+    background-color: rgba(0,0,0,0.3);
+    cursor: pointer;
+    overflow: hidden scroll;
+    scrollbar-width: none;
+    z-index: 1;
+    top: 30px;
+}
+
+.guiInventoryMain {
+    position: absolute;
+    width: 250px;
+    height: 300px;
+    background-color: rgba(0,0,0,0.3);
+    cursor: pointer;
+    overflow: hidden scroll;
+    z-index: 1;
+    top: 30px;
+    scrollbar-width: none;  /* Firefox */
+}
+
+.guiSettingsMain {
+    position: absolute;
+    width: 250px;
+    height: 300px;
+    background-color: rgba(0,0,0,0.3);
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 1;
+    top: 30px;
+}
+
+.buttonGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inventoryGroup {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.inventoryGroup div {
+    background-color: rgba(0,0,0,1);
+    opacity: 1;
+    height: 15px;
+    border: 0px solid black;
+    color: white;
+    padding: 10px 24px;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 15px;
+    font-weight: 400;
+    font-style: normal;
+    cursor: pointer;
+}
+
+.blocksMined {
+    margin-left: 5px;
+    position: absolute;
+    top: 3%;
+    color: white;
+    user-select: none;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 20px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.timeWasted {
+    margin-right: 5px;
+    position: absolute;
+    left: 95%;
+    user-select: none;
+    top: 3%;
+    color: white;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 17px;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.guiSearch {
+    position: absolute;
+    display: flex;
+    font-size: 15px;
+    top: 3px;
+    border: 0;
+    left: 0%;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: transparent;
+    z-index: 0;
+    user-select: none;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.oreIndexEntry {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    user-select: none;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 8px;
+    overflow: hidden scroll;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+    scrollbar-width: none;
+}
+
+div.common {
+    background-color: rgba(120,120,120,1);
+    color: black;
+}
+
+div.uncommon {
+    background-color: rgba(120,180,120,1);
+    color: black;
+}
+
+div.rare {
+    background-color: rgb(102, 102, 255);
+    color: black;
+}
+
+div.master {
+    background-color: rgb(208, 126, 255);
+    color: black;
+}
+
+div.unreal {
+    background-color: rgb(162, 0, 255);
+    color: black;
+}
+
+div.exotic {
+    background-color: rgb(229, 255, 0);
+    color: black;
+}
+
+div.pristine {
+    background-color: rgb(5, 163, 0);
+    color: black;
+}
+
+div.pure {
+    background-color: rgb(0, 211, 226);
+    color: black;
+}
+
+div.virtuous {
+    background-color: rgb(2, 0, 119);
+}
+  
+@keyframes rainbow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+div.angelic {
+    background: linear-gradient(270deg, red, orange, yellow, green, cyan, blue, violet);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rainbow 10s linear infinite;
+}
+
+.oreIndexEntry.angelic {
+    background-color: black;
+    color: white;
+}
+
+div.dreamlike {
+    background-color: black;
+    color: black;
+    background: linear-gradient(270deg, red, orange, yellow, green, cyan, blue, violet);
+    background-size: 1500% 200%;
+    animation: rainbow 3s ease-in-out alternate-reverse infinite;
+}
+
+.complete {
+    color: lime;
+}
+
+.buttonGroup button {
+    background-color: rgba(0,0,0,1);
+    opacity: 1;
+    border: 0px solid black;
+    color: white;
+    padding: 10px 24px;
+}
+
+.topGuiContainer {
+    height: 100%;
+    width: 100%;
+}
+
+.mainGuiText {
+    position: absolute;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+    user-select: none;
+}
+
+.mainGuiText.lastOreMined {
+    position: absolute;
+    left: -400px;
+    font-size: 45px;
+    color: white;
+}
+
+.mainGuiText.pickaxeLabel {
+    position: absolute;
+    font-size: 25px;
+    top: 65px;
+    left: -400px;
+}
+
+.mainGuiText.oreRarity {
+    position: absolute;
+    font-size: 15px;
+    top: 110px;
+    left: -400px;
+}
+
+.settingsButton {
+    background-color: transparent;
+    border: 0;
+    color: white;
+    position: absolute;
+    top: 94.5%;
+    left: 0.65%;
+    height: 32px;
+    width: 32px;
+    display: inline-block;
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='m9.25 22l-.4-3.2q-.325-.125-.612-.3t-.563-.375L4.7 19.375l-2.75-4.75l2.575-1.95Q4.5 12.5 4.5 12.338v-.675q0-.163.025-.338L1.95 9.375l2.75-4.75l2.975 1.25q.275-.2.575-.375t.6-.3l.4-3.2h5.5l.4 3.2q.325.125.613.3t.562.375l2.975-1.25l2.75 4.75l-2.575 1.95q.025.175.025.338v.674q0 .163-.05.338l2.575 1.95l-2.75 4.75l-2.95-1.25q-.275.2-.575.375t-.6.3l-.4 3.2zM11 20h1.975l.35-2.65q.775-.2 1.438-.587t1.212-.938l2.475 1.025l.975-1.7l-2.15-1.625q.125-.35.175-.737T17.5 12t-.05-.787t-.175-.738l2.15-1.625l-.975-1.7l-2.475 1.05q-.55-.575-1.212-.962t-1.438-.588L13 4h-1.975l-.35 2.65q-.775.2-1.437.588t-1.213.937L5.55 7.15l-.975 1.7l2.15 1.6q-.125.375-.175.75t-.05.8q0 .4.05.775t.175.75l-2.15 1.625l.975 1.7l2.475-1.05q.55.575 1.213.963t1.437.587zm1.05-4.5q1.45 0 2.475-1.025T15.55 12t-1.025-2.475T12.05 8.5q-1.475 0-2.488 1.025T8.55 12t1.013 2.475T12.05 15.5M12 12'/%3E%3C/svg%3E");
+    background-color: currentColor;
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+}
+
+.oreIndexButton {
+    background-color: transparent;
+    border: 0;
+    color: white;
+    position: absolute;
+    top: 94.5%;
+    left: 3.4%;
+    height: 32px;
+    width: 32px;
+    display: inline-block;
+    display: inline-block;
+    --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M13 17.05q1.1-.525 2.213-.788T17.5 16q.9 0 1.763.15T21 16.6V6.7q-.825-.35-1.713-.525T17.5 6q-1.175 0-2.325.3T13 7.2zM12 20q-1.2-.95-2.6-1.475T6.5 18q-1.325 0-2.775.5T1 20.05V5.55Q2.1 4.8 3.588 4.4T6.5 4q1.45 0 2.838.375T12 5.5q1.275-.75 2.663-1.125T17.5 4q1.425 0 2.913.4T23 5.55v14.5Q21.75 19 20.287 18.5T17.5 18q-1.5 0-2.9.525T12 20m2-10.1V8.2q.825-.35 1.688-.525T17.5 7.5q.65 0 1.275.1T20 7.85v1.6q-.6-.225-1.213-.337T17.5 9q-.95 0-1.825.238T14 9.9m0 5.5v-1.7q.825-.35 1.688-.525T17.5 13q.65 0 1.275.1t1.225.25v1.6q-.6-.225-1.213-.338T17.5 14.5q-.95 0-1.825.225T14 15.4m0-2.75v-1.7q.825-.35 1.688-.525t1.812-.175q.65 0 1.275.1T20 10.6v1.6q-.6-.225-1.213-.338T17.5 11.75q-.95 0-1.825.238T14 12.65'/%3E%3C/svg%3E");
+    background-color: currentColor;
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+}
+
+.mainGuiContainer {
+    background-color: transparent;
+    height: 89%;
+    width: 100%;
+    position: absolute;
+    top: 11%;
+    left: 0;
+}
+
+.topBar {
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px 0px 14px 14px;
+    border-radius: 0px 0px 14px 14px;
+    left: 0; 
+    top: -100px;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    width: 100%;
+    height: 100px;
+    background-color: rgba(0,0,0,0.2);;
+}
+
+.bgContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: transparent;
+}
+
+.bgSquare{
+    position: absolute;
+    background-color: white;
+    width: 10px;
+    height: 10px;
+    opacity: 0;
+    border: 3px transparent;
+    border-color: white;
+}
