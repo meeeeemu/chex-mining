@@ -1,7 +1,7 @@
 var pickaxeObjectTitaniumChexblaster = {
     "Name": "Titanium Chexblaster",
     "Bonuses": {
-        "Luck": 1.25,
+        "Luck": 0.70,
         "Speed": 6000,
     },
     "Tier": 3,
