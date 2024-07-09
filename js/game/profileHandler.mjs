@@ -31,7 +31,6 @@ function saveGame() {
         gamesettings: JSON.stringify(gameSettings),
         firsttime: 1
     }
-    console.log(dataToSave.ownedpickaxes);
     localStorage.setItem("save", btoa(JSON.stringify(dataToSave)));
 }
 
