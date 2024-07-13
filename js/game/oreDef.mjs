@@ -150,6 +150,7 @@ const oreDef = {
     "fire Crystal normal": {"Name": "Fire Crystal normal", "decimalRarity": 1 / 1250000000, "stringRarity": "1/1250000000", "tier": "dreamlike"},
     "wanderioum": {"Name": "Wanderioum", "decimalRarity": 1 / 1750000000, "stringRarity": "1/1750000000", "tier": "dreamlike"},
     "ASTHMA": {"Name": "ASTHMA", "decimalRarity": 1 / 2250001616, "stringRarity": "1/2250001616", "tier": "dreamlike"},
+    "the ring ore": {"Name": "the ring ore", "decimalRarity": 1 / 9876543212, "stringRarity": "1/2250001616", "tier": "dreamlike"},
     "hsjsedesHhvddfrcsd glombo wombo casino": {"Name": "hsjsedesHhvddfrcsd glombo wombo casino", "decimalRarity": 1 / 7777777777, "stringRarity": "1/7777777777", "tier": "dreamlike"}
 
 };
