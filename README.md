@@ -2,9 +2,7 @@
 
 # Chex Mining - v0.1.1-alpha:
 
-Huge Developments Alert!!!
-
-alot of cool stuff this update:
+less huge developments
 
 ## Recipe Changes
 
