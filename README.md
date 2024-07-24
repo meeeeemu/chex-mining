@@ -8,9 +8,9 @@ alot of cool stuff this update:
 
 the first tier 4 in the game! here are the stats:
 
-**Luck**: 0.25
-**Speed**: 350
-**Blocks Mined**: 2
+**Luck**: 0.25 <br />
+**Speed**: 350 <br />
+**Blocks Mined**: 2 <br />
 
 soon exotics will be required for pickaxes.....
 
@@ -23,8 +23,8 @@ very much mines the most blocks!
 
 ## Pickaxe Changes:
 
-Titanium Chexblaster - Luck - **70%** -> *50%*
-Chexforge Ravager - Speed - **1 every 0.1s** -> *1 every 0.2s*
+Titanium Chexblaster - Luck - **70%** -> *50%* <br />
+Chexforge Ravager - Speed - **1 every 0.1s** -> *1 every 0.2s* <br />
 
 ## Added Caves!
 
@@ -32,9 +32,9 @@ different caves have different rarities and contain 4 - 800 ores! caves ARE affe
 
 there are currently **three** different cave types, these being:
 
-Standard Cave (1/2000 Chance when mining a block)
-Illuminous Cave (1/3500 Chance when mining a block)
-Astral Cave (1/5750 Chance when mining a block)
+Standard Cave (1/2000 Chance when mining a block) <br />
+Illuminous Cave (1/3500 Chance when mining a block) <br />
+Astral Cave (1/5750 Chance when mining a block) <br />
 
 (these chance of these might seem low, but they're really Really helpful, )
 
