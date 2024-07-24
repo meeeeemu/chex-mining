@@ -10,18 +10,18 @@ var pickaxeObjectTitaniumChexblaster = {
 }
 
 var titaniumchexblasterRecipe = {
-    "Chexquartz": {quantity: 5},
-    "Titanite": {quantity: 9},
-    "Combrolium": {quantity: 8},
-    "Chexerite": {quantity: 15},
-    "Amber": {quantity: 9},
-    "Emerald": {quantity: 5},
-    "Quartz": {quantity: 50},
-    "Iron": {quantity: 70},
-    "Rhodochrosite": {quantity: 120},
-    "Copper": {quantity: 200},
+    "Chexquartz": {quantity: 10},
+    "Titanite": {quantity: 6},
+    "Combrolium": {quantity: 30},
+    "Chexerite": {quantity: 45},
+    "Amber": {quantity: 90},
+    "Emerald": {quantity: 70},
+    "Quartz": {quantity: 350},
+    "Iron": {quantity: 700},
+    "Rhodochrosite": {quantity: 1200},
+    "Copper": {quantity: 2000},
     "Clay": {quantity: 4500},
-    "Stone": {quantity: 10000},
+    "Stone": {quantity: 12500},
 }
 
 export {pickaxeObjectTitaniumChexblaster, titaniumchexblasterRecipe}
