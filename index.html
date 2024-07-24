@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Web Chex Mining</title>
+        <title>Chex Mining</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,7 +33,9 @@
             <source src="./media/angelic.wav" type="audio/wav">
         </audio>
 
-        <audio class="bgMusic"  src="./media/into-the-mines.mp3" loop=true></audio>
+        <audio class="audioElementCaveSpawn" src="./media/cave-found.mp3" preload="auto"></audio>
+
+        <audio class="bgMusic" src="./media/into-the-mines.mp3"></audio>
 
         <div class="settingsGuiContainer">
            
@@ -138,6 +140,8 @@
 
                 <div class="timeWasted">Time Wasted: 0</div>
 
+                <div class="topbarAlert">testing</div>
+
             </div>
 
             <div class=""></div>
@@ -184,7 +188,7 @@
                     <button class="pickaxeButton2">Chexforge Ravager (Tier 2)</button>
                     <button class="pickaxeButton3">Chexquartz Excavator (Tier 3)</button>
                     <button class="pickaxeButton4">Titanium Chexblaster (Tier 3)</button>
-                    <button class="pickaxeButton5 hidden">Mystic Chexcrusher (Tier 4)</button>
+                    <button class="pickaxeButton5">Womboaxe (Tier 4)</button>
                     <button class="pickaxeButton6 hidden">Chexglow Dagger (Tier 5)</button>
                     <button class="pickaxeButton7 hidden">Prism of Chexology (Tier 5)</button>
                     <button class="pickaxeButton8 hidden">Chexnihilator (Tier 6)</button>
@@ -222,13 +226,13 @@
                     Recipe:<br>
                     <div class="Chexerite Chexaxe">0/1 Chexerite</div>
                     <div class="Virotite Chexaxe">0/1 Virotite</div>
-                    <div class="Emerald Chexaxe">0/2 Emerald</div>
+                    <div class="Emerald Chexaxe">0/3 Emerald</div>
                     <div class="Diamond Chexaxe">0/5 Diamond</div>
-                    <div class="Silver Chexaxe">0/20 Silver</div>
-                    <div class="Coal Chexaxe">0/75 Coal</div>
+                    <div class="Silver Chexaxe">0/30 Silver</div>
+                    <div class="Coal Chexaxe">0/88 Coal</div>
                     <div class="Tin Chexaxe">0/105 Tin</div>
-                    <div class="Copper Chexaxe">0/195 Copper</div>
-                    <div class="Stone Chexaxe">0/1000 Stone</div>
+                    <div class="Copper Chexaxe">0/225 Copper</div>
+                    <div class="Stone Chexaxe">0/1350 Stone</div>
                 </div>
 
                 <div class="guiPickaxeChexaxeCraftButtonContainer">
@@ -257,7 +261,7 @@
 
                     Abilities:<br><br>
 
-                    <div class="miningSpeedText">Breaks 1 block every 0.1 seconds.</div>
+                    <div class="miningSpeedText">Breaks 2 blocks every 0.2 seconds.</div>
 
                 </div>
 
@@ -265,13 +269,13 @@
                     Recipe:<br>
                     <div class="Chexerite Chexforge-Ravager">0/1 Chexerite</div>
                     <div class="Amber Chexforge-Ravager">0/3 Amber</div>
-                    <div class="Diamond Chexforge-Ravager">0/3 Diamond</div>
-                    <div class="Gold Chexforge-Ravager">0/15 Gold</div>
-                    <div class="Quartz Chexforge-Ravager">0/22 Quartz</div>
-                    <div class="Coal Chexforge-Ravager">0/35 Coal</div>
-                    <div class="Tin Chexforge-Ravager">0/45 Tin</div>
-                    <div class="Iron Chexforge-Ravager">0/35 Iron</div>
-                    <div class="Stone Chexforge-Ravager">0/600 Stone</div>
+                    <div class="Diamond Chexforge-Ravager">0/6 Diamond</div>
+                    <div class="Gold Chexforge-Ravager">0/30 Gold</div>
+                    <div class="Quartz Chexforge-Ravager">0/65 Quartz</div>
+                    <div class="Coal Chexforge-Ravager">0/60 Coal</div>
+                    <div class="Tin Chexforge-Ravager">0/110 Tin</div>
+                    <div class="Iron Chexforge-Ravager">0/200 Iron</div>
+                    <div class="Stone Chexforge-Ravager">0/1600 Stone</div>
                 </div>
 
                 <div class="guiPickaxeChexforgeRavagerCraftButtonContainer">
@@ -310,16 +314,16 @@
 
                 <div class="guiPickaxeRecipe">
                     Recipe:<br>
-                    <div class="Chexquartz Chexquartz-Excavator">0/1 Chexquartz</div>
-                    <div class="Cobalt Chexquartz-Excavator">0/5 Cobalt</div>
-                    <div class="Chexerite Chexquartz-Excavator">0/7 Chexerite</div>
-                    <div class="Virotite Chexquartz-Excavator">0/12 Virotite</div>
+                    <div class="Chexquartz Chexquartz-Excavator">0/2 Chexquartz</div>
+                    <div class="Cobalt Chexquartz-Excavator">0/8 Cobalt</div>
+                    <div class="Chexerite Chexquartz-Excavator">0/10 Chexerite</div>
+                    <div class="Virotite Chexquartz-Excavator">0/15 Virotite</div>
                     <div class="Quartz Chexquartz-Excavator">0/140 Quartz</div>
-                    <div class="Rhodochrosite Chexquartz-Excavator">0/50 Rhodochrosite</div>
-                    <div class="Iron Chexquartz-Excavator">0/67 Iron</div>
-                    <div class="Tin Chexquartz-Excavator">0/72 Tin</div>
-                    <div class="Copper Chexquartz-Excavator">0/152 Copper</div>
-                    <div class="Clay Chexquartz-Excavator">0/1000 Clay</div>
+                    <div class="Rhodochrosite Chexquartz-Excavator">0/75 Rhodochrosite</div>
+                    <div class="Iron Chexquartz-Excavator">0/100 Iron</div>
+                    <div class="Tin Chexquartz-Excavator">0/115 Tin</div>
+                    <div class="Copper Chexquartz-Excavator">0/220 Copper</div>
+                    <div class="Clay Chexquartz-Excavator">0/1350 Clay</div>
                 </div>
 
                 <div class="guiPickaxeChexquartzExcavatorCraftButtonContainer">
@@ -353,7 +357,7 @@
 
                     Abilities:<br><br>
 
-                    <div class="luckText">70% Luck Boost</div>
+                    <div class="luckText">55% Luck Boost</div>
 
                     <div class="miningSpeedText">Breaks 1 block every 6 seconds.</div>
 
@@ -361,22 +365,76 @@
 
                 <div class="guiPickaxeRecipe">
                     Recipe:<br>
-                    <div class="Chexquartz Titanium-Chexblaster">0/1 Chexquartz</div>
-                    <div class="Titanite Titanium-Chexblaster">0/5 Titanite</div>
-                    <div class="Combrolium Titanium-Chexblaster">0/2 Combrolium</div>
-                    <div class="Chexerite Titanium-Chexblaster">0/4 Chexerite</div>
-                    <div class="Amber Titanium-Chexblaster">0/2 Amber</div>
-                    <div class="Emerald Titanium-Chexblaster">0/1 Emerald</div>
-                    <div class="Quartz Titanium-Chexblaster">0/15 Quartz</div>
-                    <div class="Iron Titanium-Chexblaster">0/20 Iron</div>
-                    <div class="Rhodochrosite Titanium-Chexblaster">0/40 Rhodochrosite</div>
-                    <div class="Copper Titanium-Chexblaster">0/150 Copper</div>
-                    <div class="Clay Titanium-Chexblaster">0/1500 Clay</div>
-                    <div class="Stone Titanium-Chexblaster">0/3000 Stone</div>
+                    <div class="Chexquartz Titanium-Chexblaster">0/5 Chexquartz</div>
+                    <div class="Titanite Titanium-Chexblaster">0/9 Titanite</div>
+                    <div class="Combrolium Titanium-Chexblaster">0/8 Combrolium</div>
+                    <div class="Chexerite Titanium-Chexblaster">0/15 Chexerite</div>
+                    <div class="Amber Titanium-Chexblaster">0/9 Amber</div>
+                    <div class="Emerald Titanium-Chexblaster">0/5 Emerald</div>
+                    <div class="Quartz Titanium-Chexblaster">0/50 Quartz</div>
+                    <div class="Iron Titanium-Chexblaster">0/70 Iron</div>
+                    <div class="Rhodochrosite Titanium-Chexblaster">0/120 Rhodochrosite</div>
+                    <div class="Copper Titanium-Chexblaster">0/200 Copper</div>
+                    <div class="Clay Titanium-Chexblaster">0/2500 Clay</div>
+                    <div class="Stone Titanium-Chexblaster">0/5000 Stone</div>
                 </div>
 
                 <div class="guiPickaxeTitaniumChexblasterCraftButtonContainer">
                     <button class="craftButton TitaniumChexblaster">Craft</button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="guiContainerPickaxe WA draggable" style="visibility: hidden;">
+
+            <div class="guiSubContainer"></div>
+
+            <div class="guiText WA"> > Womboaxe </div>
+
+            <div class="guiPickaxesMain">
+
+                <div class="guiPickaxeInfo">
+
+                    goodness GRACIOUS this recipe is nuts! but i'll tell you somethin this thing can mine! <br><br>
+
+                    two blocks mined at once AND a luck boost! this thing is nuts! its not even slow either! <br><br>
+
+                    we dont entirely know what it is, (what is wombo), but it sure can mine
+
+                    -----------------------------------
+                    <br><br>
+
+                    Abilities:<br><br>
+
+                    <div class="luckText">25% Luck Boost</div>
+
+                    <div class="miningSpeedText">Breaks 2 block every 0.35 seconds.</div>
+
+                </div>
+
+                <div class="guiPickaxeRecipe">
+                    Recipe:<br>
+                    <div class="glombo-wombo-v0_0001 Womboaxe">0/1 glombo wombo v0.0001</div>
+                    <div class="Vanaon Womboaxe">0/2 Vanaon</div>
+                    <div class="Ice-Fragment Womboaxe">0/4 Ice Fragment</div>
+                    <div class="Magnesium Womboaxe">0/7 Magnesium</div>
+                    <div class="Uranium Womboaxe">0/10 Uranium</div>
+                    <div class="Cobalt Womboaxe">0/10 Cobalt</div>
+                    <div class="Crystalline Womboaxe">0/15 Crystalline</div>
+                    <div class="Bismuth Womboaxe">0/40 Bismuth</div>
+                    <div class="Amber Womboaxe">0/60 Amber</div>
+                    <div class="Emerald Womboaxe">0/100 Emerald</div>
+                    <div class="Quartz Womboaxe">0/575 Quartz</div>
+                    <div class="Iron Womboaxe">0/625 Iron</div>
+                    <div class="Rhodochrosite Womboaxe">0/900 Rhodochrosite</div>
+                    <div class="Copper Womboaxe">0/1125 Copper</div>
+                    <div class="Stone Womboaxe">0/30000 Stone</div>
+                </div>
+
+                <div class="guiPickaxeWomboaxeCraftButtonContainer">
+                    <button class="craftButton Womboaxe">Craft</button>
                 </div>
 
             </div>
@@ -391,6 +449,7 @@
         <script type="module" src="./js/game/timer.js"></script>   
         <script type="module" src="./js/main.mjs"></script>  
         <script type="module" src="./js/game/pickaxes/pickaxesMain.mjs"></script>
+        <script type="module" src="./js/game/spawnEffects.mjs"></script>
         <script type="module" src="./js/game/pickaxes/pickaxeGUI.mjs"></script>
         <script type="module" src="./js/game/saveInterval.mjs"></script>
         <script type="module" src="./js/game/indexGuiHandler.mjs"></script>

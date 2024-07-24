@@ -32,11 +32,13 @@ var audioElement = document.querySelector('.audioElement');
 var bgMusicElement = document.querySelector('.bgMusic');
 var resetButton = document.querySelector('.resetDataButton');
 var disableSOCCheckbox = document.querySelector('.stopOnChillVal')
+var audioElementCaveSpawn = document.querySelector('.audioElementCaveSpawn')
 
 setTimeout(() => {
     guiTextMainSpVal.textContent = gameSettings.spawnEffVolume;
     audioElement.volume = (gameSettings.spawnEffVolume/100);
     bgMusicElement.volume = (gameSettings.musicVolume/100);
+    audioElementCaveSpawn.volume = (gameSettings.spawnEffVolume/100);
     guiTextMainBgVal.textContent = (gameSettings.musicVolume);
     slider.value = (gameSettings.spawnEffVolume);
     sliderBg.value = (gameSettings.musicVolume);
@@ -62,6 +64,7 @@ resetButton.onclick = () => {
 
 slider.oninput = () => {
     audioElement.volume = (slider.value/100);
+    audioElementCaveSpawn.volume = (slider.value/100);
     guiTextMainSpVal.textContent = (slider.value);
     gameSettings.spawnEffVolume = Number(slider.value);
     saveGame()

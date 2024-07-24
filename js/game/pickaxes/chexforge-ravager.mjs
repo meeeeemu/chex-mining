@@ -2,7 +2,8 @@ var pickaxeObjectChexforgeRavager = {
     "Name": "Chexforge Ravager",
     "Bonuses": {
         "Luck": 0,
-        "Speed": 100,
+        "Speed": 200,
+        "Blocks_Mined": 2
     },
     "Tier": 2,
     "Equipped": false
@@ -11,13 +12,13 @@ var pickaxeObjectChexforgeRavager = {
 var chexforgeravagerRecipe = {
     "Chexerite": {quantity: 1},
     "Amber": {quantity: 3},
-    "Diamond": {quantity: 3},
-    "Gold": {quantity: 15},
-    "Quartz": {quantity: 22},
-    "Coal": {quantity: 35},
-    "Tin": {quantity: 45},
-    "Iron": {quantity: 35},
-    "Stone": {quantity: 600}
+    "Diamond": {quantity: 6},
+    "Gold": {quantity: 30},
+    "Quartz": {quantity: 65},
+    "Coal": {quantity: 60},
+    "Tin": {quantity: 110},
+    "Iron": {quantity: 200},
+    "Stone": {quantity: 1600}
 }
 
 export {pickaxeObjectChexforgeRavager, chexforgeravagerRecipe}

@@ -27,13 +27,15 @@ function capitalizeFirstLetter(string) {
 function loadOresIndex(oreDef) {
     for(const [oreName, oreData] of Object.entries(oreDef)) {
 
+        let displayName = oreData.Name.replace(/-/g, ' ').replace(/_/g, '.');
+
         let oreDiv = document.createElement('div');
         oreDiv.classList.add(`oreIndexEntry`);
         oreDiv.classList.add(`${oreData.tier}`);
-        oreDiv.textContent = (`${oreData.Name}`);
+        oreDiv.textContent = (`${displayName}`);
         let displayTier = capitalizeFirstLetter(oreData.tier);
         oreDiv.onmouseenter = (event) => {
-            oreDiv.innerHTML = (`Name: ${oreData.Name} <br> Tier: ${displayTier} <br> Rarity: ${oreData.stringRarity}`);
+            oreDiv.innerHTML = (`Name: ${displayName} <br> Tier: ${displayTier} <br> Rarity: ${oreData.stringRarity}`);
             event.target.style["z-index"] = 15
             let hoverAnim = anime({
                 targets: event.target,
@@ -53,7 +55,7 @@ function loadOresIndex(oreDef) {
                 rotate: 0,
                 autoplay: true, 
             })
-            oreDiv.innerHTML = (`${oreData.Name}`);
+            oreDiv.innerHTML = (`${displayName}`);
         };
 
         guiOreIndexMain.appendChild(oreDiv);

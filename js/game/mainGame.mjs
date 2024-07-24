@@ -16,7 +16,7 @@ import { pickaxeObjectDefault } from "./pickaxes/default-pickaxe.mjs";
 // have fun looking through my probably absolutely GARBAGE code :)
 // take what you like if you find it useful, no need for credits
 
-const VERSION = "v0.0.1-alpha"
+const VERSION = "v0.1.0-alpha"
 
 document.querySelector('.version').textContent = `Version: ${VERSION}`;
 
@@ -33,6 +33,7 @@ var CURRENT_PICKAXE = pickaxeObjectDefault;
 const BASE_LUCK = 1;
 var PICKAXE_LUCK_ADD = CURRENT_PICKAXE.Bonuses["Luck"];
 var MINING_SPEED = CURRENT_PICKAXE.Bonuses["Speed"];
+var MINE_BLOCK_AMOUNT = CURRENT_PICKAXE.Bonuses["Blocks_Mined"];
 
 let disableSOCChill = "off";
 
@@ -61,6 +62,7 @@ function setCurrentPickGame(pickObj) {
     pickaxeLabelVal.textContent = `${pickObj.Name} (Tier: ${pickObj.Tier})`;
     PICKAXE_LUCK_ADD = CURRENT_PICKAXE.Bonuses["Luck"];
     MINING_SPEED = CURRENT_PICKAXE.Bonuses["Speed"]; 
+    MINE_BLOCK_AMOUNT = CURRENT_PICKAXE.Bonuses["Blocks_Mined"];
     if(miningInterval) {
         mineButton.classList.add('notMining');
         mineButton.classList.remove('mining');
@@ -71,18 +73,27 @@ function setCurrentPickGame(pickObj) {
 
 const chillTiers = new Set(["exotic", "pristine", "pure", "virtuous", "angelic", "dreamlike"]);
 
-function stopMiningifChill(tier, interval) {
+function stopMiningifChill(oreObjects, interval) {
     if(disableSOCChill == "off") {
-        if(chillTiers.has(tier)) {
+        const shouldStopMining = Object.values(oreObjects).some(oreData => chillTiers.has(oreData.tier));
+        if(shouldStopMining) {
             console.log("hey there! see what you got!");
             mineButton.classList.add('notMining')
             mineButton.classList.remove('mining')
             clearInterval(interval)
             isMining = 0;
-        } 
+        }
     } else {
         console.log("alright i guess we keep going!")
     }
+}
+
+function handleOreText(oreObj) {
+    Object.entries(oreObj).forEach(([oreName, oreData]) => {
+        let displayOre = oreName.replace(/-/g, ' ').replace(/_/g, '.');
+        lastOreMinedVal.textContent = `${displayOre}`;
+        lastOreRarityVal.textContent = `${oreData.stringRarity}`
+    });
 }
 
 mineButton.onclick = () => {
@@ -91,12 +102,11 @@ mineButton.onclick = () => {
         mineButton.classList.remove('notMining')
         mineButton.classList.add('mining')
         miningInterval = setInterval(() => {
-            let selectedOreObject = selectRandomOre(oreDef, BASE_LUCK + PICKAXE_LUCK_ADD)
-            addOre(selectedOreObject, 1, true)
-            lastOreMinedVal.textContent = `${selectedOreObject.Name}`;
-            lastOreRarityVal.textContent = `${selectedOreObject.stringRarity}`
-            handleSpawnEffects(selectedOreObject, audioElement)
-            stopMiningifChill(selectedOreObject.tier, miningInterval)
+            let selectedOreObject = selectRandomOre(oreDef, BASE_LUCK + PICKAXE_LUCK_ADD, MINE_BLOCK_AMOUNT);
+            addOre(selectedOreObject, true)
+            handleOreText(selectedOreObject);
+            handleSpawnEffects(selectedOreObject)
+            stopMiningifChill(selectedOreObject, miningInterval)
             saveGame();        
         },MINING_SPEED)
     } else {

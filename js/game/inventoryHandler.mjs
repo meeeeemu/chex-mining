@@ -36,8 +36,10 @@ function appendToInventoryGUI() {
     sortedOreNames.forEach(oreName => {
         let { obj, quantity } = inventory[oreName];
 
+        let displayName = oreName.replace(/-/g, ' ').replace(/_/g, '.');
+
         let invDiv = document.createElement('div');
-        invDiv.textContent = `${obj.Name}: ${quantity}`;
+        invDiv.textContent = `${displayName}: ${quantity}`;
         invDiv.className = `${obj.tier}`;
     
         inventoryContainer.appendChild(invDiv);
@@ -52,27 +54,27 @@ function addOrefromSaveData(oreObject, quantity) {
     appendToInventoryGUI()
 }
 
-function addOre(oreObject, quantity, isMined) {
+function addOre(oreObject, isMined) {
 
-    var oreName = oreObject.Name;
+    Object.entries(oreObject).forEach(([oreName, oreData]) => {
 
-    if(isMined) {
-        addBlocksMined(1)
-    }
+        if(isMined) {
+            addBlocksMined(oreData.quantity)
+        }
 
-    if(inventory[oreName]) {
-        inventory[oreName].quantity += quantity
-    } else {
-        inventory[oreName] = {"obj": oreObject, "quantity": 1}
-    }
+        if(inventory[oreName]) {
+            inventory[oreName].quantity += oreData.quantity;
+        } else {
+            inventory[oreName] = {"obj": oreData, "quantity": 1}
+        }
+    
+        var inventoryOreTier = inventory[oreName]['obj'].tier
+    
+        appendToInventoryGUI(oreData, inventoryOreTier)
 
-    var inventoryOreTier = inventory[oreName]['obj'].tier
+    });
 
-
-
-    appendToInventoryGUI(oreObject, inventoryOreTier)
-
-}
+};
 
 function removeOre(oreName, quantity) {
 

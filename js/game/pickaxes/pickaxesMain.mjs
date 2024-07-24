@@ -6,6 +6,7 @@ import { chexaxeRecipe } from "./the-chexaxe.mjs";
 import { chexforgeravagerRecipe } from "./chexforge-ravager.mjs";
 import { chexquartzexcavatorRecipe } from "./chexquartz-excavator.mjs";
 import { titaniumchexblasterRecipe } from "./titanium-chexblaster.mjs";
+import { womboaxeRecipe } from "./womboaxe.mjs";
 
 //         _                 _ _ _ 
 //        | |               | | | |
@@ -29,11 +30,12 @@ function equipPickaxe(pickaxeObject) {
 
 function updateGUIRecipe(inventory, recipe, itemToCraft) {
     for (let ore in recipe) {
+        let displayOre = ore.replace(/-/g, ' ').replace(/_/g, '.');
         let recipeElement = document.querySelector(`.${ore}.${itemToCraft}`);
         if (recipeElement) {
             let inventoryQuantity = inventory[ore] ? inventory[ore].quantity : 0;
             let requiredQuantity = recipe[ore].quantity;
-            recipeElement.textContent = `${inventoryQuantity}/${requiredQuantity} ${ore}`;
+            recipeElement.textContent = `${inventoryQuantity}/${requiredQuantity} ${displayOre}`;
             
             if (inventoryQuantity >= requiredQuantity) {
                 recipeElement.classList.add("complete");
@@ -55,6 +57,7 @@ var recipesToUpdate = [
     { recipe: chexforgeravagerRecipe, itemToCraft: "Chexforge-Ravager"},
     { recipe: chexquartzexcavatorRecipe, itemToCraft: "Chexquartz-Excavator"},  
     { recipe: titaniumchexblasterRecipe, itemToCraft: "Titanium-Chexblaster"},  
+    { recipe: womboaxeRecipe, itemToCraft: "Womboaxe"},  
 ];
 
 var pickaxeUpdateLoop = setInterval(() => {

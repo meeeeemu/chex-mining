@@ -14,33 +14,28 @@ import { gameSettings } from './game/settingsHandler.mjs';
 // take what you like if you find it useful, no need for credits
 
 window.onload = () => {
-    const rndInt = Math.floor(Math.random() * 5) + 1
-    const bgMusicElement = document.querySelector('.bgMusic')
-    if(rndInt == 1) {
-        bgMusicElement.volume = (gameSettings.musicVolume/100);
-        bgMusicElement.play()
-    } else if(rndInt == 2) {
-        bgMusicElement.src = "./media/at-night.mp3"
-        bgMusicElement.volume = (gameSettings.musicVolume/100);
-        bgMusicElement.load()
-        bgMusicElement.play()
-    } else if(rndInt == 3) {
-        bgMusicElement.src = "./media/stellas-departure.mp3"
-        bgMusicElement.volume = (gameSettings.musicVolume/100);
-        bgMusicElement.load()
-        bgMusicElement.play()
-    } else if(rndInt == 4) {
-        bgMusicElement.src = "./media/quiet-and-falling.mp3"
-        bgMusicElement.volume = (gameSettings.musicVolume/100);
-        bgMusicElement.load()
-        bgMusicElement.play()
-    } else if(rndInt == 5) {
-        bgMusicElement.src = "./media/geothermal.mp3"
-        bgMusicElement.volume = (gameSettings.musicVolume/100);
-        bgMusicElement.load()
-        bgMusicElement.play()
-    }
+    const bgMusicElement = document.querySelector('.bgMusic');
+    const musicFiles = [
+        "./media/at-night.mp3",
+        "./media/stellas-departure.mp3",
+        "./media/quiet-and-falling.mp3",
+        "./media/geothermal.mp3",
+        "./media/heartwarmth.mp3",
+    ];
+
+    const setRandomMusic = () => {
+        const rndInt = Math.floor(Math.random() * musicFiles.length);
+        bgMusicElement.src = musicFiles[rndInt];
+        bgMusicElement.volume = gameSettings.musicVolume / 100;
+        bgMusicElement.load();
+        bgMusicElement.play();
+    };
+
+    setRandomMusic();
+
+    bgMusicElement.addEventListener('ended', setRandomMusic);
 };
+
 
 
 const topBar = document.querySelector('.topBar');
