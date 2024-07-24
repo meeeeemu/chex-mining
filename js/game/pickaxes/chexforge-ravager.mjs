@@ -18,7 +18,7 @@ var chexforgeravagerRecipe = {
     "Coal": {quantity: 60},
     "Tin": {quantity: 110},
     "Iron": {quantity: 200},
-    "Stone": {quantity: 1600}
+    "Stone": {quantity: 6500}
 }
 
 export {pickaxeObjectChexforgeRavager, chexforgeravagerRecipe}

@@ -20,8 +20,8 @@ var titaniumchexblasterRecipe = {
     "Iron": {quantity: 70},
     "Rhodochrosite": {quantity: 120},
     "Copper": {quantity: 200},
-    "Clay": {quantity: 2500},
-    "Stone": {quantity: 5000},
+    "Clay": {quantity: 4500},
+    "Stone": {quantity: 10000},
 }
 
 export {pickaxeObjectTitaniumChexblaster, titaniumchexblasterRecipe}

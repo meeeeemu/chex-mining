@@ -19,7 +19,7 @@ var chexquartzexcavatorRecipe = {
     "Iron": {quantity: 100},
     "Tin": {quantity: 115},
     "Copper": {quantity: 220},
-    "Clay": {quantity: 1350}
+    "Clay": {quantity: 8000}
 }
 
 export {pickaxeObjectChexquartzExcavator, chexquartzexcavatorRecipe}

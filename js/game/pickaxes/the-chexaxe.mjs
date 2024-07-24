@@ -18,7 +18,7 @@ var chexaxeRecipe = {
     "Coal": {quantity: 88},
     "Tin": {quantity: 105},
     "Copper": {quantity: 225},
-    "Stone": {quantity: 1350}
+    "Stone": {quantity: 3500}
 }
 
 
