@@ -1,4 +1,4 @@
-# WIP: your save more than likely will break after updates depending on what i change, these are the perks of being in alpha!!!!!!!
+# WIP: your save more than likely will break after updates depending on what i change, the game is still really early in alpha and the inventory system may not be perfect
 
 # Chex Mining - v0.1.0-alpha:
 
@@ -38,9 +38,9 @@ Standard Cave (1/2000 Chance when mining a block) <br />
 Illuminous Cave (1/3500 Chance when mining a block) <br />
 Astral Cave (1/5750 Chance when mining a block) <br />
 
-(these chance of these might seem low, but they're really Really helpful, )
+(these chance of these might seem low, but they're really Really helpful)
 
-these caves currently do not give you any special stuff or cave blocks, but they will in the future (oh no not cave exclusives, no please)
+these caves currently do not give you any special stuff or cave blocks, but they will in the future (oh no not cave exclusives no please)
 
 ## Recipe Buffs
 
@@ -64,7 +64,7 @@ we love improving things!
 
 ### ASTHMA (1/2250001616)
 ### Ishmshl (1/2525121225)
-### Ishmshl (1/9876543212)
+### the ring ore (1/9876543212)
 ### Wanderioum (1/1750000000)
 
 ## new music!
