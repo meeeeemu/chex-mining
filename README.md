@@ -1,3 +1,5 @@
+# WIP: your save more than likely will break after updates depending on what i change, these are the perks of being in alpha!!!!!!!
+
 # Chex Mining - v0.1.0-alpha:
 
 Huge Developments Alert!!!
