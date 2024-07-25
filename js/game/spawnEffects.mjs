@@ -20,6 +20,7 @@ const audioElementCaveSpawn = document.querySelector('.audioElementCaveSpawn')
 audioElementCaveSpawn.volume = 0.35
 
 const topbarAlert = document.querySelector('.topbarAlert')
+const effectLayer = document.querySelector('.effectLayer')
 
 const audioSources = {
     "exotic": './media/exotic.wav',
@@ -54,8 +55,21 @@ function handleSpawnEffects(oreObj) {
             animPlayed = true;
             topbarAlert.textContent = chillText.text;
             topbarAlert.style.color = chillText.color;
+            effectLayer.style['background-color'] = chillText.color;
+            effectLayer.style.visibility = 'visible';
+
+            var flashEffect = anime.timeline({
+                targets: effectLayer,
+                easing: 'easeInOutExpo',
+            })
+
             var topbarAnimChillTimeline = anime.timeline({
                 targets: topbarAlert,
+                easing: 'easeInOutExpo',
+            })
+
+            var effectSpawn = anime.timeline({
+                targets: 'html',
                 easing: 'easeInOutExpo',
             })
         
@@ -63,6 +77,25 @@ function handleSpawnEffects(oreObj) {
                 opacity: [0,1],
                 scale: [1,2],
                 duration: 650
+            })
+
+            effectSpawn.add({
+                filter: ['blur(5px)','blur(0px)'],
+                duration: 2000,
+            })
+
+            flashEffect.add({
+                opacity: [0,0.4],
+                scale: [0.8,1],
+                duration: 100
+            })
+
+            flashEffect.add({
+                opacity: [0.4,0],
+                duration: 3500,
+                complete: function() {
+                    effectLayer.style.visibility = 'hidden';
+                }
             })
         
             topbarAnimChillTimeline.add({
@@ -74,6 +107,7 @@ function handleSpawnEffects(oreObj) {
                     animPlayed = false;
                 }
             })
+
             return true;
         }
     });

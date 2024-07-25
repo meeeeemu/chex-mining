@@ -2,7 +2,7 @@ var pickaxeObjectChexaxe = {
     "Name": "Chexaxe",
     "Bonuses": {
         "Luck": 0.2,
-        "Speed": 1000,
+        "Speed": 800,
         "Blocks_Mined": 1
     },
     "Tier": 2,
@@ -11,14 +11,14 @@ var pickaxeObjectChexaxe = {
 
 var chexaxeRecipe = {
     "Chexerite": {quantity: 1},
-    "Virotite": {quantity: 1},
-    "Emerald": {quantity: 3},
-    "Diamond": {quantity: 5},
-    "Silver": {quantity: 30},
-    "Coal": {quantity: 88},
-    "Tin": {quantity: 105},
-    "Copper": {quantity: 225},
-    "Stone": {quantity: 3500}
+    "Virotite": {quantity: 4},
+    "Emerald": {quantity: 7},
+    "Diamond": {quantity: 9},
+    "Silver": {quantity: 40},
+    "Coal": {quantity: 98},
+    "Tin": {quantity: 155},
+    "Copper": {quantity: 355},
+    "Stone": {quantity: 6500}
 }
 
 

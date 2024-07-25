@@ -1,7 +1,7 @@
 var pickaxeObjectChexquartzExcavator = {
     "Name": "Chexquartz Excavator",
     "Bonuses": {
-        "Luck": 0.2,
+        "Luck": 0.25,
         "Speed": 225,
         "Blocks_Mined": 1,
     },
@@ -10,16 +10,16 @@ var pickaxeObjectChexquartzExcavator = {
 }
 
 var chexquartzexcavatorRecipe = {
-    "Chexquartz": {quantity: 2},
-    "Cobalt": {quantity: 8},
-    "Chexerite": {quantity: 10},
-    "Virotite": {quantity: 15},
-    "Quartz": {quantity: 140},
-    "Rhodochrosite": {quantity: 75},
-    "Iron": {quantity: 100},
-    "Tin": {quantity: 115},
-    "Copper": {quantity: 220},
-    "Clay": {quantity: 8000}
+    "Chexquartz": {quantity: 5},
+    "Cobalt": {quantity: 12},
+    "Chexerite": {quantity: 25},
+    "Virotite": {quantity: 40},
+    "Quartz": {quantity: 144},
+    "Rhodochrosite": {quantity: 175},
+    "Iron": {quantity: 300},
+    "Tin": {quantity: 450},
+    "Copper": {quantity: 790},
+    "Clay": {quantity: 15000}
 }
 
 export {pickaxeObjectChexquartzExcavator, chexquartzexcavatorRecipe}

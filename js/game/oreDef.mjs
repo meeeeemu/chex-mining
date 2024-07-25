@@ -96,6 +96,7 @@ const oreDef = {
     "frumbalite": {"Name": "Frumbalite", "decimalRarity": 1 / 2000000, "stringRarity": "1/2000000", "tier": "exotic"},
     "consuvium": {"Name": "Consuvium", "decimalRarity": 1 / 2000001, "stringRarity": "1/2000001", "tier": "exotic"},
     "swagite": {"Name": "Swagite", "decimalRarity": 1 / 2556500, "stringRarity": "1/2556500", "tier": "exotic"},
+    "enhanced-chexquartz": {"Name": "Enhanced-Chexquartz", "decimalRarity": 1 / 3090009, "stringRarity": "1/2556500", "tier": "exotic"},
     "convexium": {"Name": "Convexium", "decimalRarity": 1 / 2925200, "stringRarity": "1/2925200", "tier": "exotic"},
     "iodivultrite": {"Name": "Iodivultrite", "decimalRarity": 1 / 3252002, "stringRarity": "1/3252002", "tier": "exotic"},
     "pulviodirium": {"Name": "Pulviodirium", "decimalRarity": 1 / 4052323, "stringRarity": "1/3452323", "tier": "exotic"},
