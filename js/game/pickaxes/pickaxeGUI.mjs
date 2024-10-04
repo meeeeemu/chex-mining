@@ -1,11 +1,13 @@
 import anime from "animejs";
 import { craftPickaxe } from "./pickaxeCraft.mjs";
 import { equipPickaxe, ownedPickaxes } from "./pickaxesMain.mjs";
-import { chexaxeRecipe, pickaxeObjectChexaxe } from "./the-chexaxe.mjs";
-import { chexforgeravagerRecipe, pickaxeObjectChexforgeRavager } from "./chexforge-ravager.mjs";
-import { chexquartzexcavatorRecipe, pickaxeObjectChexquartzExcavator } from "./chexquartz-excavator.mjs";
-import { pickaxeObjectTitaniumChexblaster, titaniumchexblasterRecipe } from "./titanium-chexblaster.mjs";
-import { pickaxeObjectWomboaxe, womboaxeRecipe } from "./womboaxe.mjs";
+import { Chexaxe } from "./pickaxefiles/the-chexaxe.mjs";
+import { ChexforgeRavager } from "./pickaxefiles/chexforge-ravager.mjs";
+import { ChexquartzExcavator } from "./pickaxefiles/chexquartz-excavator.mjs";
+import { TitaniumChexblaster } from "./pickaxefiles/titanium-chexblaster.mjs";
+import { Womboaxe } from "./pickaxefiles/womboaxe.mjs";
+import { ChexglowDagger } from "./pickaxefiles/chexglow-dagger.mjs";
+
 
 //         _                 _ _ _ 
 //        | |               | | | |
@@ -24,48 +26,54 @@ const CRButton = document.querySelector('.pickaxeButton2');
 const CEButton = document.querySelector('.pickaxeButton3');
 const TCButton = document.querySelector('.pickaxeButton4');
 const WAButton = document.querySelector('.pickaxeButton5');
+const CDButton = document.querySelector('.pickaxeButton6');
 
 const chexAxeGUI = document.querySelector('.guiContainerPickaxe.Chexaxe');
 const CRGUI = document.querySelector('.guiContainerPickaxe.CR');
 const CEGUI = document.querySelector('.guiContainerPickaxe.CE');
 const TCGUI = document.querySelector('.guiContainerPickaxe.TC');
 const WAGUI = document.querySelector('.guiContainerPickaxe.WA');
+const CDGUI = document.querySelector('.guiContainerPickaxe.CD');
 
 const chexAxeCraft = document.querySelector('.craftButton.Chexaxe');
 const CRCraft = document.querySelector('.craftButton.ChexforgeRavager');
 const CECraft = document.querySelector('.craftButton.ChexquartzExcavator');
 const TCCraft = document.querySelector('.craftButton.TitaniumChexblaster');
 const WACraft = document.querySelector('.craftButton.Womboaxe');
+const CDCraft = document.querySelector('.craftButton.ChexglowDagger');
 
 const pickaxeButtons = {
     "Chexaxe": chexAxeCraft,
     "Chexforge Ravager": CRCraft,
     "Chexquartz Excavator": CECraft,
     "Titanium Chexblaster": TCCraft,
-    "Womboaxe": WACraft
+    "Womboaxe": WACraft,
+    "Chexglow Dagger": CDCraft,
 }
 
-function initCraftButton(button, pickaxeName)
+function initCraftButton(button, pickaxe)
 {
-    if(ownedPickaxes[pickaxeName]) {
+    if(ownedPickaxes[pickaxe.name]) {
         button.textContent = "Equip";
         button.style.color = "lime";
     }
 }
 
 setTimeout(() => {
-    initCraftButton(chexAxeCraft, "Chexaxe");
-    initCraftButton(CRCraft, "Chexforge Ravager");
-    initCraftButton(CECraft, "Chexquartz Excavator");
-    initCraftButton(TCCraft, "Titanium Chexblaster");
-    initCraftButton(WACraft, "Womboaxe");
+    initCraftButton(chexAxeCraft, Chexaxe);
+    initCraftButton(CRCraft, ChexforgeRavager);
+    initCraftButton(CECraft, ChexquartzExcavator);
+    initCraftButton(TCCraft, TitaniumChexblaster);
+    initCraftButton(WACraft, Womboaxe);
+    initCraftButton(CDCraft, ChexglowDagger);
 }, 500)
 
 function unequipAllPickaxes () {
-    for (let pickaxeName in ownedPickaxes) {
-        if (ownedPickaxes[pickaxeName].Equipped) {
-            ownedPickaxes[pickaxeName].Equipped = false;
-            let button = pickaxeButtons[pickaxeName];
+    for (let pickaxe in ownedPickaxes) {
+        console.log(pickaxe)
+        if (ownedPickaxes[pickaxe].equipped) {
+            ownedPickaxes[pickaxe].equipped = false;
+            let button = pickaxeButtons[pickaxe];
             if(button) {
                 button.textContent = "Equip";
                 button.style.color = "lime";
@@ -103,9 +111,14 @@ CRButton.onclick = () => toggleGUI(CRButton, CRGUI);
 CEButton.onclick = () => toggleGUI(CEButton, CEGUI);
 TCButton.onclick = () => toggleGUI(TCButton, TCGUI);
 WAButton.onclick = () => toggleGUI(WAButton, WAGUI);
+CDButton.onclick = () => toggleGUI(CDButton, CDGUI);
 
-function handleCraftButtonClick(button, pickaxeObject, recipe, craftFunction, equipFunction) {
-    if(!ownedPickaxes[pickaxeObject.Name]) {
+function handleCraftButtonClick(button, pickaxeObject, craftFunction, equipFunction) {
+    const recipe = pickaxeObject.recipe;
+
+    console.log("Pickaxe Name:", pickaxeObject.name);
+
+    if(!ownedPickaxes[pickaxeObject.name]) {
         if(craftFunction(pickaxeObject, recipe)) {
             button.textContent = "Equip"
             button.style.color = "lime"
@@ -117,17 +130,18 @@ function handleCraftButtonClick(button, pickaxeObject, recipe, craftFunction, eq
                 button.style.color = "white" 
             }, 650)
         }
-    } else if(ownedPickaxes[pickaxeObject.Name]) {
+    } else if(ownedPickaxes[pickaxeObject.name]) {
         unequipAllPickaxes()
         button.textContent = "Equipped"
         button.style.color = "lime"
         equipFunction(pickaxeObject)
-        ownedPickaxes[pickaxeObject.Name].Equipped = true;
+        ownedPickaxes[pickaxeObject.name].equipped = true;
     }
 }
 
-chexAxeCraft.onclick = () => handleCraftButtonClick(chexAxeCraft, pickaxeObjectChexaxe, chexaxeRecipe, craftPickaxe, equipPickaxe);
-CRCraft.onclick = () => handleCraftButtonClick(CRCraft, pickaxeObjectChexforgeRavager, chexforgeravagerRecipe, craftPickaxe, equipPickaxe);
-CECraft.onclick = () => handleCraftButtonClick(CECraft, pickaxeObjectChexquartzExcavator, chexquartzexcavatorRecipe, craftPickaxe, equipPickaxe);
-TCCraft.onclick = () => handleCraftButtonClick(TCCraft, pickaxeObjectTitaniumChexblaster, titaniumchexblasterRecipe, craftPickaxe, equipPickaxe);
-WACraft.onclick = () => handleCraftButtonClick(WACraft, pickaxeObjectWomboaxe, womboaxeRecipe, craftPickaxe, equipPickaxe);
+chexAxeCraft.onclick = () => handleCraftButtonClick(chexAxeCraft, Chexaxe, craftPickaxe, equipPickaxe);
+CRCraft.onclick = () => handleCraftButtonClick(CRCraft, ChexforgeRavager, craftPickaxe, equipPickaxe);
+CECraft.onclick = () => handleCraftButtonClick(CECraft, ChexquartzExcavator, craftPickaxe, equipPickaxe);
+TCCraft.onclick = () => handleCraftButtonClick(TCCraft, TitaniumChexblaster, craftPickaxe, equipPickaxe);
+WACraft.onclick = () => handleCraftButtonClick(WACraft, Womboaxe, craftPickaxe, equipPickaxe);
+CDCraft.onclick = () => handleCraftButtonClick(CDCraft, ChexglowDagger, craftPickaxe, equipPickaxe);

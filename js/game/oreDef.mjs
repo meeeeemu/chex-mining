@@ -19,7 +19,8 @@ const oreDef = {
     "stone": {"Name": "Stone", "decimalRarity": 1 / 1, "stringRarity": "1/1", "tier": "common"},
     "clay": {"Name": "Clay", "decimalRarity": 1 / 2, "stringRarity": "1/2", "tier": "common"},
     "copper": {"Name": "Copper", "decimalRarity": 1 / 4, "stringRarity": "1/4", "tier": "common"},
-    "rhodochrosite": {"Name": "Rhodochrosite", "decimalRarity": 1 / 6, "stringRarity": "1/6", "tier": "common"},
+    "chexium": { "Name": "Chexium", "decimalRarity": 1 / 5, "stringRarity": "1/5", "tier": "common" },
+    "rhodochrosite": { "Name": "Rhodochrosite", "decimalRarity": 1 / 6, "stringRarity": "1/6", "tier": "common" },
     "tin": {"Name": "Tin", "decimalRarity": 1 / 8, "stringRarity": "1/8", "tier": "common"},
     "coal": {"Name": "Coal", "decimalRarity": 1 / 10, "stringRarity": "1/10", "tier": "common"},
     "iron": {"Name": "Iron", "decimalRarity": 1 / 20, "stringRarity": "1/20", "tier": "common"},
@@ -142,7 +143,8 @@ const oreDef = {
     "praeter-futurum": {"Name": "Praeter-Futurum", "decimalRarity": 1 / 99999999, "stringRarity": "1/99999999", "tier": "virtuous"},
 
     "glombo-wombo-v0_99": {"Name": "glombo-wombo-v0_99", "decimalRarity": 1 / 100000000, "stringRarity": "1/100000000", "tier": "angelic"},
-    "glombwomb-omega": {"Name": "glombwomb-omega", "decimalRarity": 1 / 125000000, "stringRarity": "1/125000000", "tier": "angelic"},
+    "glombwomb-omega": { "Name": "glombwomb-omega", "decimalRarity": 1 / 125000000, "stringRarity": "1/125000000", "tier": "angelic" },
+    "hyperbolium": {"Name": "Hyperbolium", "decimalRarity": 1 / 202040402, "stringRarity": "1/202040402", "tier": "angelic"},
     "crystal-of-normality": {"Name": "Crystal-of-Normality", "decimalRarity": 1 / 250000000, "stringRarity": "1/250000000", "tier": "angelic"},
     "true-aetheal": {"Name": "True-Aetheal", "decimalRarity": 1 / 340000000, "stringRarity": "1/340000000", "tier": "angelic"},
     "hyperflorium": {"Name": "Hyperflorium", "decimalRarity": 1 / 360000000, "stringRarity": "1/360000000", "tier": "angelic"},
@@ -155,6 +157,7 @@ const oreDef = {
     "ASTHMA": {"Name": "ASTHMA", "decimalRarity": 1 / 2250001616, "stringRarity": "1/2250001616", "tier": "dreamlike"},
     "Ishmshl": {"Name": "Ishmshl", "decimalRarity": 1 / 2525121225, "stringRarity": "1/2525121225", "tier": "dreamlike"},
     "the-ring-ore": {"Name": "the-ring-ore", "decimalRarity": 1 / 9876543212, "stringRarity": "1/9876543212", "tier": "dreamlike"},
+    "Inkomite": {"Name": "Inkomite", "decimalRarity": 1 / 20000200000, "stringRarity": "1/20000200000", "tier": "dreamlike"},
     "hsjsedesHhvddfrcsd-glombo-wombo-casino": {"Name": "hsjsedesHhvddfrcsd-glombo-wombo-casino", "decimalRarity": 1 / 7777777777, "stringRarity": "1/7777777777", "tier": "dreamlike"}
 
 };

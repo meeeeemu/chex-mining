@@ -38,6 +38,8 @@
 
         <audio class="audioElementCaveSpawn" src="./media/cave-found.mp3" preload="auto"></audio>
 
+        <audio class="audioElementSFX" src="./media/sfx/bbb_sfx1.wav" preload="auto"></audio>
+
         <audio class="bgMusic" src="./media/into-the-mines.mp3"></audio>
 
         <div class="settingsGuiContainer">
@@ -59,10 +61,15 @@
                 </div>
 
 
-                <div class="checkboxContainer">
+                <div class="checkboxContainerSOC">
                     <input type="checkbox" class="stopOnChillVal">
                     <span class="checkmark"></span>
                 </div> <div class='guiTextSettingsContainerSOC'> > Disable Stop on Chill</div>
+
+                <div class="checkboxContainerMGS">
+                    <input type="checkbox" class="muteGearSoundsVal">
+                    <span class="checkmark"></span>
+                </div> <div class='guiTextSettingsContainerMGS'> > Mute Gear Sounds</div>
 
                 <div class="resetButtonContainer">
                     <button class="resetDataButton">Reset Data</button>
@@ -127,6 +134,7 @@
 
             <div class="mainGuiText lastOreMined"> > Last Ore Mined: </div> <div class="mainGuiText lastOreMinedVal"></div>
             <div class="mainGuiText pickaxeLabel"> > Using Pickaxe: </div> <div class="mainGuiText pickaxeLabelVal">Default Pickaxe (Tier 0)</div>
+            <div class="mainGuiText gearLabel"> > Using Gear: </div> <div class="mainGuiText gearLabelVal"> N/A </div>
             <div class="mainGuiText oreRarity"> > Last Ore Rarity: </div> <div class="mainGuiText lastOreRarityVal"></div>
 
             <button class="settingsButton"></button>
@@ -178,6 +186,8 @@
 
         </div>
 
+        <!-- PICKAXE GUI STARTS HERE -->
+
         <div class="guiContainerPickaxes draggable">
 
             <div class="guiSubContainer"></div>
@@ -192,7 +202,7 @@
                     <button class="pickaxeButton3">Chexquartz Excavator (Tier 3)</button>
                     <button class="pickaxeButton4">Titanium Chexblaster (Tier 3)</button>
                     <button class="pickaxeButton5">Womboaxe (Tier 4)</button>
-                    <button class="pickaxeButton6 hidden">Chexglow Dagger (Tier 5)</button>
+                    <button class="pickaxeButton6">Chexglow Dagger (Tier 4)</button>
                     <button class="pickaxeButton7 hidden">Prism of Chexology (Tier 5)</button>
                     <button class="pickaxeButton8 hidden">Chexnihilator (Tier 6)</button>
                 </div>
@@ -217,7 +227,7 @@
                     -----------------------------------
                     <br><br>
 
-                    Abilities:<br><br>
+                    Stats:<br><br>
 
                     <div class="luckText">20% Luck Boost</div>
 
@@ -262,7 +272,7 @@
                     -----------------------------------
                     <br><br>
 
-                    Abilities:<br><br>
+                    Stats:<br><br>
 
                     <div class="miningSpeedText">Breaks 2 blocks every 0.2 seconds.</div>
 
@@ -305,7 +315,7 @@
                     -----------------------------------
                     <br><br>
 
-                    Abilities:<br><br>
+                    Stats:<br><br>
 
                     <div class="luckText">25% Luck Boost</div>
 
@@ -358,7 +368,7 @@
                     -----------------------------------
                     <br><br>
 
-                    Abilities:<br><br>
+                    Stats:<br><br>
 
                     <div class="luckText">55% Luck Boost</div>
 
@@ -409,7 +419,7 @@
                     -----------------------------------
                     <br><br>
 
-                    Abilities:<br><br>
+                    Stats:<br><br>
 
                     <div class="luckText">25% Luck Boost</div>
 
@@ -444,16 +454,179 @@
 
         </div>
 
+        <div class="guiContainerPickaxe CD draggable" style="visibility: hidden;">
+
+            <div class="guiSubContainer"></div>
+
+            <div class="guiText CD"> > Chexglow Dagger </div>
+
+            <div class="guiPickaxesMain">
+
+                <div class="guiPickaxeInfo">
+
+                    a tiny lil dagger! and since it's small, good lord it can MINE <br><br>
+
+                    it's kinda shiny too, i guess they dont call it chexglow for nothing
+                    -----------------------------------
+                    <br><br>
+
+                    Stats:<br><br>
+
+                    <div class="miningSpeedText">Breaks 10 blocks every 0.4 seconds.</div>
+
+                </div>
+
+                <div class="guiPickaxeRecipe">
+                    Recipe:<br>
+                    <div class="Glumbology-Incarnate Chexglow-Dagger">0/1 Glumbology Incarnate</div>
+                    <div class="Bromulite Chexglow-Dagger">0/2 Bromulite</div>
+                    <div class="Adurite Chexglow-Dagger">0/3 Adurite</div>
+                    <div class="Chexquartz Chexglow-Dagger">0/7 Chexquartz</div>
+                    <div class="Radiosolite Chexglow-Dagger">0/4 Radiosolite</div>
+                    <div class="Granite-Glass Chexglow-Dagger">0/10 Granite Glass</div>
+                    <div class="Chiron Chexglow-Dagger">0/10 Chiron</div>
+                    <div class="Palladium Chexglow-Dagger">0/40 Palladium</div>
+                    <div class="Virotite Chexglow-Dagger">0/67 Amber</div>
+                    <div class="Diamond Chexglow-Dagger">0/130 Diamond</div>
+                    <div class="Silver Chexglow-Dagger">0/400 Silver</div>
+                    <div class="Coal Chexglow-Dagger">0/430 Iron</div>
+                    <div class="Chexium Chexglow-Dagger">0/900 Chexium</div>
+                    <div class="Tin Chexglow-Dagger">0/765 Tin</div>
+                    <div class="Clay Chexglow-Dagger">0/20000 Clay</div>
+                </div>
+
+                <div class="guiPickaxeCDCraftButtonContainer">
+                    <button class="craftButton ChexglowDagger">Craft</button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- GEAR GUI STARTS HERE -->
+
+        <div class="guiContainerGears draggable">
+
+            <div class="guiSubContainer"></div>
+        
+            <div class="guiText"> > Gears </div>
+        
+            <div class="guiGearsMain">
+                <div class="guiGears buttonGroup">
+                    <button class="gearButton1">Clay Coil (Tier 1)</button>
+                    <button class="gearButton2">Bismuth Blast Beverage (Tier 2)</button>
+                </div>
+            </div>
+        
+        </div>
+
+        <div class="guiContainerGear Clay-Coil draggable" style="visibility: hidden;">
+
+            <div class="guiSubContainer"></div>
+        
+            <div class="guiText Clay-Coil"> > Clay Coil </div>
+        
+            <div class="guiGearsMain">
+        
+                <div class="guiGearInfo">
+        
+                    wow!! gears!! who would've thought<br><br>
+                    
+                    dude this coil is made of CLAY, who the fuck thought to make a Clay Coil, it BARELY helps but it does<br>
+                    -----------------------------------
+                    <br><br>
+        
+                    Abilities:<br><br>
+        
+                    <div class="miningSpeedText">> Boosts mining speed by 40ms.</div><br>
+                    <div class="luckText">> +0.05x luck boost. (because it needed this for sure) (totally)</div><br>
+
+                    Penalties:<br><br>
+
+                    <div class="penaltyText">> Has a 1/75 chance to pause your mining for two seconds when mining a block.</div>
+                    <div class="penaltyText small">(only happens once when using a pickaxe that mines several blocks)</div>
+        
+                </div>
+        
+                <div class="guiGearRecipe">
+                    Recipe:<br>
+                    <div class="Quartz Clay-Coil">0/1 Quartz</div>
+                    <div class="Coal Clay-Coil">0/20 Coal</div>
+                    <div class="Copper Clay-Coil">0/90 Copper</div>
+                    <div class="Tin Clay-Coil">0/122 Tin</div>
+                    <div class="Clay Clay-Coil">0/250 Clay</div>
+                    <div class="Stone Clay-Coil">0/500 Stone</div>
+                </div>
+        
+                <div class="guiGearCraftButtonContainer">
+                    <button class="craftButton Clay-Coil">Craft</button>
+                </div>
+        
+            </div>
+        
+        </div>
+
+        <div class="guiContainerGear Bismuth-Blast-Beverage draggable" style="visibility: hidden;">
+
+            <div class="guiSubContainer"></div>
+        
+            <div class="guiText Bismuth-Blast-Beverage"> > Bismuth Blast Beverage </div>
+        
+            <div class="guiGearsMain">
+        
+                <div class="guiGearInfo">
+        
+                    this drink tastes like raw metal. but i'll be damned if it doesn't look rainbow and cool<br><br>
+                    
+                    why do people drink this shit, it tastes unlucky!<br><br>
+
+                    i bet it's incredibly destructive on your immune system
+                    -----------------------------------
+                    <br><br>
+        
+                    Abilities:<br><br>
+        
+                    <div class="miningSpeedText">> Has a 1/40 chance to mine 48 blocks</div><br>
+
+                    Penalties:<br><br>
+
+                    <div class="penaltyText">> 0.9x luck to blocks mined with this gear</div>
+        
+                </div>
+        
+                <div class="guiGearRecipe">
+                    Recipe:<br>
+                    <div class="Bismuth Bismuth-Blast-Beverage">0/1 Bismuth</div>
+                    <div class="Amber Bismuth-Blast-Beverage">0/2 Amber</div>
+                    <div class="Emerald Bismuth-Blast-Beverage">0/1 Emerald</div>
+                    <div class="Silver Bismuth-Blast-Beverage">0/20 Silver</div>
+                    <div class="Coal Bismuth-Blast-Beverage">0/33 Coal</div>
+                    <div class="Tin Bismuth-Blast-Beverage">0/65 Tin</div>
+                    <div class="Rhodochrosite Bismuth-Blast-Beverage">0/212 Rhodochrosite</div>
+                    <div class="Copper Bismuth-Blast-Beverage">0/300 Copper</div>
+                    <div class="Stone Bismuth-Blast-Beverage">0/3500 Stone</div>
+                </div>
+        
+                <div class="guiGearCraftButtonContainer">
+                    <button class="craftButton Bismuth-Blast-Beverage">Craft</button>
+                </div>
+        
+            </div>
+        
+        </div>
+        
+        
 
         <script type="module" src="./js/game/settingsHandler.mjs"></script>
         <script type="module" src="./js/background.js"></script>
         <script type="module" src="./js/smoothDrag.js"></script>
-        <script type="module" src="./js/buttonHover.js"></script>
         <script type="module" src="./js/game/timer.js"></script>   
         <script type="module" src="./js/main.mjs"></script>  
+        <script type="module" src="./js/game/gears/gearsMain.mjs"></script>
+        <script type="module" src="./js/game/gears/gearsGUI.mjs"></script>
         <script type="module" src="./js/game/pickaxes/pickaxesMain.mjs"></script>
-        <script type="module" src="./js/game/spawnEffects.mjs"></script>
         <script type="module" src="./js/game/pickaxes/pickaxeGUI.mjs"></script>
+        <script type="module" src="./js/game/spawnEffects.mjs"></script>
         <script type="module" src="./js/game/saveInterval.mjs"></script>
         <script type="module" src="./js/game/indexGuiHandler.mjs"></script>
         <script type="module" src="./js/game/mainGame.mjs"></script>

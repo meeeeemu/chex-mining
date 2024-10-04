@@ -61,6 +61,23 @@ body {
     display: block;
 }
 
+.guiContainerGears {
+    user-select: none;
+    left: 61.2%;
+    top: 96.9%;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 14px 14px 0px 0px;
+    border-radius: 14px 14px 0px 0px; 
+    position: absolute;
+    cursor: pointer;
+    width: 250px;
+    height: 30px;
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,212,255,0) 100%);
+    background-color: rgba(0,0,0,0.1);
+    z-index: 1;
+    display: block;
+}
+
 .guiContainerPickaxe {
     display: block;
     user-select: none;
@@ -75,6 +92,56 @@ body {
     background-color: rgba(0,0,0,0.1);
     z-index: 1;
 }
+
+.guiContainerGear {
+    display: block;
+    user-select: none;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 14px 14px 0px 0px;
+    border-radius: 14px 14px 0px 0px; 
+    position: absolute;
+    cursor: pointer;
+    width: 250px;
+    height: 30px;
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,212,255,0) 100%);
+    background-color: rgba(0,0,0,0.1);
+    z-index: 1;
+}
+
+.guiGearInfo {
+    margin: 10px;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+}
+
+.guiGearRecipe {
+    margin: 10px;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+    -webkit-border-radius: 14px 14px 14px 14px;
+    border-radius: 14px 14px 14px 14px;
+}
+
+.craftButton.Clay-Coil {
+    position: absolute;
+    display: flex;
+    background-color: transparent;
+    border-color: white;
+    border: 2px solid;
+    margin-bottom: 30px;
+    font-size: 15px;
+    left: 38%;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
 
 .guiContainerInventory {
     -moz-border-radius: 0px;
@@ -104,6 +171,24 @@ body {
     justify-content: center;
     align-items: center;
     color: white;
+}
+
+.guiGears.buttonGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.gearButton1, .gearButton2, .gearButton3, .gearButton4 {
+    background-color: rgba(0,0,0,1);
+}
+
+.gearButton1:hover, .gearButton2:hover, .gearButton3:hover, .gearButton4:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.pickaxeButton1:hover, .pickaxeButton2:hover, .pickaxeButton3:hover, .pickaxeButton4:hover, .pickaxeButton5:hover, .pickaxeButton6:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .settingsGuiContainer {
@@ -146,6 +231,15 @@ body {
     cursor: pointer;
 }
 
+.penaltyText {
+    color: red;
+}
+
+.penaltyText.small {
+    color: red;
+    font-size: 12px;
+}
+
 .pickaxeButton.notMining {
     background-color: transparent;
     border: 0;
@@ -158,6 +252,20 @@ body {
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2300fd72' d='M14.79 10.62L3.5 21.9l-1.4-1.4L13.38 9.21zm4.48-2.89l.59-.59l-.79-.79l.64-.64l-1.42-1.42l-.64.64l-.79-.79l-.59.59c-1.74-1.42-3.7-2.56-5.8-3.36l-.83 1.79c1.75.92 3.36 2.03 4.86 3.34L14 7l3 3l.5-.5c1.31 1.5 2.42 3.11 3.34 4.86l1.79-.83c-.8-2.1-1.94-4.06-3.36-5.8'/%3E%3C/svg%3E");
+}
+
+.pickaxeButton.paused {
+    background-color: transparent;
+    border: 0;
+    color: white;
+    position: absolute;
+    top: 94.2%;
+    left: 6%;
+    width: 36px;
+    height: 36px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FFFF00' d='M14.79 10.62L3.5 21.9l-1.4-1.4L13.38 9.21zm4.48-2.89l.59-.59l-.79-.79l.64-.64l-1.42-1.42l-.64.64l-.79-.79l-.59.59c-1.74-1.42-3.7-2.56-5.8-3.36l-.83 1.79c1.75.92 3.36 2.03 4.86 3.34L14 7l3 3l.5-.5c1.31 1.5 2.42 3.11 3.34 4.86l1.79-.83c-.8-2.1-1.94-4.06-3.36-5.8'/%3E%3C/svg%3E");
 }
 
 .lastOreMinedVal {
@@ -174,10 +282,17 @@ body {
     left: -240px;
 }
 
+.gearLabelVal {
+    position: absolute;
+    font-size: 25px;
+    top: 100px;
+    left: -270px;
+}
+
 .lastOreRarityVal {
     position: absolute;
     font-size: 15px;
-    top: 110px;
+    top: 140px;
     left: -300px;
 }
 
@@ -228,8 +343,16 @@ body {
     left: 25%;
 }
 
+.guiText.CD {
+    left: 29%;
+}
+
 .guiText.oreIndex {
     left: 45%;
+}
+
+.guiText.Bismuth-Blast-Beverage {
+    left: 21%;
 }
 
 .debugInfoContainer {
@@ -282,6 +405,21 @@ body {
     width: 100%;
     position: absolute;
     top: 40%;
+    left: 10%;
+    z-index: 5;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.guiTextSettingsContainerMGS {
+    position: absolute;
+    font-size: 15px;
+    color: white;
+    width: 100%;
+    position: absolute;
+    top: 48%;
     left: 10%;
     z-index: 5;
     font-family: "Dosis", sans-serif;
@@ -344,9 +482,14 @@ body {
     font-style: normal;
 }
 
-.checkboxContainer {
+.checkboxContainerSOC {
     position: absolute;
     top: 40%;
+}
+
+.checkboxContainerMGS {
+    position: absolute;
+    top: 48%;
 }
 
 .resetButtonContainer {
@@ -384,7 +527,7 @@ body {
     top: 90px;
 }
 
-.guiPickaxesMain {
+.guiPickaxesMain, .guiGearsMain {
     position: absolute;
     width: 250px;
     height: 300px;
@@ -621,6 +764,16 @@ div.dreamlike {
     user-select: none;
 }
 
+.subGuiText {
+    position: absolute;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    color: white;
+    user-select: none;
+}
+
 .mainGuiText.lastOreMined {
     position: absolute;
     left: -400px;
@@ -635,10 +788,17 @@ div.dreamlike {
     left: -400px;
 }
 
+.mainGuiText.gearLabel {
+    position: absolute;
+    font-size: 25px;
+    top: 100px;
+    left: -400px;
+}
+
 .mainGuiText.oreRarity {
     position: absolute;
     font-size: 15px;
-    top: 110px;
+    top: 140px;
     left: -400px;
 }
 

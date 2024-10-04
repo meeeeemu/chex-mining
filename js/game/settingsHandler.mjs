@@ -1,13 +1,13 @@
 import { resetGame, saveGame } from "./profileHandler.mjs";
 
-//         _                 _ _ _ 
+//         _                 _ _ _
 //        | |               | | | |
 //    __ _| |__   ___  _   _| | | |
 //   / _` | '_ \ / _ \| | | | | | |
 //  | (_| | | | | (_) | |_| |_|_|_|
 //   \__,_|_| |_|\___/ \__, (_|_|_)
-//                      __/ |      
-//                     |___/       
+//                      __/ |
+//                     |___/
 
 // have fun looking through my probably absolutely GARBAGE code :)
 // take what you like if you find it useful, no need for credits
@@ -15,13 +15,15 @@ import { resetGame, saveGame } from "./profileHandler.mjs";
 var gameSettings = {
     spawnEffVolume: 5,
     musicVolume: 5,
-    disableSOC: 0
+    disableSOC: 0,
+    muteGearSounds: 0
 }
 
-function setSavedSettingsValues(spawnEffVolume, musicVolume, disableSOC) {
+function setSavedSettingsValues(spawnEffVolume, musicVolume, disableSOC, muteGearSounds) {
     gameSettings.spawnEffVolume = spawnEffVolume;
     gameSettings.musicVolume = musicVolume;
     gameSettings.disableSOC = disableSOC;
+    gameSettings.muteGearSounds = muteGearSounds;
 }
 
 var slider = document.querySelector('.sliderSpawnVol');
@@ -32,7 +34,18 @@ var audioElement = document.querySelector('.audioElement');
 var bgMusicElement = document.querySelector('.bgMusic');
 var resetButton = document.querySelector('.resetDataButton');
 var disableSOCCheckbox = document.querySelector('.stopOnChillVal')
+var muteGearSoundsCheckbox = document.querySelector('.muteGearSoundsVal')
 var audioElementCaveSpawn = document.querySelector('.audioElementCaveSpawn')
+
+disableSOCCheckbox.onchange = () => {
+    gameSettings.disableSOC = disableSOCCheckbox.checked ? 1 : 0;
+    saveGame();
+}
+
+muteGearSoundsCheckbox.onchange = () => {
+    gameSettings.muteGearSounds = muteGearSoundsCheckbox.checked ? 1 : 0;
+    saveGame();
+}
 
 setTimeout(() => {
     guiTextMainSpVal.textContent = gameSettings.spawnEffVolume;
@@ -42,11 +55,6 @@ setTimeout(() => {
     guiTextMainBgVal.textContent = (gameSettings.musicVolume);
     slider.value = (gameSettings.spawnEffVolume);
     sliderBg.value = (gameSettings.musicVolume);
-    if(gameSettings.disableSOC == 1) {
-        disableSOCCheckbox.checked = "on"
-    } else {
-        disableSOCCheckbox.checked = "off"
-    }
 }, 100)
 
 var clickCount = 0;

@@ -21,6 +21,7 @@ window.onload = () => {
         "./media/quiet-and-falling.mp3",
         "./media/geothermal.mp3",
         "./media/heartwarmth.mp3",
+        "./media/observatory.mp3",
     ];
 
     const setRandomMusic = () => {

@@ -1,6 +1,7 @@
 import { inventory, removeOre } from "../inventoryHandler.mjs";
 import { saveGame } from "../profileHandler.mjs";
-import { ownedPickaxes } from "./pickaxesMain.mjs";
+import { ownedGears } from "./gearsMain.mjs";
+import { Gear } from "./gearDefaultClass.mjs";
 
 //         _                 _ _ _ 
 //        | |               | | | |
@@ -14,12 +15,14 @@ import { ownedPickaxes } from "./pickaxesMain.mjs";
 // have fun looking through my probably absolutely GARBAGE code :)
 // take what you like if you find it useful, no need for credits
 
-function craftPickaxe(pickaxeObject, recipe) {
-    console.log(pickaxeObject)
-    if(canCraftPickaxe(inventory, recipe)) {
-        if(!ownedPickaxes[pickaxeObject.name]) {
-            ownedPickaxes[pickaxeObject.name] = pickaxeObject;
-            console.log(ownedPickaxes);
+function craftGear(gearObject, recipe) {
+    if(canCraftGear(inventory, recipe)) {
+        if (!ownedGears[gearObject.name]) {
+            if (!gearObject.effect) {
+                gearObject.effect = Gear.getEffectFunction(gearObject.name.replace(/\s/g, "") + "Effect");
+            }
+            ownedGears[gearObject.name] = gearObject;
+            console.log(ownedGears[gearObject.name]);
             saveGame();
             return true
         } else {
@@ -30,7 +33,7 @@ function craftPickaxe(pickaxeObject, recipe) {
     }
 }
 
-function canCraftPickaxe(inventory, recipe) {
+function canCraftGear(inventory, recipe) {
     console.log(recipe)
     for (let ore in recipe) {
         let requiredQuantity = recipe[ore].quantity;
@@ -50,4 +53,4 @@ function canCraftPickaxe(inventory, recipe) {
 
 }
 
-export {craftPickaxe}
+export {craftGear}
