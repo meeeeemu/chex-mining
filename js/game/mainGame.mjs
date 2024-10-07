@@ -17,7 +17,7 @@ import { gameSettings } from "./settingsHandler.mjs";
 // have fun looking through my probably absolutely GARBAGE code :)
 // take what you like if you find it useful, no need for credits
 
-const VERSION = "v0.2.0-alpha"
+const VERSION = "v0.2.1-alpha"
 
 document.querySelector('.version').textContent = `Version: ${VERSION}`;
 
