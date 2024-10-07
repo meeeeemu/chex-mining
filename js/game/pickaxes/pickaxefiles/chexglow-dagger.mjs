@@ -4,8 +4,8 @@ const ChexglowDagger = new Pickaxe(
     "Chexglow Dagger", // name
     {                      // bonuses
         "Luck": 0,
-        "Speed": 400,
-        "Blocks_Mined": 10
+        "Speed": 200,
+        "Blocks_Mined": 3
     },
     4,                     // tier
     {                      // recipe
