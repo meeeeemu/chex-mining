@@ -61,9 +61,9 @@ function stopMining() {
 }
 
 function resetBonuses() {
-    PICKAXE_LUCK_ADD = CURRENT_PICKAXE.bonuses["Luck"] || 0;
-    MINING_SPEED = CURRENT_PICKAXE.bonuses["Speed"] || 0;
-    MINE_BLOCK_AMOUNT = CURRENT_PICKAXE.bonuses["Blocks_Mined"] || 1;
+    PICKAXE_LUCK_ADD = CURRENT_PICKAXE.bonuses["Luck"];
+    MINING_SPEED = CURRENT_PICKAXE.bonuses["Speed"];
+    MINE_BLOCK_AMOUNT = CURRENT_PICKAXE.bonuses["Blocks_Mined"];
 }
 
 function calcTotalBonuses() {
@@ -85,23 +85,10 @@ function setCurrentPickGame(pickObj) { //set the currently equipped pick
 }
 
 function setCurrentGearGame(gearObj) { // set the currently equipped gear
+    CURRENT_GEAR = gearObj;
     stopMining();
     calcTotalBonuses();
     gearLabelVal.textContent = `${gearObj.name} (Tier: ${gearObj.tier})`;
-
-    CURRENT_GEAR = gearObj;
-    console.log(CURRENT_GEAR);
-    if (CURRENT_GEAR.bonuses) {
-        if (CURRENT_GEAR.bonuses["Blocks_Mined"]) {
-            MINE_BLOCK_AMOUNT += CURRENT_GEAR.bonuses["Blocks_Mined"];
-        }
-        if (CURRENT_GEAR.bonuses["Luck"]) {
-            PICKAXE_LUCK_ADD += CURRENT_GEAR.bonuses["Luck"];
-        }
-        if (CURRENT_GEAR.bonuses["Speed"]) {
-            MINING_SPEED += CURRENT_GEAR.bonuses["Speed"];
-        }
-    }
 }
 
 const chillTiers = new Set(["exotic", "pristine", "pure", "virtuous", "angelic", "dreamlike"]);
@@ -143,6 +130,7 @@ mineButton.onclick = () => {
 function startMining() {
     isMining = 1;
     miningInterval = setInterval(() => {
+        console.log(PICKAXE_LUCK_ADD);
         let selectedOreObject = selectRandomOre(oreDef, BASE_LUCK + PICKAXE_LUCK_ADD, MINE_BLOCK_AMOUNT);
         addOre(selectedOreObject, true);
         handleOreText(selectedOreObject);
@@ -154,5 +142,7 @@ function startMining() {
         saveGame();
     }, MINING_SPEED);
 }
+
+calcTotalBonuses()
 
 export {setCurrentPickGame, setCurrentGearGame, startMining, stopMining, isMining, audioElementSFX}

@@ -10,21 +10,20 @@ const ChexglowDagger = new Pickaxe(
     4,                     // tier
     {                      // recipe
         "Glumbology-Incarnate": { quantity: 1 },
-        "Bromulite": { quantity: 2 },
-        "Adurite": { quantity: 3 },
-        "Chexquartz": { quantity: 7 },
-        "Radiosolite": { quantity: 4 },
-        "Granite-Glass": { quantity: 10 },
-        "Chiron": { quantity: 10 },
-        "Palladium": { quantity: 40 },
-        "Virotite": { quantity: 67 },
-        "Amber": { quantity: 67 },
-        "Diamond": { quantity: 130 },
-        "Silver": { quantity: 400 },
-        "Coal": { quantity: 430 },
-        "Chexium": { quantity: 900 },
-        "Tin": { quantity: 765 },
-        "Clay": { quantity: 20000 }
+        "Bromulite": { quantity: 3 },
+        "Adurite": { quantity: 7 },
+        "Chexquartz": { quantity: 11 },
+        "Radiosolite": { quantity: 15 },
+        "Granite-Glass": { quantity: 38 },
+        "Chiron": { quantity: 20 },
+        "Palladium": { quantity: 58 },
+        "Virotite": { quantity: 100 },
+        "Diamond": { quantity: 350 },
+        "Silver": { quantity: 1700 },
+        "Coal": { quantity: 6500 },
+        "Chexium": { quantity: 15000 },
+        "Tin": { quantity: 8500 },
+        "Clay": { quantity: 40000 }
     }
 );
 

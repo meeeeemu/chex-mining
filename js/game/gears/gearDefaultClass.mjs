@@ -5,6 +5,11 @@ import { gameSettings } from "../settingsHandler.mjs";
 
 let lastEffectTimestamp = 0;
 
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+}
+  
+
 class Gear {
     constructor(name, bonuses, penalties, tier, effect, recipe) {
         this.name = name;
@@ -48,7 +53,7 @@ class Gear {
         const effects = {
             ClayCoilEffect: function (button) { // effect
                 let currentTime = Date.now();
-                if ((currentTime - lastEffectTimestamp >= 2000) && Math.random() < 1 / 75) {
+                if ((currentTime - lastEffectTimestamp >= 2000) && Math.random() < 1 / 100) {
                     if (isMining == 1) {
                         button.disabled = true;
                         button.classList.remove('mining');
@@ -74,8 +79,9 @@ class Gear {
                 let currentTime = Date.now();
                 if ((currentTime - lastEffectTimestamp >= 2000) && Math.random() < 1 / 40) {
                     console.log("bbb go");
-                    if(!gameSettings.muteGearSounds) audioElementSFX.play()                 
-                    let selectedOreObject = selectRandomOre(oreDef, 0.9, 48);
+                    if (!gameSettings.muteGearSounds) audioElementSFX.play()
+                    minedBlocks = getRandomArbitrary(40,50)
+                    let selectedOreObject = selectRandomOre(oreDef, 0.85, minedBlocks);
                     addOre(selectedOreObject, true);
                 }
             }

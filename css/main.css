@@ -500,10 +500,69 @@ body {
     justify-content: center;
 }
 
+.importDataContainer {
+    position: relative;
+    top: 60%;
+    left: 73.5%;
+    justify-content: center;
+}
+
+.exportDataContainer {
+    position: relative;
+    top: 67%;
+}
+
+.importingSaveContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute; /* Or absolute if needed */
+    left: 0; 
+    top: 0px;
+    padding: 0;
+    margin: 0;
+    z-index: 10000;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);;
+}
+
+.importingSaveText {
+    color: white;
+    font-size: 36px;
+    background-color: transparent;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
 .resetDataButton {
     border: 2px solid red;
     color: white;
     font-size: 24px;
+    background-color: transparent;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.importDataButton {
+    border: 2px solid lightblue;
+    color: white;
+    font-size: 12px;
+    background-color: transparent;
+    font-family: "Dosis", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.exportDataButton {
+    border: 2px solid lightblue;
+    color: white;
+    font-size: 12px;
     background-color: transparent;
     font-family: "Dosis", sans-serif;
     font-optical-sizing: auto;
@@ -651,47 +710,47 @@ body {
 }
 
 div.common {
-    background-color: rgba(120,120,120,1);
-    color: black;
+    background-color: rgba(110,110,110,1);
+    color: white;
 }
 
 div.uncommon {
-    background-color: rgba(120,180,120,1);
-    color: black;
+    background-color: rgba(173,129,129,1);
+    color: white;
 }
 
 div.rare {
-    background-color: rgb(102, 102, 255);
-    color: black;
+    background-color: rgb(200, 174, 109);
+    color: white;
 }
 
 div.master {
-    background-color: rgb(208, 126, 255);
-    color: black;
+    background-color: rgb(160, 181, 120);
+    color: white;
 }
 
 div.unreal {
-    background-color: rgb(162, 0, 255);
-    color: black;
+    background-color: rgb(98, 162, 110);
+    color: white;
 }
 
 div.exotic {
-    background-color: rgb(229, 255, 0);
-    color: black;
+    background-color: rgb(96, 171, 160);
+    color: white;
 }
 
 div.pristine {
-    background-color: rgb(5, 163, 0);
-    color: black;
+    background-color: rgb(97, 133, 174);
+    color: white;
 }
 
 div.pure {
-    background-color: rgb(0, 211, 226);
-    color: black;
+    background-color: rgb(75, 88, 171);
+    color: white;
 }
 
 div.virtuous {
-    background-color: rgb(2, 0, 119);
+    background-color: rgb(143, 78, 184);
 }
   
 @keyframes rainbow {

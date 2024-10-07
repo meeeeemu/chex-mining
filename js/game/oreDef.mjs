@@ -113,9 +113,9 @@ const oreDef = {
     "euclideum": {"Name": "Euclideum", "decimalRarity": 1 / 10252953, "stringRarity": "1/10252953", "tier": "pristine"},
     "laivertine": {"Name": "Laivertine", "decimalRarity": 1 / 12000000, "stringRarity": "1/14000000", "tier": "pristine"},
     "electrivite": {"Name": "Electrivite", "decimalRarity": 1 / 13200050, "stringRarity": "1/14200050", "tier": "pristine"},
-    "Adolium": {"Name": "Adolium", "decimalRarity": 1 / 14200050, "stringRarity": "1/14200050", "tier": "pristine"},
+    "adolium": {"Name": "Adolium", "decimalRarity": 1 / 14200050, "stringRarity": "1/14200050", "tier": "pristine"},
     "fracture of normality": {"Name": "Fracture of Normality", "decimalRarity": 1 / 14777777, "stringRarity": "1/14777777", "tier": "pristine"},
-    "windows": {"Name": "Windows", "decimalRarity": 1 / 20111985, "stringRarity": "1/20111985", "tier": "pristine"},
+    "windows": {"Name": "Windows", "decimalRarity": 1 / 20111985, "stringRarity": "1/Windows", "tier": "pristine"},
     "wombolium": {"Name": "Wombolium", "decimalRarity": 1 / 24999999, "stringRarity": "1/24999999", "tier": "pristine"},
 
     "glombo-wombo-v0_1": {"Name": "glombo-wombo-v0_1", "decimalRarity": 1 / 25000000, "stringRarity": "1/25000000", "tier": "pure"},
@@ -163,9 +163,9 @@ const oreDef = {
 };
 
 var caveChances = {
-    "standardCave": {"decimalRarity": 1 / 2000, "Name": "Standard Cave"},
-    "illuminousCave": {"decimalRarity": 1 / 3500, "Name": "Illuminous Cave"},
-    "astralCave": {"decimalRarity": 1 / 5750, "Name": "Astral Cave"},
+    "standardCave": {"decimalRarity": 1 / 3000, "Name": "Standard Cave"},
+    "illuminousCave": {"decimalRarity": 1 / 5000, "Name": "Illuminous Cave"},
+    "astralCave": {"decimalRarity": 1 / 7000, "Name": "Astral Cave"},
 }
 
 function selectRandomOre(ores, luck, quantity) {

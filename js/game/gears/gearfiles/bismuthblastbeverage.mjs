@@ -5,16 +5,16 @@ const bismuthBlastBeverage = new Gear(
     { "Speed": 0, "Luck": 0 }, // bonuses
     {}, // penalties
     2, // tier
-    Gear.getEffectFunction("BBBEffect"),
+    Gear.getEffectFunction("BismuthBlastBeverageEffect"),
     { // recipe
-        "Bismuth": { quantity: 1 },
-        "Amber": { quantity: 2 },
-        "Emerald": { quantity: 1 },
-        "Silver": { quantity: 20 },
-        "Coal": { quantity: 33},
-        "Tin": { quantity: 65 },
-        "Rhodochrosite": { quantity: 212 },
-        "Copper": { quantity: 300 },
+        "Bismuth": { quantity: 2 },
+        "Amber": { quantity: 4 },
+        "Emerald": { quantity: 6 },
+        "Silver": { quantity: 80 },
+        "Coal": { quantity: 430 },
+        "Tin": { quantity: 570 },
+        "Rhodochrosite": { quantity: 700 },
+        "Copper": { quantity: 900 },
         "Stone": { quantity: 3500 }
     }
 );
