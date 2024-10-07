@@ -4,58 +4,39 @@ because of this, you may need to reset your save after each update if the game f
 
 HOPEFULLY after v0.2.0, there shouldnt be a need anymore to do this
 
-# Chex Mining - v0.2.0-alpha:
+# Chex Mining - v0.2.1-alpha:
 
-GARGANTUAN DEVELOPMENTS
+GARGANTUAN REBALANCE
 
-## new additions
+## Huge Rebalancing
 
-__added gears!__, two gears currently exist:
+Completely Rebalanced Fuckin Everything!!!!!!!
 
-- Clay Coil (Tier 1)
+thank you jarvis 90090! for the rebalancing and the very useful spreadsheet
 
-- Bismuth Blast Beverage (Tier 2)
+if you would like the spreadsheet here you go: https://docs.google.com/spreadsheets/d/1G2a6PkKKnogsTKTsxeNGAGD4jHFKCAR80lMWfXtvriY/edit?gid=1772541845#gid=1772541845
 
-**Clay Coil** has a +0.05x raw luck boost, and increases mining speed by 40ms BUT
+by everything i mean absolutely fuckin everything:
 
-it has a 1/75 chance to pause your mining for Two Seconds (it automatically starts again)
+- recipes (the big one)
+- pickaxe abilities
+- gear rates
+- gear abilities
+- that's it
 
-**Bismuth Blast Beverage** has a 1/40 chance on each block broken to mine 48 extra blocks BUT
+## Miscellanous Additions
 
-the extra blocks it breaks are mined at 0.9x luck (seperate to pickaxe luck)
+### added data exporting and importing!!!!
 
-__added a new Tier 4 pickaxe!__
+you can now import and export your data so you can make backups if you want!! (i reccomend making backups pretty often ish)
 
-- Chexglow Dagger
+### made cave size smaller
 
-breaks 10 blocks every 0.4 seconds! (no luck boost)
+caves only spawn up to 400 blocks now
 
-__added some more music__
+### pickaxe luck and gear luck is calculated when first visiting the website
 
-__sound effects for gears, which are toggleable in settings__
+(this does not do anything for you lol)
 
-__a few more dreamlike ores :), and Chexium! a new 1/5 common__
-
-## fixes and revamps and additions (under the hood stuff)
-
-- fixed the settings checkboxes hopefully, i hated those things
-
-- __changed over to a new gear/pickaxe system which involves classes rather than objects__
-
-- revamped luck calculations for gears and pickaxes
-
-- cleaned up maingame.mjs a bit
-
-- changed all the pickaxes to that new system
-
-- added an ability system for gears (i can now apply certain abilities that happen randomly to certain gears)
-
-- redid some recipe checking logic
-
-- changed settingshandler a bit to account for new stuff
-
-- recipes are now nested inside the pickaxe's class, as opposed to having them be two objects (same with gears)
-
-
-
+### 
 
