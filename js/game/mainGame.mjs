@@ -103,8 +103,6 @@ function stopMiningifChill(oreObjects, interval) {
             clearInterval(interval)
             isMining = 0;
         }
-    } else {
-        console.log("alright i guess we keep going!")
     }
 }
 
@@ -130,15 +128,14 @@ mineButton.onclick = () => {
 function startMining() {
     isMining = 1;
     miningInterval = setInterval(() => {
-        console.log(PICKAXE_LUCK_ADD);
         let selectedOreObject = selectRandomOre(oreDef, BASE_LUCK + PICKAXE_LUCK_ADD, MINE_BLOCK_AMOUNT);
-        addOre(selectedOreObject, true);
+        if (CURRENT_GEAR && CURRENT_GEAR.applyEffect) {
+            CURRENT_GEAR.applyEffect(mineButton, selectedOreObject);
+        }
         handleOreText(selectedOreObject);
         handleSpawnEffects(selectedOreObject);
         stopMiningifChill(selectedOreObject, miningInterval);
-        if (CURRENT_GEAR && CURRENT_GEAR.applyEffect) {
-            CURRENT_GEAR.applyEffect(mineButton);
-        }
+        addOre(selectedOreObject, true);
         saveGame();
     }, MINING_SPEED);
 }

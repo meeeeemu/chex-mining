@@ -36,8 +36,8 @@ const chillSpawnText = {
     "pristine": {"text": 'Your vision sharpens to crystal clarity...', "color": "rgb(5, 163, 0)"},
     "pure": {"text": 'A feeling of purity engulfs your body...', "color": "rgb(0, 211, 226)"},
     "virtuous": {"text": 'A sense of innocence flows throughout the mine...', "color": "rgb(2, 0, 119)"},
-    "angelic": {"text": 'The voice of angels fill the air with a divine melody...', "color": "rgb(255, 255, 255)"},
-    "dreamlike": {"text": 'HOLY FUCKING SHIT', "color": "rgb(255, 255, 255)"},
+    "angelic": {"text": 'The voice of angels fill the air with a divine melody...', "color": "rgb(247, 5, 247)"},
+    "dreamlike": {"text": 'A faint dream forms within your mind...', "color": "rgb(255, 255, 255)"},
 };
 
 let animPlayed = false;

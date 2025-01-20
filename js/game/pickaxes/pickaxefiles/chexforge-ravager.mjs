@@ -18,7 +18,8 @@ const ChexforgeRavager = new Pickaxe (
         "Tin": { quantity: 550 },
         "Iron": { quantity: 210 },
         "Clay": { quantity: 2200 }
-    }
+    },
+    "your second pickaxe in the entire game!! (unless you chose to go with this first) <br><br> it mines at a good speed! oh... where's the luck boost... there is none... :[ <br>"
 );
 
 export { ChexforgeRavager };

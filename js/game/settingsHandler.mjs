@@ -61,7 +61,7 @@ exportDataButton.onclick = () => {
     dlLink.download = `chexData-${new Date().toISOString().slice(0, 10)}.bin`;
     dlLink.click();
 
-    URL.revokeObjectURL(downloadLink.href);
+    URL.revokeObjectURL(dlLink.href);
 }
 
 importDataButton.onclick = () => {
@@ -77,8 +77,7 @@ importDataButton.onclick = () => {
         var extension = file.type;
 
         if (extension != "application/octet-stream") {
-            console.error("file given was not of type octet-stream");
-            return;
+            throw("file given was not of type octet-stream");
         }
 
         importingContainer.style.visibility = "visible";

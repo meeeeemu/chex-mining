@@ -26,7 +26,8 @@ const oreDef = {
     "iron": {"Name": "Iron", "decimalRarity": 1 / 20, "stringRarity": "1/20", "tier": "common"},
     "silver": {"Name": "Silver", "decimalRarity": 1 / 55, "stringRarity": "1/55", "tier": "common"},
     "quartz": {"Name": "Quartz", "decimalRarity": 1 / 70, "stringRarity": "1/70", "tier": "common"},
-    "gold": {"Name": "Gold", "decimalRarity": 1 / 100, "stringRarity": "1/100", "tier": "common"},
+    "gold": { "Name": "Gold", "decimalRarity": 1 / 100, "stringRarity": "1/100", "tier": "common" },
+    "chexwood": {"Name": "Chexwood", "decimalRarity": 1 / 150, "stringRarity": "1/150", "tier": "common"},
     "diamond": {"Name": "Diamond", "decimalRarity": 1 / 300, "stringRarity": "1/300", "tier": "common"},
     "emerald": {"Name": "Emerald", "decimalRarity": 1 / 750, "stringRarity": "1/750", "tier": "common"},
 
@@ -158,7 +159,9 @@ const oreDef = {
     "Ishmshl": {"Name": "Ishmshl", "decimalRarity": 1 / 2525121225, "stringRarity": "1/2525121225", "tier": "dreamlike"},
     "the-ring-ore": {"Name": "the-ring-ore", "decimalRarity": 1 / 9876543212, "stringRarity": "1/9876543212", "tier": "dreamlike"},
     "Inkomite": {"Name": "Inkomite", "decimalRarity": 1 / 20000200000, "stringRarity": "1/20000200000", "tier": "dreamlike"},
-    "hsjsedesHhvddfrcsd-glombo-wombo-casino": {"Name": "hsjsedesHhvddfrcsd-glombo-wombo-casino", "decimalRarity": 1 / 7777777777, "stringRarity": "1/7777777777", "tier": "dreamlike"}
+    "hsjsedesHhvddfrcsd-glombo-wombo-casino": {"Name": "hsjsedesHhvddfrcsd-glombo-wombo-casino", "decimalRarity": 1 / 7777777777, "stringRarity": "1/7777777777", "tier": "dreamlike"},
+    "🚩": { "Name": "🚩", "decimalRarity": 1 / 70766571000, "stringRarity": "🚩", "tier": "dreamlike" },
+    "The End": { "Name": "The End", "decimalRarity": 1 / 11289329492030, "stringRarity": "1/?????????", "tier": "dreamlike" }
 
 };
 

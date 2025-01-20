@@ -79,7 +79,11 @@ body {
 }
 
 .guiContainerPickaxe {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
     user-select: none;
     -moz-border-radius: 0px;
     -webkit-border-radius: 14px 14px 0px 0px;
@@ -128,21 +132,6 @@ body {
     border-radius: 14px 14px 14px 14px;
 }
 
-.craftButton.Clay-Coil {
-    position: absolute;
-    display: flex;
-    background-color: transparent;
-    border-color: white;
-    border: 2px solid;
-    margin-bottom: 30px;
-    font-size: 15px;
-    left: 38%;
-    justify-content: center;
-    align-items: center;
-    color: white;
-}
-
-
 .guiContainerInventory {
     -moz-border-radius: 0px;
     -webkit-border-radius: 14px 14px 0px 0px;
@@ -160,17 +149,26 @@ body {
 }
 
 .craftButton {
+    text-align: center;
     position: absolute;
-    display: flex;
     background-color: transparent;
     border-color: white;
     border: 2px solid;
     margin-bottom: 30px;
     font-size: 15px;
-    left: 38%;
     justify-content: center;
     align-items: center;
     color: white;
+}
+
+.guiPickaxeCraftButtonContainer {
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
 }
 
 .guiGears.buttonGroup {
@@ -187,7 +185,7 @@ body {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-.pickaxeButton1:hover, .pickaxeButton2:hover, .pickaxeButton3:hover, .pickaxeButton4:hover, .pickaxeButton5:hover, .pickaxeButton6:hover {
+.pickaxeButton1:hover, .pickaxeButton2:hover, .pickaxeButton3:hover, .pickaxeButton4:hover, .pickaxeButton5:hover, .pickaxeButton6:hover, .pickaxeButton7:hover, .pickaxeButton8:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -312,47 +310,22 @@ body {
 
 .guiText {
     position: absolute;
-    display: flex;
     font-size: 15px;
     top: 5px;
-    left: 38%;
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    display: flex;
     justify-content: center;
-    align-items: center;
     color: white;
     z-index: 0;
     user-select: none;
     font-family: "Dosis", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 400;
+    font-weight: bold;
     font-style: normal;
-}
-
-.guiText.Chexaxe {
-    left: 32%;
-}
-
-.guiText.CR {
-    left: 27%;
-}
-
-.guiText.CE {
-    left: 25%;
-}
-
-.guiText.TC {
-    left: 25%;
-}
-
-.guiText.CD {
-    left: 29%;
-}
-
-.guiText.oreIndex {
-    left: 45%;
-}
-
-.guiText.Bismuth-Blast-Beverage {
-    left: 21%;
 }
 
 .debugInfoContainer {
@@ -367,6 +340,7 @@ body {
 }
 
 .guiPickaxeInfo {
+    text-align: left;
     margin: 10px;
     font-family: "Dosis", sans-serif;
     font-optical-sizing: auto;
@@ -383,11 +357,16 @@ body {
     color: lime;
 }
 
+.bonusText {
+    color: lime;
+}
+
 .miningSpeedText {
     color: yellow;
 }
 
 .guiPickaxeRecipe {
+    text-align: left;
     margin: 10px;
     font-family: "Dosis", sans-serif;
     font-optical-sizing: auto;

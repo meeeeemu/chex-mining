@@ -1,22 +1,82 @@
 import anime from "animejs";
 import { craftGear } from "./gearsCraft.mjs";
 import { equipGear, ownedGears } from "./gearsMain.mjs";
-import { clayCoil } from "./gearfiles/claycoil.mjs";
-import { bismuthBlastBeverage } from "./gearfiles/bismuthblastbeverage.mjs";
 
-const clayCoilButton = document.querySelector('.gearButton1');
-const bismuthBlastBeverageButton = document.querySelector('.gearButton2');
+const gearFiles = [
+    "./gearfiles/claycoil.mjs",
+    "./gearfiles/bismuthblastbeverage.mjs",
+    "./gearfiles/whackywombochips.mjs",
+    "./gearfiles/magnesiumreactorcore.mjs",
+    "./gearfiles/wheeloffate.mjs",
+];
 
-const clayCoilGUI = document.querySelector('.guiContainerGear.Clay-Coil');
-const bismuthBlastBeverageGUI = document.querySelector('.guiContainerGear.Bismuth-Blast-Beverage');
+const buttonContainer = document.querySelector('.guiContainerGears .guiGearsMain');
+const mainGuiContainer = document.querySelector('.mainGuiContainer');
 
-const clayCoilCraft = document.querySelector('.craftButton.Clay-Coil');
-const bismuthBlastBeverageCraft = document.querySelector('.craftButton.Bismuth-Blast-Beverage');
+function normalizeName(name) {
+    return name.replace(/\s+/g, '-');
+}
 
-const gearButtons = {
-    "Clay Coil": clayCoilCraft,
-    "Bismuth Blast Beverage": bismuthBlastBeverageCraft
-};
+async function initializeGears() {
+    const gearModules = [];
+    for (const filePath of gearFiles) {
+        try {
+            const module = await import(filePath);
+            const gearObject = Object.values(module)[0];
+            gearModules.push({ name: gearObject.name, module: gearObject });
+        } catch (error) {
+            console.error(`failed to load gear from ${filePath}:`, error);
+        }
+    }
+
+    gearModules.forEach(({ name, module }) => {
+        const normalizedGearName = normalizeName(name);
+
+        const button = document.createElement('button');
+        button.classList.add('gearSelectButton');
+        button.textContent = `${name} (Tier ${module.tier})`;
+        buttonContainer.appendChild(button);
+
+        buttonContainer.classList.add('buttonGroup');
+
+        const gui = document.createElement('div');
+        gui.classList.add('guiContainerGear', normalizedGearName, 'draggable');
+        gui.style.visibility = 'hidden';
+
+        gui.innerHTML = `
+            <div class="guiSubContainer"></div>
+            <div class="guiText ${normalizedGearName}"> > ${name} </div>
+            <div class="guiGearsMain buttonGroup">
+                <div class="guiGearInfo">
+                    <div>${module.gearDescription || 'No description available.'}</div>
+                    <br>
+                    -----------------------------------
+                    <br><br>
+                    Abilities:<br><br>
+                    ${module.bonuses.Luck ? `<div class="luckText">Luck: +${module.bonuses.Luck}x</div>` : ''}
+                    <div class="bonusText">${module.bonusDescription || ''}</div><br>
+                    Penalties:<br><br>
+                    <div class="penaltyText">${module.penaltyDescription || ''}</div>
+                </div>
+                <div class="guiGearRecipe">
+                    Recipe:<br>
+                    ${Object.entries(module.recipe).map(([material, qty]) => `<div class="${material} ${normalizedGearName}">${qty.quantity || 0}/${qty.quantity} ${material}</div>`).join('')}
+                </div>
+                <div class="guiGearCraftButtonContainer">
+                    <button class="craftButton ${normalizedGearName}">Craft</button>
+                </div>
+            </div>
+        `;
+        mainGuiContainer.appendChild(gui);
+
+        button.onclick = () => toggleGUI(gui);
+
+        const craftButton = gui.querySelector(`.craftButton.${normalizedGearName}`);
+        craftButton.onclick = () => handleCraftButtonClick(craftButton, module, craftGear, equipGear);
+
+        initCraftButton(craftButton, name);
+    });
+}
 
 function initCraftButton(button, gearName) {
     if (ownedGears[gearName]) {
@@ -25,16 +85,12 @@ function initCraftButton(button, gearName) {
     }
 }
 
-setTimeout(() => {
-    initCraftButton(clayCoilCraft, "Clay Coil");
-    initCraftButton(bismuthBlastBeverageCraft, "Bismuth Blast Beverage");
-}, 500);
-
 function unequipAllGears() {
     for (let gearName in ownedGears) {
         if (ownedGears[gearName].equipped) {
             ownedGears[gearName].equipped = false;
-            let button = gearButtons[gearName];
+            const normalizedGearName = normalizeName(gearName);
+            const button = document.querySelector(`.craftButton.${normalizedGearName}`);
             if (button) {
                 button.textContent = "Equip";
                 button.style.color = "lime";
@@ -43,7 +99,7 @@ function unequipAllGears() {
     }
 }
 
-function toggleGUI(button, gui) {
+function toggleGUI(gui) {
     if (gui.style.visibility === "hidden") {
         gui.style.visibility = "visible";
         anime({
@@ -66,9 +122,6 @@ function toggleGUI(button, gui) {
         });
     }
 }
-
-clayCoilButton.onclick = () => toggleGUI(clayCoilButton, clayCoilGUI);
-bismuthBlastBeverageButton.onclick = () => toggleGUI(bismuthBlastBeverageButton, bismuthBlastBeverageGUI);
 
 function handleCraftButtonClick(button, gearObject, craftFunction, equipFunction) {
     const recipe = gearObject.recipe;
@@ -94,5 +147,4 @@ function handleCraftButtonClick(button, gearObject, craftFunction, equipFunction
     }
 }
 
-clayCoilCraft.onclick = () => handleCraftButtonClick(clayCoilCraft, clayCoil, craftGear, equipGear);
-bismuthBlastBeverageCraft.onclick = () => handleCraftButtonClick(bismuthBlastBeverageCraft, bismuthBlastBeverage, craftGear, equipGear);
+document.addEventListener('DOMContentLoaded', initializeGears);

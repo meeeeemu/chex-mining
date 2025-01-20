@@ -7,6 +7,9 @@ import { ChexquartzExcavator } from "./pickaxefiles/chexquartz-excavator.mjs";
 import { TitaniumChexblaster } from "./pickaxefiles/titanium-chexblaster.mjs";
 import { Womboaxe } from "./pickaxefiles/womboaxe.mjs";
 import { ChexglowDagger } from "./pickaxefiles/chexglow-dagger.mjs";
+import { Chexstick } from "./pickaxefiles/chexstick.mjs";
+import { CasinoCrusher } from "./pickaxefiles/casino-crusher.mjs";
+import { ChexiumMatterManipulator } from "./pickaxefiles/chexium-matter-manipulator.mjs";
 
 //         _                 _ _ _ 
 //        | |               | | | |
@@ -29,20 +32,25 @@ function equipPickaxe(pickaxeObject) {
 }
 
 function updateGUIRecipe(inventory, pickaxe) {
-    let recipe = pickaxe.recipe;
-    for (let ore in recipe) {
-        let displayOre = ore.replace(/-/g, ' ').replace(/_/g, '.');
-        let hyphenatedName = pickaxe.name.replace(/\s+/g, '-');
-        let recipeElement = document.querySelector(`.${ore}.${hyphenatedName}`);
-        if (recipeElement) {
-            let inventoryQuantity = inventory[ore] ? inventory[ore].quantity : 0;
-            let requiredQuantity = recipe[ore].quantity;
-            recipeElement.textContent = `${inventoryQuantity}/${requiredQuantity} ${displayOre}`;
+    const recipe = pickaxe.recipe;
+    const hyphenatedName = pickaxe.name.replace(/\s+/g, '-');
 
+    for (let ore in recipe) {
+        const displayOre = ore.replace(/-/g, ' ').replace(/_/g, '.');
+        const recipeElement = document.querySelector(`.${ore}.${hyphenatedName}`);
+        
+        if (recipeElement) {
+            const inventoryQuantity = inventory[ore] ? inventory[ore].quantity : 0;
+            const requiredQuantity = recipe[ore].quantity;
+
+            recipeElement.textContent = `${inventoryQuantity}/${requiredQuantity} ${displayOre}`;
+            
             if (inventoryQuantity >= requiredQuantity) {
                 recipeElement.classList.add("complete");
+                recipeElement.style.color = "lime";
             } else {
                 recipeElement.classList.remove("complete");
+                recipeElement.style.color = "red";
             }
         }
     }
@@ -55,12 +63,15 @@ function updateAllGUIRecipes(inventory, pickaxes) {
 }
 
 var gearRecipesToUpdate = [
+    Chexstick,
     Chexaxe,
     ChexforgeRavager,
     ChexquartzExcavator,
     TitaniumChexblaster,
     Womboaxe,
-    ChexglowDagger
+    ChexglowDagger,
+    CasinoCrusher,
+    ChexiumMatterManipulator
 ];
 
 var pickaxeUpdateLoop = setInterval(() => {

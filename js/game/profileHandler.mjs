@@ -56,7 +56,6 @@ function loadGame() {
             const saveOwnedPickaxes = JSON.parse(parsedSave.ownedpickaxes);
             const saveOwnedGears = JSON.parse(parsedSave.ownedgears);
             const saveGameSettings = JSON.parse(parsedSave.gamesettings);
-            console.log(saveGameSettings);
 
             if (savePlayerInv) {
                 const invObj = savePlayerInv;
@@ -87,7 +86,6 @@ function loadGame() {
             if (saveOwnedGears) {
                 console.log("loading owned gears");
                 Object.values(saveOwnedGears).forEach(gearData => {
-                    console.log(gearData);
                     ownedGears[gearData.name] = Gear.fromJSON(gearData);
                 });
             }

@@ -18,7 +18,8 @@ const Chexaxe = new Pickaxe(
         "Tin": { quantity: 600 },
         "Copper": { quantity: 1100 },
         "Stone": { quantity: 4000 }
-    }
+    },
+    "your first Real pickaxe in the entire game!!! <br><br> it mines a block a second, and even comes with a luck boost <br>"
 );
 
 export { Chexaxe };

@@ -1,80 +1,114 @@
 import anime from "animejs";
 import { craftPickaxe } from "./pickaxeCraft.mjs";
 import { equipPickaxe, ownedPickaxes } from "./pickaxesMain.mjs";
-import { Chexaxe } from "./pickaxefiles/the-chexaxe.mjs";
-import { ChexforgeRavager } from "./pickaxefiles/chexforge-ravager.mjs";
-import { ChexquartzExcavator } from "./pickaxefiles/chexquartz-excavator.mjs";
-import { TitaniumChexblaster } from "./pickaxefiles/titanium-chexblaster.mjs";
-import { Womboaxe } from "./pickaxefiles/womboaxe.mjs";
-import { ChexglowDagger } from "./pickaxefiles/chexglow-dagger.mjs";
 
+// Array of pickaxe file paths
+const pickaxeFiles = [
+    "./pickaxefiles/the-chexaxe.mjs",
+    "./pickaxefiles/chexforge-ravager.mjs",
+    "./pickaxefiles/chexquartz-excavator.mjs",
+    "./pickaxefiles/titanium-chexblaster.mjs",
+    "./pickaxefiles/womboaxe.mjs",
+    "./pickaxefiles/chexglow-dagger.mjs",
+    "./pickaxefiles/chexstick.mjs",
+    "./pickaxefiles/casino-crusher.mjs",
+    "./pickaxefiles/chexium-matter-manipulator.mjs"
+];
 
-//         _                 _ _ _ 
-//        | |               | | | |
-//    __ _| |__   ___  _   _| | | |
-//   / _` | '_ \ / _ \| | | | | | |
-//  | (_| | | | | (_) | |_| |_|_|_|
-//   \__,_|_| |_|\___/ \__, (_|_|_)
-//                      __/ |      
-//                     |___/       
+// Container elements for buttons and GUIs
+const buttonContainer = document.querySelector('.buttonGroup');
+const mainGuiContainer = document.querySelector('.mainGuiContainer');
 
-// have fun looking through my probably absolutely GARBAGE code :)
-// take what you like if you find it useful, no need for credits
+// Initialize pickaxe data and generate GUI
+async function initializePickaxes() {
+    const pickaxes = [];
 
-const chexAxeButton = document.querySelector('.pickaxeButton1');
-const CRButton = document.querySelector('.pickaxeButton2');
-const CEButton = document.querySelector('.pickaxeButton3');
-const TCButton = document.querySelector('.pickaxeButton4');
-const WAButton = document.querySelector('.pickaxeButton5');
-const CDButton = document.querySelector('.pickaxeButton6');
+    // Load each pickaxe and store in an array
+    for (const filePath of pickaxeFiles) {
+        try {
+            const pickaxeModule = await import(filePath);
+            const pickaxe = Object.values(pickaxeModule)[0]; // Access the first export (assuming it's the pickaxe instance)
+            pickaxes.push(pickaxe); // Add pickaxe to array for sorting later
+        } catch (error) {
+            console.error(`Failed to load pickaxe from ${filePath}:`, error);
+        }
+    }
 
-const chexAxeGUI = document.querySelector('.guiContainerPickaxe.Chexaxe');
-const CRGUI = document.querySelector('.guiContainerPickaxe.CR');
-const CEGUI = document.querySelector('.guiContainerPickaxe.CE');
-const TCGUI = document.querySelector('.guiContainerPickaxe.TC');
-const WAGUI = document.querySelector('.guiContainerPickaxe.WA');
-const CDGUI = document.querySelector('.guiContainerPickaxe.CD');
+    // Sort pickaxes by their tier
+    pickaxes.sort((a, b) => a.tier - b.tier);
 
-const chexAxeCraft = document.querySelector('.craftButton.Chexaxe');
-const CRCraft = document.querySelector('.craftButton.ChexforgeRavager');
-const CECraft = document.querySelector('.craftButton.ChexquartzExcavator');
-const TCCraft = document.querySelector('.craftButton.TitaniumChexblaster');
-const WACraft = document.querySelector('.craftButton.Womboaxe');
-const CDCraft = document.querySelector('.craftButton.ChexglowDagger');
+    // Create GUI elements for each sorted pickaxe
+    for (const pickaxe of pickaxes) {
+        // Normalize the pickaxe name to use in CSS class names (replace spaces with hyphens)
+        const normalizedPickaxeName = pickaxe.name.replace(/\s+/g, '-');
 
-const pickaxeButtons = {
-    "Chexaxe": chexAxeCraft,
-    "Chexforge Ravager": CRCraft,
-    "Chexquartz Excavator": CECraft,
-    "Titanium Chexblaster": TCCraft,
-    "Womboaxe": WACraft,
-    "Chexglow Dagger": CDCraft,
+        // Create button for pickaxe in the list
+        const button = document.createElement('button');
+        button.classList.add('pickaxeSelectButton');
+        button.style.width = '100%';  // Ensure full width of container
+        button.style.padding = '10px'; // Add padding
+        button.style.marginBottom = '5px'; // Space between buttons
+        button.textContent = `${pickaxe.name} (Tier ${pickaxe.tier})`;
+        buttonContainer.appendChild(button);
+
+        // Create a detailed GUI panel for each pickaxe
+        const gui = document.createElement('div');
+        gui.classList.add('guiContainerPickaxe', normalizedPickaxeName, 'draggable');
+        gui.style.visibility = 'hidden'; // Initial state is hidden
+
+        // Populate GUI panel with pickaxe details
+        gui.innerHTML = `
+            <div class="guiSubContainer"></div>
+            <div class="guiText ${normalizedPickaxeName}"> > ${pickaxe.name} </div>
+            <div class="guiPickaxesMain">
+                <div class="guiPickaxeInfo">
+                    <div>${pickaxe.description || 'No description available.'}</div>
+                    <br>
+                    -----------------------------------
+                    <br><br>
+                    Stats:<br><br>
+                    ${pickaxe.bonuses.Luck > 0 ? `<div class="luckText">Luck: +${pickaxe.bonuses.Luck}x</div>` : ''}
+                    <div class="miningSpeedText">Speed: ${pickaxe.bonuses.Blocks_Mined || 'Undefined'} block(s) every ${pickaxe.bonuses.Speed / 1000 || 'Undefined'}s</div>
+                </div>
+                <div class="guiPickaxeRecipe">
+                    Recipe:<br>
+                    ${Object.entries(pickaxe.recipe).map(([material, qty]) => `<div class="${material} ${normalizedPickaxeName}">${qty.quantity || 0}/${qty.quantity} ${material}</div>`).join('')}
+                </div>
+                <div class="guiPickaxeCraftButtonContainer">
+                    <button class="craftButton ${normalizedPickaxeName}">Craft</button>
+                </div>
+            </div>
+        `;
+        mainGuiContainer.appendChild(gui);
+
+        // Attach toggle functionality to each button to show/hide GUI
+        button.onclick = () => toggleGUI(button, gui);
+
+        // Attach functionality to craft button inside the GUI
+        const craftButton = gui.querySelector(`.craftButton.${normalizedPickaxeName}`);
+        craftButton.onclick = () => handleCraftButtonClick(craftButton, pickaxe, craftPickaxe, equipPickaxe);
+
+        // Initialize button text for crafted pickaxes
+        initCraftButton(craftButton, pickaxe);
+    }
 }
 
-function initCraftButton(button, pickaxe)
-{
-    if(ownedPickaxes[pickaxe.name]) {
+// Function to initialize craft button text and style
+function initCraftButton(button, pickaxe) {
+    if (ownedPickaxes[pickaxe.name]) {
         button.textContent = "Equip";
         button.style.color = "lime";
     }
 }
 
-setTimeout(() => {
-    initCraftButton(chexAxeCraft, Chexaxe);
-    initCraftButton(CRCraft, ChexforgeRavager);
-    initCraftButton(CECraft, ChexquartzExcavator);
-    initCraftButton(TCCraft, TitaniumChexblaster);
-    initCraftButton(WACraft, Womboaxe);
-    initCraftButton(CDCraft, ChexglowDagger);
-}, 500)
-
-function unequipAllPickaxes () {
+// Unequip all pickaxes function
+function unequipAllPickaxes() {
     for (let pickaxe in ownedPickaxes) {
-        console.log(pickaxe)
         if (ownedPickaxes[pickaxe].equipped) {
             ownedPickaxes[pickaxe].equipped = false;
-            let button = pickaxeButtons[pickaxe];
-            if(button) {
+            const normalizedPickaxeName = pickaxe.replace(/\s+/g, '-');
+            const button = document.querySelector(`.craftButton.${normalizedPickaxeName}`);
+            if (button) {
                 button.textContent = "Equip";
                 button.style.color = "lime";
             }
@@ -82,8 +116,9 @@ function unequipAllPickaxes () {
     }
 }
 
+// Toggle GUI visibility with animation
 function toggleGUI(button, gui) {
-    if (gui.style.visibility == "hidden") {
+    if (gui.style.visibility === "hidden") {
         gui.style.visibility = "visible";
         anime({
             targets: gui,
@@ -106,42 +141,30 @@ function toggleGUI(button, gui) {
     }
 }
 
-chexAxeButton.onclick = () => toggleGUI(chexAxeButton, chexAxeGUI);
-CRButton.onclick = () => toggleGUI(CRButton, CRGUI);
-CEButton.onclick = () => toggleGUI(CEButton, CEGUI);
-TCButton.onclick = () => toggleGUI(TCButton, TCGUI);
-WAButton.onclick = () => toggleGUI(WAButton, WAGUI);
-CDButton.onclick = () => toggleGUI(CDButton, CDGUI);
-
+// Handle craft button click event
 function handleCraftButtonClick(button, pickaxeObject, craftFunction, equipFunction) {
     const recipe = pickaxeObject.recipe;
 
-    console.log("Pickaxe Name:", pickaxeObject.name);
-
-    if(!ownedPickaxes[pickaxeObject.name]) {
-        if(craftFunction(pickaxeObject, recipe)) {
-            button.textContent = "Equip"
-            button.style.color = "lime"
+    if (!ownedPickaxes[pickaxeObject.name]) {
+        if (craftFunction(pickaxeObject, recipe)) {
+            button.textContent = "Equip";
+            button.style.color = "lime";
         } else {
-            button.textContent = "nope"
-            button.style.color = "red"
+            button.textContent = "nope";
+            button.style.color = "red";
             setTimeout(() => {
-                button.textContent = "Craft"
-                button.style.color = "white" 
-            }, 650)
+                button.textContent = "Craft";
+                button.style.color = "white";
+            }, 650);
         }
-    } else if(ownedPickaxes[pickaxeObject.name]) {
-        unequipAllPickaxes()
-        button.textContent = "Equipped"
-        button.style.color = "lime"
-        equipFunction(pickaxeObject)
+    } else if (ownedPickaxes[pickaxeObject.name]) {
+        unequipAllPickaxes();
+        button.textContent = "Equipped";
+        button.style.color = "lime";
+        equipFunction(pickaxeObject);
         ownedPickaxes[pickaxeObject.name].equipped = true;
     }
 }
 
-chexAxeCraft.onclick = () => handleCraftButtonClick(chexAxeCraft, Chexaxe, craftPickaxe, equipPickaxe);
-CRCraft.onclick = () => handleCraftButtonClick(CRCraft, ChexforgeRavager, craftPickaxe, equipPickaxe);
-CECraft.onclick = () => handleCraftButtonClick(CECraft, ChexquartzExcavator, craftPickaxe, equipPickaxe);
-TCCraft.onclick = () => handleCraftButtonClick(TCCraft, TitaniumChexblaster, craftPickaxe, equipPickaxe);
-WACraft.onclick = () => handleCraftButtonClick(WACraft, Womboaxe, craftPickaxe, equipPickaxe);
-CDCraft.onclick = () => handleCraftButtonClick(CDCraft, ChexglowDagger, craftPickaxe, equipPickaxe);
+// Initialize pickaxes on page load
+document.addEventListener('DOMContentLoaded', initializePickaxes);

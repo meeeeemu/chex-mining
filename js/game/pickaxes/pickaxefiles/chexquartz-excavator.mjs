@@ -19,7 +19,8 @@ const ChexquartzExcavator = new Pickaxe(
         "Tin": { quantity: 2200 },
         "Copper": { quantity: 4000 },
         "Clay": { quantity: 7500 }
-    }
+    },
+    "forged from the elusive chexquartz, which wasnt an ore in this game until i decided to make it now! <br><br> not only does this mine at a good speed, but it has a luck boost! now we're advancing in the game! <br></br>"
 );
 
 export { ChexquartzExcavator };

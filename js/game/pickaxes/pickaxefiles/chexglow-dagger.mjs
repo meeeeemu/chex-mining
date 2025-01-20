@@ -24,7 +24,8 @@ const ChexglowDagger = new Pickaxe(
         "Chexium": { quantity: 15000 },
         "Tin": { quantity: 8500 },
         "Clay": { quantity: 40000 }
-    }
+    },
+    "a tiny lil dagger! and since it's small, good lord it can MINE <br><br> it's kinda shiny too, i guess they dont call it chexglow for nothing"
 );
 
 export { ChexglowDagger };

@@ -2,6 +2,9 @@ import { inventory } from "../inventoryHandler.mjs"
 import { setCurrentGearGame } from "../mainGame.mjs"
 import { bismuthBlastBeverage } from "./gearfiles/bismuthblastbeverage.mjs";
 import { clayCoil } from "./gearfiles/claycoil.mjs";
+import { magnesiumReactorCore } from "./gearfiles/magnesiumreactorcore.mjs";
+import { whackyWomboChips } from "./gearfiles/whackywombochips.mjs";
+// import { wheelOfFate } from "./gearfiles/wheeloffate.mjs";
 
 var ownedGears = {};
 
@@ -37,7 +40,13 @@ function updateAllGUIGearRecipes(inventory, gears) {
     });
 }
 
-var gearRecipesToUpdate = [clayCoil, bismuthBlastBeverage];
+var gearRecipesToUpdate = [
+    clayCoil,
+    bismuthBlastBeverage,
+    whackyWomboChips,
+    magnesiumReactorCore,
+    //wheelOfFate,
+];
 
 var gearUpdateLoop = setInterval(() => {
     updateAllGUIGearRecipes(inventory, gearRecipesToUpdate);
