@@ -4,38 +4,46 @@ because of this, you may need to reset your save after each update if the game f
 
 HOPEFULLY after v0.2.0, there shouldnt be a need anymore to do this
 
-# Chex Mining - v0.2.1-alpha:
+# Chex Mining - v0.3.0-alpha:
 
 GARGANTUAN REBALANCE
 
-## Huge Rebalancing
+## The Big Update
 
-Completely Rebalanced Fuckin Everything!!!!!!!
+there was TOO much stuff changed in this update, lets start off with new pickaxes!
 
-thank you jarvis 90090! for the rebalancing and the very useful spreadsheet
+# Pickaxes
 
-if you would like the spreadsheet here you go: https://docs.google.com/spreadsheets/d/1G2a6PkKKnogsTKTsxeNGAGD4jHFKCAR80lMWfXtvriY/edit?gid=1772541845#gid=1772541845
+## Casino Crusher (Tier 5)
 
-by everything i mean absolutely fuckin everything:
+Luck: x1.1
+Speed: 110ms
+Blocks Mined: 2
 
-- recipes (the big one)
-- pickaxe abilities
-- gear rates
-- gear abilities
-- that's it
+## Chexium Matter Manipulator (Tier 5)
 
-## Miscellanous Additions
+Luck: 1.85x
+Speed: 500ms
+Blocks Mined: 4
 
-### added data exporting and importing!!!!
+# Gears
 
-you can now import and export your data so you can make backups if you want!! (i reccomend making backups pretty often ish)
+## Magnesium Reactor Core (Tier 3)
 
-### made cave size smaller
+it's just clay coil 2.0, boosts mining speed by 30 but has a 1/150 chance to pause mining for two seconds
 
-caves only spawn up to 400 blocks now
+## Whacky Wombo Chips (Tier 2)
 
-### pickaxe luck and gear luck is calculated when first visiting the website
+has a 1/100 chance to duplicate any master-tier ore (or below)
+upon duplication, mining is paused for one second
 
-(this does not do anything for you lol)
+# behind the scenes changes
+
+Fucking Everything
+
+Everything has changed
+
+i practically rewrote the entire games gui logic to now automatically create gui elements for each pickaxe and gear file
+
 
 
