@@ -15,48 +15,39 @@ const pickaxeFiles = [
     "./pickaxefiles/chexium-matter-manipulator.mjs"
 ];
 
-// Container elements for buttons and GUIs
 const buttonContainer = document.querySelector('.buttonGroup');
 const mainGuiContainer = document.querySelector('.mainGuiContainer');
 
-// Initialize pickaxe data and generate GUI
 async function initializePickaxes() {
     const pickaxes = [];
 
-    // Load each pickaxe and store in an array
     for (const filePath of pickaxeFiles) {
         try {
             const pickaxeModule = await import(filePath);
-            const pickaxe = Object.values(pickaxeModule)[0]; // Access the first export (assuming it's the pickaxe instance)
-            pickaxes.push(pickaxe); // Add pickaxe to array for sorting later
+            const pickaxe = Object.values(pickaxeModule)[0];
+            pickaxes.push(pickaxe);
         } catch (error) {
-            console.error(`Failed to load pickaxe from ${filePath}:`, error);
+            console.error(`failed to load pickaxe from ${filePath}:`, error);
         }
     }
 
-    // Sort pickaxes by their tier
     pickaxes.sort((a, b) => a.tier - b.tier);
 
-    // Create GUI elements for each sorted pickaxe
     for (const pickaxe of pickaxes) {
-        // Normalize the pickaxe name to use in CSS class names (replace spaces with hyphens)
         const normalizedPickaxeName = pickaxe.name.replace(/\s+/g, '-');
 
-        // Create button for pickaxe in the list
         const button = document.createElement('button');
         button.classList.add('pickaxeSelectButton');
-        button.style.width = '100%';  // Ensure full width of container
-        button.style.padding = '10px'; // Add padding
-        button.style.marginBottom = '5px'; // Space between buttons
+        button.style.width = '100%'
+        button.style.padding = '10px';
+        button.style.marginBottom = '5px';
         button.textContent = `${pickaxe.name} (Tier ${pickaxe.tier})`;
         buttonContainer.appendChild(button);
 
-        // Create a detailed GUI panel for each pickaxe
         const gui = document.createElement('div');
         gui.classList.add('guiContainerPickaxe', normalizedPickaxeName, 'draggable');
-        gui.style.visibility = 'hidden'; // Initial state is hidden
+        gui.style.visibility = 'hidden';
 
-        // Populate GUI panel with pickaxe details
         gui.innerHTML = `
             <div class="guiSubContainer"></div>
             <div class="guiText ${normalizedPickaxeName}"> > ${pickaxe.name} </div>
@@ -81,19 +72,15 @@ async function initializePickaxes() {
         `;
         mainGuiContainer.appendChild(gui);
 
-        // Attach toggle functionality to each button to show/hide GUI
         button.onclick = () => toggleGUI(button, gui);
 
-        // Attach functionality to craft button inside the GUI
         const craftButton = gui.querySelector(`.craftButton.${normalizedPickaxeName}`);
         craftButton.onclick = () => handleCraftButtonClick(craftButton, pickaxe, craftPickaxe, equipPickaxe);
 
-        // Initialize button text for crafted pickaxes
         initCraftButton(craftButton, pickaxe);
     }
 }
 
-// Function to initialize craft button text and style
 function initCraftButton(button, pickaxe) {
     if (ownedPickaxes[pickaxe.name]) {
         button.textContent = "Equip";
@@ -101,7 +88,6 @@ function initCraftButton(button, pickaxe) {
     }
 }
 
-// Unequip all pickaxes function
 function unequipAllPickaxes() {
     for (let pickaxe in ownedPickaxes) {
         if (ownedPickaxes[pickaxe].equipped) {
@@ -116,7 +102,6 @@ function unequipAllPickaxes() {
     }
 }
 
-// Toggle GUI visibility with animation
 function toggleGUI(button, gui) {
     if (gui.style.visibility === "hidden") {
         gui.style.visibility = "visible";
@@ -141,7 +126,6 @@ function toggleGUI(button, gui) {
     }
 }
 
-// Handle craft button click event
 function handleCraftButtonClick(button, pickaxeObject, craftFunction, equipFunction) {
     const recipe = pickaxeObject.recipe;
 
@@ -166,5 +150,4 @@ function handleCraftButtonClick(button, pickaxeObject, craftFunction, equipFunct
     }
 }
 
-// Initialize pickaxes on page load
 document.addEventListener('DOMContentLoaded', initializePickaxes);
