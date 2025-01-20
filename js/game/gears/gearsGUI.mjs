@@ -7,7 +7,7 @@ const gearFiles = [
     "./gearfiles/bismuthblastbeverage.mjs",
     "./gearfiles/whackywombochips.mjs",
     "./gearfiles/magnesiumreactorcore.mjs",
-    "./gearfiles/wheeloffate.mjs",
+    //"./gearfiles/wheeloffate.mjs",
 ];
 
 const buttonContainer = document.querySelector('.guiContainerGears .guiGearsMain');
