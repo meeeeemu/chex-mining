@@ -42,7 +42,7 @@ oh boy tier 6...
 > Calcite, Tier: Common, Rarity: 1/25 <br>
 > Sphalerite, Tier: Common, Rarity: 1/35 <br>
 > Opal, Tier: Common, Rarity: 1/855 <br>
-> Kaolinite, Tier: Common, Rarity: 1/900 <br> <br>
+> Kaolinite, Tier: Common, Rarity: 1/900 <br>
 
 > Ilmenite, Tier: Uncommon, Rarity: 1/2000 <br>
 > Bornite, Tier: Uncommon, Rarity: 1/4000 <br>
@@ -51,16 +51,16 @@ oh boy tier 6...
 > Coltanite, Tier: Rare, Rarity: 1/13,500 <br>
 > Zircon, Tier: Rare, Rarity: 1/26,500 <br>
 > Bohrium, Tier: Rare, Rarity: 1/31,520 <br>
-> Carnotite, Tier: Rare, Rarity: 1/32,000 <br> <br>
+> Carnotite, Tier: Rare, Rarity: 1/32,000 <br>
 
 > Wumbus Maximus, Tier: Unreal, Rarity: 1/500,500 <br>
 > Chronolium, Tier: Unreal, Rarity: 1/888,888 <br> <br>
 
-> Fracture of Normality, Tier: Pristine, Rarity: 1/14,777,777 <br> <br>
+> Fracture of Normality, Tier: Pristine, Rarity: 1/14,777,777 <br>
 
-> Conflux, Tier: Pure, Rarity: 1/41,121,100 <br> <br>
+> Conflux, Tier: Pure, Rarity: 1/41,121,100 <br>
 
-> Phasecore, Tier: Angelic, Rarity: 1/800,000,000 <br> <br>
+> Phasecore, Tier: Angelic, Rarity: 1/800,000,000 <br>
 
 > The End, Tier: Dreamlike, Rarity: 1/??????????? <br>
 > The Truth, Tier: Dreamlike, Rarity: 1/???????????
