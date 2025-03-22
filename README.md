@@ -38,31 +38,31 @@ oh boy tier 6...
 
 ## New Ores:
 
-> Graphite, Tier: Common, Rarity: 1/7
-> Calcite, Tier: Common, Rarity: 1/25
-> Sphalerite, Tier: Common, Rarity: 1/35
-> Opal, Tier: Common, Rarity: 1/855
-> Kaolinite, Tier: Common, Rarity: 1/900
-
-> Ilmenite, Tier: Uncommon, Rarity: 1/2000
-> Bornite, Tier: Uncommon, Rarity: 1/4000
-> Hematite, Tier: Uncommon, Rarity: 1/7900
-
-> Coltanite, Tier: Rare, Rarity: 1/13,500
-> Zircon, Tier: Rare, Rarity: 1/26,500
-> Bohrium, Tier: Rare, Rarity: 1/31,520
-> Carnotite, Tier: Rare, Rarity: 1/32,000
-
-> Wumbus Maximus, Tier: Unreal, Rarity: 1/500,500
-> Chronolium, Tier: Unreal, Rarity: 1/888,888
-
-> Fracture of Normality, Tier: Pristine, Rarity: 1/14,777,777
-
-> Conflux, Tier: Pure, Rarity: 1/41,121,100
-
-> Phasecore, Tier: Angelic, Rarity: 1/800,000,000
-
-> The End, Tier: Dreamlike, Rarity: 1/???????????
+> Graphite, Tier: Common, Rarity: 1/7 <br>
+> Calcite, Tier: Common, Rarity: 1/25 <br>
+> Sphalerite, Tier: Common, Rarity: 1/35 <br>
+> Opal, Tier: Common, Rarity: 1/855 <br>
+> Kaolinite, Tier: Common, Rarity: 1/900 <br>
+<br>
+> Ilmenite, Tier: Uncommon, Rarity: 1/2000 <br>
+> Bornite, Tier: Uncommon, Rarity: 1/4000 <br>
+> Hematite, Tier: Uncommon, Rarity: 1/7900 <br>
+<br>
+> Coltanite, Tier: Rare, Rarity: 1/13,500 <br>
+> Zircon, Tier: Rare, Rarity: 1/26,500 <br>
+> Bohrium, Tier: Rare, Rarity: 1/31,520 <br>
+> Carnotite, Tier: Rare, Rarity: 1/32,000 <br>
+<br>
+> Wumbus Maximus, Tier: Unreal, Rarity: 1/500,500 <br>
+> Chronolium, Tier: Unreal, Rarity: 1/888,888 <br>
+<br> 
+> Fracture of Normality, Tier: Pristine, Rarity: 1/14,777,777 <br>
+<br>
+> Conflux, Tier: Pure, Rarity: 1/41,121,100 <br>
+<br>
+> Phasecore, Tier: Angelic, Rarity: 1/800,000,000 <br>
+<br>
+> The End, Tier: Dreamlike, Rarity: 1/??????????? <br>
 > The Truth, Tier: Dreamlike, Rarity: 1/???????????
 
 ## Other Changes and New Things:
