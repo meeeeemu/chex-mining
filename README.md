@@ -4,7 +4,7 @@ because of this, you may need to reset your save after each update if the game f
 
 HOPEFULLY after v0.2.0, there shouldnt be a need anymore to do this
 
-# Chex Mining - v0.3.0-alpha:
+# Chex Mining - v0.3.1-alpha:
 
 hello!
 
