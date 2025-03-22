@@ -54,7 +54,7 @@ oh boy tier 6...
 > Carnotite, Tier: Rare, Rarity: 1/32,000 <br>
 
 > Wumbus Maximus, Tier: Unreal, Rarity: 1/500,500 <br>
-> Chronolium, Tier: Unreal, Rarity: 1/888,888 <br> <br>
+> Chronolium, Tier: Unreal, Rarity: 1/888,888 <br>
 
 > Fracture of Normality, Tier: Pristine, Rarity: 1/14,777,777 <br>
 
@@ -103,7 +103,7 @@ oh boy tier 6...
 
 > fixed a bug with the inventory not correctly sorting ores
 
-> fixed a bug with gear block mining where putting "0" as the luck in the selectRandomOre function would not mine anything, as the base luck (1) was not being accounted for, causing the luck calculation to divide by zero and Infinity
+> fixed a bug with gear block mining where putting "0" as the luck in the selectRandomOre function would not mine anything, as the base luck (1) was not being accounted for, causing the luck calculation to divide by zero and return Infinity
 
 > fixed the recipe for chexium matter manipulator being in the wrong order
 
