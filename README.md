@@ -6,44 +6,104 @@ HOPEFULLY after v0.2.0, there shouldnt be a need anymore to do this
 
 # Chex Mining - v0.3.0-alpha:
 
-GARGANTUAN REBALANCE
+hello!
 
-## The Big Update
+what a nutso time to be alive, alot has changed! yet again:
 
-there was TOO much stuff changed in this update, lets start off with new pickaxes!
+things i've added:
 
-# Pickaxes
+## Pickaxes:
 
-## Casino Crusher (Tier 5)
+### Chexonic Spellbook (Tier 6)
 
-Luck: x1.1
-Speed: 110ms
-Blocks Mined: 2
+oh boy tier 6...
 
-## Chexium Matter Manipulator (Tier 5)
+> Luck: +0.5x
 
-Luck: 1.85x
-Speed: 500ms
-Blocks Mined: 4
+> Speed: 2 Blocks / 0.2s
 
-# Gears
+## Gears:
 
-## Magnesium Reactor Core (Tier 3)
+### Wheel of Fate (Tier 4)
 
-it's just clay coil 2.0, boosts mining speed by 30 but has a 1/150 chance to pause mining for two seconds
+> Positive: Has a 1/400 chance to pause mining and spin a wheel which contains many effects.
 
-## Whacky Wombo Chips (Tier 2)
+> Negative: Effects can be good or bad.
 
-has a 1/100 chance to duplicate any master-tier ore (or below)
-upon duplication, mining is paused for one second
+### Chexium Chronograph
 
-# behind the scenes changes
+> Positive: Has a 1/250 chance to give +0.01x to +0.2x luck for 10 seconds depending on the time of day. (+0.2x happens at 12:00PM, +0.01x happens at 12:00AM, times are local to your timezone)
 
-Fucking Everything
+> Negative: The luck of this gear is entirely dependant on the time of the actual physical day. (fix your sleep schedule)
 
-Everything has changed
+## New Ores:
 
-i practically rewrote the entire games gui logic to now automatically create gui elements for each pickaxe and gear file
+> Graphite, Tier: Common, Rarity: 1/7
+> Calcite, Tier: Common, Rarity: 1/25
+> Sphalerite, Tier: Common, Rarity: 1/35
+> Opal, Tier: Common, Rarity: 1/855
+> Kaolinite, Tier: Common, Rarity: 1/900
 
+> Ilmenite, Tier: Uncommon, Rarity: 1/2000
+> Bornite, Tier: Uncommon, Rarity: 1/4000
+> Hematite, Tier: Uncommon, Rarity: 1/7900
 
+> Coltanite, Tier: Rare, Rarity: 1/13,500
+> Zircon, Tier: Rare, Rarity: 1/26,500
+> Bohrium, Tier: Rare, Rarity: 1/31,520
+> Carnotite, Tier: Rare, Rarity: 1/32,000
+
+> Wumbus Maximus, Tier: Unreal, Rarity: 1/500,500
+> Chronolium, Tier: Unreal, Rarity: 1/888,888
+
+> Fracture of Normality, Tier: Pristine, Rarity: 1/14,777,777
+
+> Conflux, Tier: Pure, Rarity: 1/41,121,100
+
+> Phasecore, Tier: Angelic, Rarity: 1/800,000,000
+
+> The End, Tier: Dreamlike, Rarity: 1/???????????
+> The Truth, Tier: Dreamlike, Rarity: 1/???????????
+
+## Other Changes and New Things:
+
+> <b>Slightly</b> nerfed chexium matter manipulator (500 mining speed -> 550)
+
+> added new ore log! i didnt much like how when mining you couldnt see all the ores you got, plus its quite fancy
+
+> revamped the ore index to be able to handle more ores
+
+> generally improved the dynamic gui handling
+
+> added a failsafe for if your safe is outdated
+
+> added new gear effects for both wheel of fate and chexium chronograph
+
+> added a new song
+
+> added a new temporary gear bonuses object to store temporary bonuses that may come from gears
+
+> changed mining logic to allow for better stopping and starting
+
+> general html and css improvements
+
+> moved away from using ga.jspm.io for imports, now using esm.sh and jsdelivr
+
+> removed the ore display at the top left, its now just pickaxe and gear
+
+> added new spawn messages and effects for higher tier ores, changed the colors too 
+
+## Fixes:
+
+> fixed a bug where spawn animations and effects were overlapping and causing problems, they now interrupt each other
+
+> fixed a bug with luck where your luck could go into negatives and overflow
+
+> fixed a calculation with luck, luck wasnt actually being calculated correctly this entire time and the player had way more luck than they should have
+
+> fixed a bug with the inventory not correctly sorting ores
+
+> fixed a bug with gear block mining where putting "0" as the luck in the selectRandomOre function would not mine anything, as the base luck (1) was not being accounted for, causing the luck calculation to divide by zero and Infinity
+
+> fixed the recipe for chexium matter manipulator being in the wrong order
 
