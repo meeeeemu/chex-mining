@@ -42,101 +42,123 @@ const chillSpawnText = {
 
 let animPlayed = false;
 
+function resetAnimations() {
+    anime.remove(topbarAlert);
+    anime.remove(effectLayer);
+    anime.remove(document.querySelector('html'));
+
+    topbarAlert.textContent = "";
+    effectLayer.style.visibility = 'hidden';
+}
+
 function handleSpawnEffects(oreObj) {
-    Object.values(oreObj).some(oreData => {
+    let foundRareOre = false;
+
+    Object.values(oreObj).forEach(oreData => {
         const audioSource = audioSources[oreData.tier];
-        if(audioSource) {
-            audioElement.src = audioSources[oreData.tier];
+        const chillText = chillSpawnText[oreData.tier];
+
+        if (audioSource) {
+            audioElement.src = audioSource;
             audioElement.load();
             audioElement.play();
         }
-        const chillText = chillSpawnText[oreData.tier];
-        if(chillText && !animPlayed) {
-            animPlayed = true;
+
+        if (chillText) {
+            foundRareOre = true;
+
+            // reset before starting a new effect
+            resetAnimations();
+
             topbarAlert.textContent = chillText.text;
             topbarAlert.style.color = chillText.color;
             effectLayer.style['background-color'] = chillText.color;
             effectLayer.style.visibility = 'visible';
 
-            var flashEffect = anime.timeline({
+            let flashEffect = anime.timeline({
                 targets: effectLayer,
                 easing: 'easeInOutExpo',
-            })
+            });
 
-            var topbarAnimChillTimeline = anime.timeline({
+            let topbarAnimChillTimeline = anime.timeline({
                 targets: topbarAlert,
                 easing: 'easeInOutExpo',
-            })
+            });
 
-            var effectSpawn = anime.timeline({
+            let effectSpawn = anime.timeline({
                 targets: 'html',
                 easing: 'easeInOutExpo',
-            })
-        
+            });
+
             topbarAnimChillTimeline.add({
-                opacity: [0,1],
-                scale: [1,2],
+                opacity: [0, 1],
+                scale: [1, 2],
                 duration: 650
-            })
+            });
 
             effectSpawn.add({
-                filter: ['blur(5px)','blur(0px)'],
+                filter: ['blur(5px)', 'blur(0px)'],
                 duration: 2000,
-            })
+            });
 
             flashEffect.add({
-                opacity: [0,0.4],
-                scale: [0.8,1],
+                opacity: [0, 0.4],
+                scale: [0.8, 1],
                 duration: 100
-            })
+            });
 
             flashEffect.add({
-                opacity: [0.4,0],
+                opacity: [0.4, 0],
                 duration: 3500,
                 complete: function() {
                     effectLayer.style.visibility = 'hidden';
                 }
-            })
-        
+            });
+
             topbarAnimChillTimeline.add({
-                opacity: [1,0],
-                scale: [2,1],
+                opacity: [1, 0],
+                scale: [2, 1],
                 duration: 5000,
                 complete: function() {
                     topbarAlert.textContent = "";
-                    animPlayed = false;
                 }
-            })
-
-            return true;
+            });
         }
     });
+
+    // reset animPlayed so effects always trigger
+    if (foundRareOre) {
+        animPlayed = false;
+    }
 }
 
 function caveSpawn(caveSize, caveName) {
+    // reset before playing cave effect
+    resetAnimations();
+
     console.log(caveSize, caveName);
     audioElementCaveSpawn.play();
     topbarAlert.textContent = `A cave has spawned! Cave Size: ${caveSize}, Type: ${caveName}`;
-    var topbarAnimTimeline = anime.timeline({
+
+    let topbarAnimTimeline = anime.timeline({
         targets: topbarAlert,
         easing: 'easeInOutExpo',
-    })
+    });
 
     topbarAnimTimeline.add({
-        opacity: [0,1],
-        scale: [1.25,1.5],
+        opacity: [0, 1],
+        scale: [1.25, 1.5],
         duration: 650
-    })
+    });
 
     topbarAnimTimeline.add({
-        opacity: [1,0],
-        scale: [1.5,1.25],
+        opacity: [1, 0],
+        scale: [1.5, 1.25],
         duration: 2500,
         complete: function() {
             topbarAlert.textContent = "";
         }
-    })
+    });
 }
-
 
 export { handleSpawnEffects, caveSpawn }

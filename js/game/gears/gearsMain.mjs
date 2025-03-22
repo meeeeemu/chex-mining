@@ -1,10 +1,11 @@
 import { inventory } from "../inventoryHandler.mjs"
 import { setCurrentGearGame } from "../mainGame.mjs"
 import { bismuthBlastBeverage } from "./gearfiles/bismuthblastbeverage.mjs";
+import { ChexiumChronograph } from "./gearfiles/chexiumchronograph.mjs";
 import { clayCoil } from "./gearfiles/claycoil.mjs";
 import { magnesiumReactorCore } from "./gearfiles/magnesiumreactorcore.mjs";
 import { whackyWomboChips } from "./gearfiles/whackywombochips.mjs";
-// import { wheelOfFate } from "./gearfiles/wheeloffate.mjs";
+import { wheelOfFate } from "./gearfiles/wheeloffate.mjs";
 
 var ownedGears = {};
 
@@ -27,8 +28,10 @@ function updateGUIGearRecipe(inventory, gear) {
 
             if (inventoryQuantity >= requiredQuantity) {
                 recipeElement.classList.add("complete");
+                recipeElement.style.color = "lime";
             } else {
                 recipeElement.classList.remove("complete");
+                recipeElement.style.color = "red";
             }
         }
     }
@@ -45,7 +48,8 @@ var gearRecipesToUpdate = [
     bismuthBlastBeverage,
     whackyWomboChips,
     magnesiumReactorCore,
-    //wheelOfFate,
+    wheelOfFate,
+    ChexiumChronograph,
 ];
 
 var gearUpdateLoop = setInterval(() => {

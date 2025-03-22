@@ -18,33 +18,59 @@ var inventory = {
 
 const inventoryContainer = document.querySelector('.guiInventoryMain');
 
-function appendToInventoryGUI() {
-    inventoryContainer.innerHTML = '';
-
-    let tierOrder = {
+function appendToInventoryGUI(updatedOre = null) {
+    const tierOrder = {
         common: 11, uncommon: 10, rare: 9, master: 8,
         unreal: 7, exotic: 6, pristine: 5, pure: 4,
         virtuous: 3, angelic: 2, dreamlike: 1
     };
 
-    let sortedOreNames = Object.keys(inventory).sort((a, b) => {
-        let tierA = tierOrder[inventory[a].obj.tier];
-        let tierB = tierOrder[inventory[b].obj.tier];
-        return tierA - tierB;
-    });
+    if (!updatedOre) {
+        inventoryContainer.innerHTML = ''; 
+        Object.keys(inventory)
+            .sort((a, b) => tierOrder[inventory[a].obj.tier] - tierOrder[inventory[b].obj.tier])
+            .forEach(oreName => addOreToGUI(oreName, tierOrder));
+    } else {
+        addOreToGUI(updatedOre, tierOrder);
+    }
+}
 
-    sortedOreNames.forEach(oreName => {
-        let { obj, quantity } = inventory[oreName];
+function addOreToGUI(oreName, tierOrder) {
+    if (!inventory[oreName]) {
+        console.warn(`Warning: ${oreName} not found in inventory.`);
+        return;
+    }
 
-        let displayName = oreName.replace(/-/g, ' ').replace(/_/g, '.');
+    let { obj, quantity } = inventory[oreName];
+    let displayName = oreName.replace(/-/g, ' ').replace(/_/g, '.');
 
+    let existingOre = document.querySelector(`.guiInventoryMain .ore-${oreName}`);
+
+    if (existingOre) {
+        existingOre.textContent = `${displayName}: ${quantity}`;
+    } else {
         let invDiv = document.createElement('div');
         invDiv.textContent = `${displayName}: ${quantity}`;
-        invDiv.className = `${obj.tier}`;
-    
-        inventoryContainer.appendChild(invDiv);
-    });
+        invDiv.className = `ore-${oreName} ${obj.tier}`;
+
+        let inserted = false;
+        for (let child of inventoryContainer.children) {
+            let childOreName = child.classList[0]?.replace('ore-', '');
+            if (!inventory[childOreName]) continue;
+
+            if (tierOrder[obj.tier] < tierOrder[inventory[childOreName].obj.tier]) {
+                inventoryContainer.insertBefore(invDiv, child);
+                inserted = true;
+                break;
+            }
+        }
+
+        if (!inserted) {
+            inventoryContainer.appendChild(invDiv);
+        }
+    }
 }
+
 
 function addOrefromSaveData(oreObject, quantity) {
     var oreName = oreObject.Name; 
@@ -70,7 +96,7 @@ function addOre(oreObject, isMined) {
     
         var inventoryOreTier = inventory[oreName]['obj'].tier
     
-        appendToInventoryGUI(oreData, inventoryOreTier)
+        appendToInventoryGUI(oreName);
 
     });
 

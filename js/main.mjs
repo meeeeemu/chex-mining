@@ -22,6 +22,7 @@ window.onload = () => {
         "./media/geothermal.mp3",
         "./media/heartwarmth.mp3",
         "./media/observatory.mp3",
+        "./media/addiction.mp3",
     ];
 
     const setRandomMusic = () => {

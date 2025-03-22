@@ -14,13 +14,13 @@
 
         <script type="importmap">
             {
-                "imports": {
-                  "animejs": "https://ga.jspm.io/npm:animejs@3.2.2/lib/anime.es.js",
-                  "interactjs": "https://ga.jspm.io/npm:interactjs@1.10.27/dist/interact.min.js",
-                  "perfect-scrollbar": "https://ga.jspm.io/npm:perfect-scrollbar@1.5.5/dist/perfect-scrollbar.esm.js",
-                  "three": "https://ga.jspm.io/npm:three@0.166.0/build/three.module.js",
-                  "fractional": "https://ga.jspm.io/npm:fractional@1.0.0/index.js"
-                }
+              "imports": {
+                "animejs": "https://esm.sh/animejs@3.2.2",
+                "interactjs": "https://esm.sh/interactjs@1.10.27",
+                "perfect-scrollbar": "https://esm.sh/perfect-scrollbar@1.5.5",
+                "three": "https://esm.sh/three@0.166.0",
+                "spinwheel.js": "https://cdn.jsdelivr.net/npm/spin-wheel@5.0.2/dist/spin-wheel-esm.js"
+              }
             }
         </script>
 
@@ -146,10 +146,8 @@
                 <div class="bgSquare"></div>
             </div>
 
-            <div class="mainGuiText lastOreMined"> > Last Ore Mined: </div> <div class="mainGuiText lastOreMinedVal"></div>
             <div class="mainGuiText pickaxeLabel"> > Using Pickaxe: </div> <div class="mainGuiText pickaxeLabelVal">Default Pickaxe (Tier 0)</div>
             <div class="mainGuiText gearLabel"> > Using Gear: </div> <div class="mainGuiText gearLabelVal"> N/A </div>
-            <div class="mainGuiText oreRarity"> > Last Ore Rarity: </div> <div class="mainGuiText lastOreRarityVal"></div>
 
             <button class="settingsButton"></button>
             <button class="oreIndexButton"></button>
@@ -198,6 +196,16 @@
 
             </div>
 
+        </div>
+
+        <!-- ORE LOG GUI STARTS HERE -->
+
+        <div class="oreLog draggable">
+            <div class="guiSubContainer"></div>
+
+            <div class="guiText"> > Fancy Ore Log </div>
+
+            <div class="guiOreLogMain"></div>
         </div>
 
         <!-- PICKAXE GUI STARTS HERE -->

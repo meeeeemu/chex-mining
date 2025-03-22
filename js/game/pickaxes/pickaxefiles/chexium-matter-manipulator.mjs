@@ -4,27 +4,28 @@ const ChexiumMatterManipulator = new Pickaxe(
     "Chexium Matter Manipulator", // name
     {  // bonuses
         "Luck": 0.85,
-        "Speed": 500,
+        "Speed": 550,
         "Blocks_Mined": 4 // 4 blocks per 0.5 seconds
     },
     5, // tier
-    {  // recipe
-        "Chexium": { quantity: 85000 },
-        "Iron": { quantity: 23000 },
-        "Diamond": { quantity: 1550 },
-        "Virotite": { quantity: 350 },
-        "Combrolium": { quantity: 340 },
-        "Cyprine": { quantity: 55 },
-        "Fragment-of-Molten-Core": { quantity: 23 },
-        "Azurite": { quantity: 20 },
-        "Magneon": { quantity: 14 },
-        "Cobgenual": { quantity: 11 },
-        "Gallonite": { quantity: 8 },
-        "Areskinite": { quantity: 3 },
-        "Gallinium": { quantity: 3 },
-        "Shard-of-Saturated-Crystal": { quantity: 2 },
-        "Fractured-Shard-of-Normality": { quantity: 1 }
-    },
+    { //recipe
+        "Fractured-Shard-of-Normality": { "quantity": 1 },
+        "Shard-of-Saturated-Crystal": { "quantity": 2 },
+        "Areskinite": { "quantity": 3 },
+        "Gallinium": { "quantity": 3 },
+        "Gallonite": { "quantity": 8 },
+        "Cobgenual": { "quantity": 11 },
+        "Magneon": { "quantity": 14 },
+        "Azurite": { "quantity": 20 },
+        "Fragment-of-Molten-Core": { "quantity": 23 },
+        "Cyprine": { "quantity": 55 },
+        "Combrolium": { "quantity": 340 },
+        "Virotite": { "quantity": 350 },
+        "Diamond": { "quantity": 1550 },
+        "Iron": { "quantity": 23000 },
+        "Chexium": { "quantity": 85000 }
+    }
+    ,
     "this chex device can manipulate the matter of the ores themselves, allowing you to get the ores you actually want (the luck holy moly) <br><br>",
 );
 

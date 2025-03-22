@@ -1,3 +1,4 @@
+import anime from 'animejs';
 import { selectRandomOre, oreDef } from "./oreDef.mjs";
 import { addOre } from "./inventoryHandler.mjs";
 import { handleSpawnEffects } from "./spawnEffects.mjs";
@@ -17,7 +18,7 @@ import { gameSettings } from "./settingsHandler.mjs";
 // have fun looking through my probably absolutely GARBAGE code :)
 // take what you like if you find it useful, no need for credits
 
-const VERSION = "v0.2.1-alpha"
+const VERSION = "v0.2.2-alpha"
 
 document.querySelector('.version').textContent = `Version: ${VERSION}`;
 
@@ -32,6 +33,12 @@ const mineButton = document.querySelector('.pickaxeButton')
 // player's items
 var CURRENT_PICKAXE = pickaxeObjectDefault;
 var CURRENT_GEAR = null;
+
+const temporaryGearBonuses = {
+    luck: 0,
+    miningSpeed: 0
+};
+
 
 // base stats
 const BASE_LUCK = 1;
@@ -54,10 +61,9 @@ var isMining = 0;
 var miningInterval;
 
 function stopMining() {
-    mineButton.classList.add('notMining');
+    isMining = false;
     mineButton.classList.remove('mining');
-    clearInterval(miningInterval);
-    isMining = 0;
+    mineButton.classList.add('notMining');
 }
 
 function resetBonuses() {
@@ -73,6 +79,10 @@ function calcTotalBonuses() {
         MINING_SPEED += CURRENT_GEAR.bonuses["Speed"] || 0;
         MINE_BLOCK_AMOUNT += CURRENT_GEAR.bonuses["Blocks_Mined"] || 0;
     }
+    PICKAXE_LUCK_ADD += temporaryGearBonuses.luck;
+    MINING_SPEED += temporaryGearBonuses.miningSpeed;
+    if (PICKAXE_LUCK_ADD < 0) PICKAXE_LUCK_ADD = 0;
+    if (MINING_SPEED < 0) MINING_SPEED = 0;
     console.log("Total Luck: ", PICKAXE_LUCK_ADD);
     console.log("Mining Speed: ", MINING_SPEED);
 }
@@ -98,21 +108,81 @@ function stopMiningifChill(oreObjects, interval) {
         const shouldStopMining = Object.values(oreObjects).some(oreData => chillTiers.has(oreData.tier));
         if(shouldStopMining) {
             console.log("hey there! see what you got!");
-            mineButton.classList.add('notMining')
-            mineButton.classList.remove('mining')
-            clearInterval(interval)
-            isMining = 0;
+            stopMining();
         }
     }
 }
 
 function handleOreText(oreObj) {
+    let oreLogContainer = document.querySelector(".guiOreLogMain");
+
     Object.entries(oreObj).forEach(([oreName, oreData]) => {
         let displayOre = oreName.replace(/-/g, ' ').replace(/_/g, '.');
-        lastOreMinedVal.textContent = `${displayOre}`;
-        lastOreRarityVal.textContent = `${oreData.stringRarity}`
+
+        let existingEntry = Array.from(oreLogContainer.children).find(entry =>
+            entry.dataset.oreName === oreName
+        );
+
+        if (existingEntry) {
+            let count = parseInt(existingEntry.dataset.count) + 1;
+            existingEntry.dataset.count = count;
+            existingEntry.dataset.lastUpdate = Date.now();
+            existingEntry.textContent = `+${count} ${displayOre} (${oreData.stringRarity})`;
+
+            anime({
+                targets: existingEntry,
+                opacity: [0.6, 1],
+                translateX: [-5, 0],
+                duration: 300,
+                easing: "easeOutQuad"
+            });
+
+        } else {
+            let oreEntry = document.createElement("div");
+            oreEntry.classList.add("oreEntry", oreData.tier);
+            oreEntry.dataset.oreName = oreName;
+            oreEntry.dataset.count = 1;
+            oreEntry.dataset.lastUpdate = Date.now();
+            oreEntry.textContent = `+1 ${displayOre} (${oreData.stringRarity})`;
+
+            oreLogContainer.prepend(oreEntry);
+
+            anime({
+                targets: oreEntry,
+                opacity: [0, 1],
+                translateY: [2, 0],
+                duration: 400,
+                easing: "easeOutQuad"
+            });
+        }
+
+        while (oreLogContainer.children.length > 11) {
+            oreLogContainer.lastChild.remove();
+        }
     });
 }
+
+setInterval(() => {
+    let oreLogContainer = document.querySelector(".guiOreLogMain");
+    let now = Date.now();
+
+    Array.from(oreLogContainer.children).forEach(entry => {
+        let lastUpdate = parseInt(entry.dataset.lastUpdate || 0);
+
+        if (now - lastUpdate >= 5000) { // 5 seconds of inactivity
+            anime({
+                targets: entry,
+                opacity: [1, 0],
+                scaleY: [1, 0],
+                duration: 500,
+                easing: "easeInQuad",
+                complete: () => entry.remove()
+            });
+        }
+    });
+}, 1000);
+
+
 
 mineButton.onclick = () => {
     if(isMining == 0) {
@@ -126,8 +196,11 @@ mineButton.onclick = () => {
 }
 
 function startMining() {
-    isMining = 1;
-    miningInterval = setInterval(() => {
+    isMining = true;
+
+    function mineCycle() {
+        if (!isMining) return;
+
         let selectedOreObject = selectRandomOre(oreDef, BASE_LUCK + PICKAXE_LUCK_ADD, MINE_BLOCK_AMOUNT);
         if (CURRENT_GEAR && CURRENT_GEAR.applyEffect) {
             CURRENT_GEAR.applyEffect(mineButton, selectedOreObject);
@@ -137,9 +210,13 @@ function startMining() {
         stopMiningifChill(selectedOreObject, miningInterval);
         addOre(selectedOreObject, true);
         saveGame();
-    }, MINING_SPEED);
+
+        setTimeout(mineCycle, MINING_SPEED);
+    }
+
+    mineCycle();
 }
 
 calcTotalBonuses()
 
-export {setCurrentPickGame, setCurrentGearGame, startMining, stopMining, isMining, audioElementSFX}
+export {setCurrentPickGame, setCurrentGearGame, startMining, stopMining, isMining, audioElementSFX, calcTotalBonuses, temporaryGearBonuses, miningInterval, handleOreText}

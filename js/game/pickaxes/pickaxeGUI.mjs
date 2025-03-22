@@ -12,7 +12,8 @@ const pickaxeFiles = [
     "./pickaxefiles/chexglow-dagger.mjs",
     "./pickaxefiles/chexstick.mjs",
     "./pickaxefiles/casino-crusher.mjs",
-    "./pickaxefiles/chexium-matter-manipulator.mjs"
+    "./pickaxefiles/chexium-matter-manipulator.mjs",
+    "./pickaxefiles/chexonic-spellbook.mjs",
 ];
 
 const buttonContainer = document.querySelector('.buttonGroup');

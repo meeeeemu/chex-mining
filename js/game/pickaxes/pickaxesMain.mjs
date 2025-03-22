@@ -10,6 +10,7 @@ import { ChexglowDagger } from "./pickaxefiles/chexglow-dagger.mjs";
 import { Chexstick } from "./pickaxefiles/chexstick.mjs";
 import { CasinoCrusher } from "./pickaxefiles/casino-crusher.mjs";
 import { ChexiumMatterManipulator } from "./pickaxefiles/chexium-matter-manipulator.mjs";
+import { ChexonicSpellbook } from "./pickaxefiles/chexonic-spellbook.mjs";
 
 //         _                 _ _ _ 
 //        | |               | | | |
@@ -71,7 +72,8 @@ var gearRecipesToUpdate = [
     Womboaxe,
     ChexglowDagger,
     CasinoCrusher,
-    ChexiumMatterManipulator
+    ChexiumMatterManipulator,
+    ChexonicSpellbook
 ];
 
 var pickaxeUpdateLoop = setInterval(() => {

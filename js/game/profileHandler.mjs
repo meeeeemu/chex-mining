@@ -36,8 +36,28 @@ function saveGame() {
     
         localStorage.setItem("save", btoa(JSON.stringify(dataToSave)));
     } catch (err) {
-        if (confirm("error detected with saved data, your data could be outdated, would you like to reset?")) {
-            resetGame();
+        if (confirm("error detected with saved data, your data could be outdated, would you like to download your data and refresh?")) {
+            let base64Data = localStorage.getItem('save');
+
+            let binaryData = atob(base64Data);
+            let binLength = binaryData.length;
+            let bytes = new Uint8Array(binLength);
+        
+            for (let i = 0; i < binLength; i++) {
+                bytes[i] = binaryData.charCodeAt(i);
+            }
+        
+            let blob = new Blob([bytes], { type: 'application/octet-stream' });
+        
+            let dlLink = document.createElement('a');
+            dlLink.href = URL.createObjectURL(blob);
+            dlLink.download = `chexData-${new Date().toISOString().slice(0, 10)}.bin`;
+            dlLink.click();
+        
+            URL.revokeObjectURL(dlLink.href);
+            setTimeout(() => {
+                location.reload();
+            }, 5000);    
         } else {
             return;
         }

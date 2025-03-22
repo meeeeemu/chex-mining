@@ -7,7 +7,8 @@ const gearFiles = [
     "./gearfiles/bismuthblastbeverage.mjs",
     "./gearfiles/whackywombochips.mjs",
     "./gearfiles/magnesiumreactorcore.mjs",
-    //"./gearfiles/wheeloffate.mjs",
+    "./gearfiles/wheeloffate.mjs",
+    "./gearfiles/chexiumchronograph.mjs",
 ];
 
 const buttonContainer = document.querySelector('.guiContainerGears .guiGearsMain');
@@ -46,7 +47,7 @@ async function initializeGears() {
         gui.innerHTML = `
             <div class="guiSubContainer"></div>
             <div class="guiText ${normalizedGearName}"> > ${name} </div>
-            <div class="guiGearsMain buttonGroup">
+            <div class="guiGearsMain">
                 <div class="guiGearInfo">
                     <div>${module.gearDescription || 'No description available.'}</div>
                     <br>

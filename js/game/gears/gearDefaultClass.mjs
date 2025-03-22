@@ -1,15 +1,27 @@
+//         _                 _ _ _ 
+//        | |               | | | |
+//    __ _| |__   ___  _   _| | | |
+//   / _` | '_ \ / _ \| | | | | | |
+//  | (_| | | | | (_) | |_| |_|_|_|
+//   \__,_|_| |_|\___/ \__, (_|_|_)
+//                      __/ |      
+//                     |___/       
+
+// have fun looking through my probably absolutely GARBAGE code :)
+// take what you like if you find it useful, no need for credits
+
 import { addOre } from "../inventoryHandler.mjs";
-import { startMining, stopMining, isMining, audioElementSFX } from "../mainGame.mjs";
+import anime from 'animejs';
+import { startMining, stopMining, isMining, audioElementSFX, calcTotalBonuses, temporaryGearBonuses, handleOreText } from "../mainGame.mjs";
 import { oreDef, selectRandomOre } from "../oreDef.mjs";
 import { gameSettings } from "../settingsHandler.mjs";
-import anime from "animejs";
-
+import { Wheel } from 'spinwheel.js';
+import { easeOutCubic } from '../../lib/easing.js'
 let lastEffectTimestamp = 0;
 
 function getRandomArbitrary(min, max) {
-    return Math.random() * (max - min) + min;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-  
 
 class Gear {
     constructor(name, bonuses, penalties, tier, effect, recipe, gearDescription, bonusDescription, penaltyDescription) {
@@ -65,7 +77,7 @@ class Gear {
             ClayCoilEffect: function (button, oreobj) { // effect
                 let currentTime = Date.now();
                 if ((currentTime - lastEffectTimestamp >= 2000) && Math.random() < 1 / 100) {
-                    if (isMining == 1) {
+                    if (isMining == true) {
                         button.disabled = true;
                         button.classList.remove('mining');
                         button.classList.add('paused');
@@ -89,11 +101,13 @@ class Gear {
             BismuthBlastBeverageEffect: function (button, oreobj) {
                 let currentTime = Date.now();
                 if ((currentTime - lastEffectTimestamp >= 2000) && Math.random() < 1 / 40) {
-                    console.log("bbb go");
                     if (!gameSettings.muteGearSounds) audioElementSFX.play();
                     let minedBlocks = getRandomArbitrary(40, 50);
-                    let selectedOreObject = selectRandomOre(oreDef, 0.85, minedBlocks);
+                    console.log(minedBlocks)
+                    let selectedOreObject = selectRandomOre(oreDef, 0.85, minedBlocks); // 0.85x luck
+                    console.log(selectedOreObject);
                     addOre(selectedOreObject, true);
+                    handleOreText(selectedOreObject, true);
                 }
             },
             WhackyWomboChipsEffect: function (button, oreobj) {
@@ -105,12 +119,13 @@ class Gear {
                         let oreTier = details.tier;
                         if (oreDupeTiers.has(oreTier)) {
                             addOre(oreobj, true);
+                            handleOreText(oreobj, true);
                             console.log("ores duped!", oreobj);
                         } else {
                             return;
                         }
                     });
-                    if (isMining == 1) {
+                    if (isMining == true) {
                         console.log("NOW STOP. YOU HAVE ATED TOO MANY CHIP.");
                         stopMining();
                         button.disabled = true;
@@ -133,7 +148,7 @@ class Gear {
             MagnesiumReactorCoreEffect: function (button, oreobj) {
                 let currentTime = Date.now();
                 if ((currentTime - lastEffectTimestamp >= 2000) && Math.random() < 1 / 150) {
-                    if (isMining == 1) {
+                    if (isMining == true) {
                         button.disabled = true;
                         button.classList.remove('mining');
                         button.classList.add('paused');
@@ -154,10 +169,10 @@ class Gear {
                     }
                 }
             },
-            WheelofFateEffect: function (button, oreobj) {
+            WheelofFateEffect: function(button, oreobj) {
                 let currentTime = Date.now();
-                if ((currentTime - lastEffectTimestamp >= 2000) && Math.random() < 1 / 4) {
-                    if (isMining == 1) {
+                if ((currentTime - lastEffectTimestamp >= 2000) && Math.random() < 1 / 400) {
+                    if (isMining === true) {
                         button.disabled = true;
                         button.classList.remove('mining');
                         button.classList.add('paused');
@@ -165,9 +180,11 @@ class Gear {
                         console.log("lets go gambling!!!!!!");
             
                         stopMining();
-
+            
+                        // create overlay
                         const overlay = document.createElement('div');
                         overlay.id = 'overlay';
+                        overlay.style.opacity = '0'; // ensure it's 0 initially
                         overlay.style.position = 'fixed';
                         overlay.style.top = '0';
                         overlay.style.left = '0';
@@ -180,167 +197,170 @@ class Gear {
                         overlay.style.alignItems = 'center';
 
                         const wheelContainer = document.createElement('div');
-                        wheelContainer.id = 'wheelContainer';
-                        wheelContainer.style.position = 'relative';
-                        wheelContainer.style.width = '400px';
-                        wheelContainer.style.height = '400px';
-                        wheelContainer.style.borderRadius = '50%';
-                        wheelContainer.style.zIndex = '1000';
-                        wheelContainer.style.background = 'white';
-
-                        const outcomes = ['+100 Blocks Mined', '+0.1x luck (10s)', '-50 Mining Delay (10s)', 'Nothing', '+300 Mining Delay (10s)'];
-                        const colours = ['#b7ff00', '#e61e60', '#1eb7e6', '#ff0004', '#1ee63f'];
-
-                        const segmentAngle = 360 / outcomes.length;
-
-                        let gradientStops = [];
-                        for (let i = 0; i < outcomes.length; i++) {
-                            const startAngle = i * segmentAngle;
-                            const endAngle = (i + 1) * segmentAngle;
-                            gradientStops.push(`${colours[i]} ${startAngle}deg ${endAngle}deg`);
-                        }
-                        const gradientStr = 'conic-gradient(' + gradientStops.join(', ') + ')';
-                        wheelContainer.style.background = gradientStr;
-
-                        const svgNamespace = 'http://www.w3.org/2000/svg';
-                        const svg = document.createElementNS(svgNamespace, 'svg');
-                        svg.setAttribute('width', '400');
-                        svg.setAttribute('height', '400');
-                        svg.style.position = 'absolute';
-                        svg.style.top = '0';
-                        svg.style.left = '0';
-                        svg.style.transform = 'rotate(-72deg)';
-
-                        const radius = 170;
-
-                        outcomes.forEach((outcome, i) => {
-                            const path = document.createElementNS(svgNamespace, 'path');
-                            const startAngle = i * segmentAngle;
-                            const endAngle = (i + 1) * segmentAngle;
-                            const largeArcFlag = endAngle - startAngle > 180 ? 1 : 0;
-                        
-                            const startX = 200 + radius * Math.cos((startAngle - 90) * (Math.PI / 180));
-                            const startY = 200 + radius * Math.sin((startAngle - 90) * (Math.PI / 180));
-                            const endX = 200 + radius * Math.cos((endAngle - 90) * (Math.PI / 180));
-                            const endY = 200 + radius * Math.sin((endAngle - 90) * (Math.PI / 180));
-                        
-                            const pathData = `
-                                M ${startX} ${startY}
-                                A ${radius} ${radius} 0 ${largeArcFlag} 1 ${endX} ${endY}
-                            `;
-                            path.setAttribute('d', pathData);
-                            path.setAttribute('id', `path${i}`);
-                            path.setAttribute('fill', 'none');
-                            svg.appendChild(path);
-                        
-                            const text = document.createElementNS(svgNamespace, 'text');
-                            const textPath = document.createElementNS(svgNamespace, 'textPath');
-                            textPath.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', `#path${i}`);
-                            textPath.setAttribute('startOffset', '50%');
-                            textPath.setAttribute('text-anchor', 'middle');
-                            textPath.style.fontSize = '18px';
-                            textPath.style.fontWeight = 'bold';
-                            textPath.style.fill = '#fff';
-                            textPath.style.fontFamily = '"Dosis", sans-serif';
-                            textPath.textContent = outcome;
-                        
-                            text.appendChild(textPath);
-                            svg.appendChild(text);
-                        });
-
-                        wheelContainer.appendChild(svg);
+                        wheelContainer.className = 'wheel-container';
+                        wheelContainer.style.width = '100vw';
+                        wheelContainer.style.height = '100vh';
                         overlay.appendChild(wheelContainer);
                         document.body.appendChild(overlay);
 
+                        const pointer = document.createElement('div');
+                        pointer.className = 'wheel-pointer';
+                        overlay.appendChild(pointer);
+
                         anime({
-                            targets: wheelContainer,
-                            scale: [0, 1],
-                            easing: 'easeOutQuad',
-                            duration: 1000,
-                            complete: () => {
-                                const spinDuration = 3000;
-                                const randomIndex = Math.floor(Math.random() * outcomes.length);
-                                const segmentAngle = 360 / outcomes.length;
-
+                            targets: overlay,
+                            opacity: [0, 1], // fade in
+                            scale: [0.8, 1], // scale up slightly
+                            duration: 500,
+                            easing: "easeOutQuad"
+                        });
+                        
+            
+                        const props = {
+                            items: [
+                                { label: "+100 Blocks Mined" },
+                                { label: "+0.75x luck (4s)" },
+                                { label: "-50 Mining Delay (6s)" },
+                                { label: "Nothing" },
+                                { label: "+300 Mining Delay (15s)"}
+                            ],
+                            onRest: function (event) {
+                                let outcome = event.currentIndex
+                                switch (outcome) {
+                                    case 0:
+                                        console.log('one hundo blocks go to you!');
+                                        let selectedOreObject = selectRandomOre(oreDef, 1, 100);
+                                        console.log(selectedOreObject);
+                                        addOre(selectedOreObject, true);
+                                        handleOreText(selectedOreObject, true);
+                                        break;
+                                    case 1:
+                                        console.log("it's ORE TIME!");
+                                        temporaryGearBonuses.luck += 0.75;
+                                        calcTotalBonuses();
                                 
-                                const pointer = document.createElement('div');
-                                pointer.style.position = 'fixed';
+                                        setTimeout(() => {
+                                            temporaryGearBonuses.luck -= 0.75;
+                                            calcTotalBonuses();
+                                            console.log("the luck... its gone...");
+                                        }, 4000);
+                                        break;
+                                    case 2:
+                                        console.log("the speed...");
+                                        temporaryGearBonuses.miningSpeed -= 50;
+                                        calcTotalBonuses();
                                 
-                                pointer.style.top = 'calc(50% - 220px)';
-                                pointer.style.left = '50%';
-                                pointer.style.width = '0';
-                                pointer.style.height = '0';
-
-                                pointer.style.borderLeft = '15px solid transparent';
-                                pointer.style.borderRight = '15px solid transparent';
-                                pointer.style.borderTop = '20px solid #fff';
-                                pointer.style.zIndex = '1001';
-                                pointer.style.transform = 'translateX(-50%)';
-
-
-                                document.body.appendChild(pointer);
-
+                                        setTimeout(() => {
+                                            temporaryGearBonuses.miningSpeed += 50;
+                                            calcTotalBonuses();
+                                            console.log("bye speed");
+                                        }, 6000);
+                                        break;
+                                    case 3:
+                                        console.log("absolutely nothing");
+                                        break;
+                                    case 4:
+                                        temporaryGearBonuses.miningSpeed += 300;
+                                        calcTotalBonuses();
                                 
-                                const extraRotations = Math.floor(Math.random() * 2 + 5);
-                                const randomness = Math.random() * segmentAngle;
-                                const targetAngle = (extraRotations * 360) + randomness + (segmentAngle * randomIndex);
-                                
-                                console.log(`Target Angle: ${targetAngle}`);
-
+                                        setTimeout(() => {
+                                            temporaryGearBonuses.miningSpeed -= 300;
+                                            calcTotalBonuses();
+                                            console.log("and we're back!");
+                                        }, 15000);
+                                        break;
+                                    default:
+                                        console.log("say what");
+                                }
                                 anime({
-                                    targets: wheelContainer,
-                                    rotate: targetAngle,
-                                    easing: 'easeOutQuad',
-                                    duration: spinDuration,
+                                    targets: overlay,
+                                    opacity: [1, 0],
+                                    duration: 300,
+                                    easing: "easeInQuad",
                                     complete: () => {
-
-                                        const finalRotation = (targetAngle % 360 + 360) % 360;
-                                        console.log(`Final Rotation: ${finalRotation}`);
-                                
-[]
-                                        const pointerOffset = segmentAngle / 2;
-                                        const adjustedRotation = (finalRotation + pointerOffset) % 360;
-                                        console.log(`Adjusted Rotation: ${adjustedRotation}`);
-                                
-                                        const selectedIndex = Math.floor(adjustedRotation / segmentAngle) % outcomes.length;
-                                        console.log(`Selected Index: ${selectedIndex}`);
-                                
-
-                                        console.log(`Selected outcome: ${outcomes[selectedIndex]}`);
-
-                                        anime({
-                                            targets: [overlay, pointer],
-                                            opacity: [1, 0],
-                                            easing: 'easeInQuad',
-                                            duration: 1000,
-                                            complete: () => {
-                                                overlay.remove();
-                                                pointer.remove();
-                                                console.log("goodbye magnesium");
-                                                button.classList.remove('paused');
-                                                button.classList.add('mining');
-                                                button.disabled = false;
-                                                startMining();
-                                            }
-                                        });
+                                        wheel.remove();
+                                        overlay.remove()
                                     }
                                 });                                
-                            }
-                        });
+                                button.classList.remove('paused');
+                                button.classList.add('mining');
+                                button.disabled = false;
+                                startMining();
+                            },
+                            "borderColor": "#000",
+                            "borderWidth": 1,
+                            "debug": false,
+                            "image": null,
+                            "isInteractive": true,
+                            "itemBackgroundColors": [
+                              "#0345fc",
+                              "#03fc20",
+                              "#f0fc03",
+                              "#fc0303",
+                              "#fc0303"
+                            ],
+                            "itemLabelAlign": "right",
+                            "itemLabelBaselineOffset": 0,
+                            "itemLabelColors": [
+                              "#000"
+                            ],
+                            "itemLabelFont": "sans-serif",
+                            "itemLabelFontSizeMax": 47,
+                            "itemLabelRadius": 0.78,
+                            "itemLabelRadiusMax": 0.2,
+                            "itemLabelRotation": 0,
+                            "itemLabelStrokeColor": "#fff",
+                            "itemLabelStrokeWidth": 0,
+                            "lineColor": "#000",
+                            "lineWidth": 4.6000000000000005,
+                            "overlayImage": null,
+                            "pixelRatio": 1,
+                            "pointerAngle": 0,
+                            "radius": 0.75,
+                            "rotationResistance": -200,
+                            "rotationSpeedMax": 728
+                        }
 
-            
-                        // setTimeout(() => {
-                        //     console.log("goodbye magnesium");
-                        //     button.classList.remove('paused');
-                        //     button.classList.add('mining');
-                        //     button.disabled = false;
-                        //     startMining();
-                        // }, 2000);
+                        const winningIndex = Math.floor(Math.random() * props.items.length);
+                        const duration = 4000;
+                        const easing = easeOutCubic;
+
+                        const wheel = new Wheel(wheelContainer, props);
+                        wheel.isInteractive = false;
+
+                        wheel.spinToItem(winningIndex, duration, true, 2, 1, easing);
+
                     } else {
                         console.log("man you got unlucky!");
                     }
                 }
-            }
+            },
+            ChexiumChronographEffect: function (button, oreobj) {
+                let currentTime = Date.now();
+                if ((currentTime - lastEffectTimestamp >= 10000) && Math.random() < 1 / 250) {
+                    // calculate time-based bonus
+                    let now = new Date();
+                    let totalSeconds = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+                    let timeScale = totalSeconds / 86400;
+                    let luckBoost = 0.01 + (0.2 - 0.01) * timeScale;
+
+                    console.log(luckBoost)
+
+                    // apply boost
+                    let storedBoost = luckBoost;
+                    temporaryGearBonuses.luck += luckBoost;
+                    calcTotalBonuses();
+
+                    console.log(`the power of the sun (or moon) is quite compelling`);
+
+                    // remove boost after 20 seconds
+                    setTimeout(() => {
+                        temporaryGearBonuses.luck -= storedBoost;
+                        calcTotalBonuses();
+                        console.log(`no more`);
+                    }, 10000);
+                }
+            },
         };
         return effects[effectName] || null;      
     }
