@@ -1,11 +1,23 @@
-import { Gear } from "../gearDefaultClass.mjs";
+import { Gear, EffectConfig } from "../gearDefaultClass.mjs";
 
 const ChexiumChronograph = new Gear(
     "Chexium Chronograph", // name
     { "Speed": 0, "Luck": 0 }, // bonuses
-    {}, // penalties
-    4, // tier
-    Gear.getEffectFunction("ChexiumChronographEffect"),
+    {},
+    4,
+    new EffectConfig({
+        type: 'time_based_boost',
+        triggerChance: 1/2,
+        cooldown: 10000,
+        duration: 10000,
+        description: "time.....",
+        customData: {
+            minLuckBoost: 0.01,
+            maxLuckBoost: 0.2,
+            peakTime: 12,
+            lowTime: 0
+        }
+    }), // effect config
     { // recipe
         "Chronolium": { quantity: 1 },
         "Congruence-of-Time": { quantity: 1 },
@@ -21,7 +33,7 @@ const ChexiumChronograph = new Gear(
         "Stone": { quantity: 65000 },
     },
     "rise and shine chexers, this gear is best during the morning! that's right! you have to play during a specific time for this gear to be most effective!",
-    "> Has a 1/250 chance to give +0.01x to +0.2x luck for 10 seconds depending on the time of day. (+0.2x happens at 12:00PM, +0.01x happens at 12:00AM, times are local to your timezone)", // bonus description
+    "> Has a 1/200 chance to give +0.01x to +0.2x luck for 10 seconds depending on the time of day. (+0.2x happens at 12:00PM, +0.01x happens at 12:00AM, times are local to your timezone)", // bonus description
     "> The luck of this gear is entirely dependant on the time of the actual physical day. (fix your sleep schedule) ", // penalty description
 );
 

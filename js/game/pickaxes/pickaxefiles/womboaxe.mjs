@@ -8,6 +8,7 @@ const Womboaxe = new Pickaxe(
         "Blocks_Mined": 1
     },
     4,                     // tier
+    null,
     {                      // recipe
         "glombo-wombo-v0_0001": { quantity: 1 },
         "Vergulium": { quantity: 1 },

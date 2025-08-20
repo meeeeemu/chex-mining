@@ -1,11 +1,20 @@
-import { Gear } from "../gearDefaultClass.mjs";
+import { Gear, EffectConfig } from "../gearDefaultClass.mjs";
 
 const bismuthBlastBeverage = new Gear(
     "Bismuth Blast Beverage", // name
     { "Speed": 0, "Luck": 0 }, // bonuses
     {}, // penalties
     2, // tier
-    Gear.getEffectFunction("BismuthBlastBeverageEffect"),
+    new EffectConfig({
+        type: 'bonus_mining',
+        triggerChance: 1/100,
+        cooldown: 100,
+        minBlocks: 40,
+        maxBlocks: 50,
+        luckModifier: -0.15,
+        soundFile: './media/sfx/bbb_sfx1.wav',
+        description: "KABOOM"
+    }), // effect config
     { // recipe
         "Bismuth": { quantity: 2 },
         "Amber": { quantity: 4 },

@@ -13,93 +13,160 @@ import anime from 'animejs';
 // have fun looking through my probably absolutely GARBAGE code :)
 // take what you like if you find it useful, no need for credits
 
-const guiOreIndexButton = document.querySelector('.oreIndexButton')
-const guiOreIndexContainer = document.querySelector('.oreIndexGuiTopbar')
-const guiOreIndexMain = document.querySelector('.oreIndexMainContainer')
-const searchBar = document.querySelector('.guiSearch')
+const guiOreIndexMain = document.querySelector('#oreindex .panelContent .oreIndexContainer')
 
-let isGuiVisible = 0;
+const searchBar = document.querySelector('#oreindex .panelHeader .oreSearch')
 
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function loadOresIndex(oreDef) {
-    for(const [oreName, oreData] of Object.entries(oreDef)) {
-
-        let displayName = oreData.Name.replace(/-/g, ' ').replace(/_/g, '.');
-
-        let oreDiv = document.createElement('div');
-        oreDiv.classList.add(`oreIndexEntry`);
-        oreDiv.classList.add(`${oreData.tier}`);
-        oreDiv.textContent = (`${displayName}`);
-        let displayTier = capitalizeFirstLetter(oreData.tier);
-        oreDiv.onmouseenter = (event) => {
-            oreDiv.innerHTML = (`Name: ${displayName} <br> Tier: ${displayTier} <br> Rarity: ${oreData.stringRarity}`);
-            event.target.style["z-index"] = 15
-            let hoverAnim = anime({
-                targets: event.target,
-                scale: 2.5,
-                rotate: anime.random(-10,10),
-                autoplay: true,
-                complete: () => {hoverAnim.pause();}
-            })
-            
-        };
-        oreDiv.onmouseleave = (event) => {
-            event.target.style["z-index"] = 0
-            anime({
-                targets: event.target,
-                duration: 1500,
-                scale: 1,
-                rotate: 0,
-                autoplay: true, 
-            })
-            oreDiv.innerHTML = (`${displayName}`);
-        };
-
-        guiOreIndexMain.appendChild(oreDiv);
-
-    }
-}
-
-loadOresIndex(oreDef);
-
-guiOreIndexButton.onclick = () => {
-    console.log(guiOreIndexButton)
-    if(isGuiVisible == 0) {
-        guiOreIndexContainer.style.visibility = "visible";
-        anime({
-            targets: guiOreIndexContainer,
-            opacity: [0, 1],
-            scale: [0.7, 1],
-            easing: "easeInOutExpo"
-        })
-        isGuiVisible = 1;
-    } else {
-        anime({
-            targets: guiOreIndexContainer,
-            opacity: [1, 0],
-            scale: [1, 0.7],
-            easing: "easeInOutExpo",
-            complete: () => {
-                guiOreIndexContainer.style.visibility = "hidden";
-                isGuiVisible = 0;
-            }
-        })
-    }
-}
-
-const oreIndexNodeList = document.querySelectorAll('.oreIndexEntry')
-
-searchBar.onkeyup = (event) => {
-    let input = event.target.value.toLowerCase();
-    oreIndexNodeList.forEach(oreEntry => {
-        let oreName = oreEntry.textContent.toLowerCase();
-        if (oreName.includes(input)) {
-            oreEntry.style.display = "";
-        } else {
-            oreEntry.style.display = "none";
-        }
-    });
+const tierPalette = {
+    common: 'rgb(110,110,110)',
+    uncommon: 'rgb(173,129,129)',
+    rare: 'rgb(200,174,109)',
+    master: 'rgb(160,181,120)',
+    unreal: 'rgb(98,162,110)',
+    exotic: 'rgb(96,171,160)',
+    pristine: 'rgb(97,133,174)',
+    pure: 'rgb(75,88,171)',
+    virtuous: 'rgb(143,78,184)',
+    dreamlike: 'rgb(255,255,255)',
 };
+
+function toTitleCase(str) {
+  return str.replace(
+    /\w\S*/g,
+    text => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
+  );
+}
+
+function openTile(tile, details) {
+    tile.isOpen = true;
+
+    details.style.display = 'block';
+    const targHeight = details.scrollHeight;
+
+    anime({
+        targets: details,
+        height: [0, targHeight],
+        opacity: [0, 1],
+        duration: 400,
+        easing: 'easeInOutQuad',
+        complete: () => {
+            details.style.height = 'auto';
+        }
+    })
+}
+
+function closeTile(tile, details) {
+    tile.isOpen = false;
+    const targHeight = details.scrollHeight;
+
+    anime({
+        targets: details,
+        height: [targHeight, 0],
+        opacity: [1, 0],
+        duration: 300,
+        easing: 'easeInOutQuad',
+        complete: () => {
+            details.style.display = 'none';
+        }
+    })
+}
+
+function tileToggle(tile) {
+    const details = tile.querySelector('.oreDetails');
+
+    tile.isOpen = false;
+
+    tile.addEventListener('click', () => {
+        tile.isOpen ? closeTile(tile, details) : openTile(tile, details);
+    })
+}
+
+function normalizeName(name) {
+  return name.replace(/[-\s]+/g, ' ').replace(/_/g, '.');
+}
+
+function oreTile(ore) {
+    const tile = document.createElement('div');
+    tile.classList.add('oreTile', ore.tier);
+
+    const header = document.createElement('div');
+    header.className = 'oreHeader';
+    header.textContent = normalizeName(ore.Name);
+
+    const details = document.createElement('div');
+    details.className = 'oreDetails';
+    details.innerHTML = `
+        <b>Rarity: </b> ${ore.stringRarity}<br>
+        <b>Tier: </b> ${toTitleCase(ore.tier)}<br>
+    `;
+
+    tile.append(header, details);
+    return tile;
+}
+
+function reloadIndexEntries(oreDef, workspace, activeTier = "all", searchTerm = '') {
+    workspace.textContent = "";
+    Object.values(oreDef).forEach(e => {
+        if(activeTier !== "all" && e.tier !== activeTier) return;
+        if (searchTerm && !e.Name.toLowerCase().includes(searchTerm)) return;
+
+        const tile = oreTile(e)
+        workspace.appendChild(tile);
+        tileToggle(tile);
+    })
+}
+
+function buildOreIndex(oreDef, container = guiOreIndexMain) {
+    container.textContent = '';
+
+    const layout = document.createElement('div');
+    const tierColumn = document.createElement('aside');
+    const workspace = document.createElement('section');
+
+    layout.className = "oreIndexLayout";
+    tierColumn.className = 'tierColumn';
+    workspace.className = 'oreWorkspace';
+
+    layout.append(tierColumn, workspace);
+    container.append(layout);
+
+    const allButton = document.createElement('button');
+    allButton.className = 'tierButton is-active';
+    allButton.dataset.tier = 'all';
+    allButton.textContent = 'All';
+    tierColumn.appendChild(allButton);
+
+    for(const tier of Object.keys(tierPalette)){
+        const button = document.createElement('button');
+        button.className = 'tierButton';
+        button.dataset.tier = tier;
+        button.textContent = tier[0].toUpperCase() + tier.slice(1);
+        button.style.setProperty('--stripe-color', tierPalette[tier]);
+        button.style.color = tierPalette[tier];
+        tierColumn.appendChild(button);
+    }
+
+    let activeTier = 'all';
+
+    let searchTerm = ''
+
+    searchBar.addEventListener('input', e => {
+        searchTerm = e.target.value.trim().toLowerCase();
+        reloadIndexEntries(oreDef, workspace, activeTier, searchTerm);
+    })
+
+    reloadIndexEntries(oreDef, workspace, activeTier, searchTerm);
+
+    tierColumn.addEventListener('click', e => {
+        const button = e.target.closest('.tierButton');
+        if(!button) return;
+
+        tierColumn.querySelectorAll('.tierButton').forEach(b=>b.classList.toggle('is-active', b===button));
+        activeTier = button.dataset.tier;
+        reloadIndexEntries(oreDef, workspace, activeTier, searchTerm);
+    })
+
+
+}
+
+buildOreIndex(oreDef)

@@ -1,11 +1,17 @@
-import { Gear } from "../gearDefaultClass.mjs";
+import { Gear, EffectConfig } from "../gearDefaultClass.mjs";
 
 const clayCoil = new Gear(
     "Clay Coil", // name
     { "Speed": -20, "Luck": 0 }, // bonuses
     {}, // penalties
     1, // tier
-    Gear.getEffectFunction("ClayCoilEffect"),
+    new EffectConfig({
+        type: 'penalty',
+        triggerChance: 1/100,
+        cooldown: 2000,
+        pauseDuration: 2000,
+        description: "time to slow it on down there bud"
+    }),
     { // recipe
         "Quartz": { quantity: 8 },
         "Coal": { quantity: 55 },

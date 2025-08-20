@@ -8,6 +8,7 @@ const ChexforgeRavager = new Pickaxe (
         "Blocks_Mined": 1
     },
     2, // tier
+    null,
     {  // recipe
         "Chexerite": { quantity: 1 },
         "Amber": { quantity: 6 },
@@ -19,7 +20,8 @@ const ChexforgeRavager = new Pickaxe (
         "Iron": { quantity: 210 },
         "Clay": { quantity: 2200 }
     },
-    "your second pickaxe in the entire game!! (unless you chose to go with this first) <br><br> it mines at a good speed! oh... where's the luck boost... there is none... :[ <br>"
+    "your second pickaxe in the entire game!! (unless you chose to go with this first) <br><br> it mines at a good speed! oh... where's the luck boost... there is none... :[ <br>",
+    null
 );
 
 export { ChexforgeRavager };

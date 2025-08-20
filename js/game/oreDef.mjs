@@ -18,7 +18,9 @@ import { caveSpawn } from "./spawnEffects.mjs";
 const oreDef = {
     "stone": {"Name": "Stone", "decimalRarity": 1 / 1, "stringRarity": "1/1", "tier": "common"},
     "clay": {"Name": "Clay", "decimalRarity": 1 / 2, "stringRarity": "1/2", "tier": "common"},
+    "deepslate": {"Name": "Deepslate", "decimalRarity": 1 / 3, "stringRarity": "1/2", "tier": "common"},
     "copper": {"Name": "Copper", "decimalRarity": 1 / 4, "stringRarity": "1/4", "tier": "common"},
+    "glombus": {"Name": "Glombus", "decimalRarity": 1 / 4, "stringRarity": "1/4", "tier": "common"},
     "chexium": { "Name": "Chexium", "decimalRarity": 1 / 5, "stringRarity": "1/5", "tier": "common" },
     "rhodochrosite": { "Name": "Rhodochrosite", "decimalRarity": 1 / 6, "stringRarity": "1/6", "tier": "common" },
     "graphite": { "Name": "Graphite", "decimalRarity": 1 / 7, "stringRarity": "1/7", "tier": "common" },
@@ -34,16 +36,19 @@ const oreDef = {
     "diamond": {"Name": "Diamond", "decimalRarity": 1 / 300, "stringRarity": "1/300", "tier": "common"},
     "emerald": {"Name": "Emerald", "decimalRarity": 1 / 750, "stringRarity": "1/750", "tier": "common"},
     "opal": {"Name": "Opal", "decimalRarity": 1 / 855, "stringRarity": "1/855", "tier": "common"},
+    "chex-crystal": {"Name": "Chex-Crystal", "decimalRarity": 1 / 875, "stringRarity": "1/875", "tier": "common"},
     "kaolinite": {"Name": "Kaolinite", "decimalRarity": 1 / 900, "stringRarity": "1/900", "tier": "common"},
 
     "amber": {"Name": "Amber", "decimalRarity": 1 / 1000, "stringRarity": "1/1000", "tier": "uncommon"},
+    "viunium": {"Name": "Viunium", "decimalRarity": 1 / 1075, "stringRarity": "1/1075", "tier": "uncommon"},
     "virotite": {"Name": "Virotite", "decimalRarity": 1 / 1150, "stringRarity": "1/1250", "tier": "uncommon"},
     "chexerite": {"Name": "Chexerite", "decimalRarity": 1 / 1250, "stringRarity": "1/3650", "tier": "uncommon"},
     "combrolium": {"Name": "Combrolium", "decimalRarity": 1 / 1277, "stringRarity": "1/1277", "tier": "uncommon"},
     "bismuth": {"Name": "Bismuth", "decimalRarity": 1 / 1500, "stringRarity": "1/1500", "tier": "uncommon"},
-    "Ilmenite": {"Name": "Ilmenite", "decimalRarity": 1 / 2000, "stringRarity": "1/2000", "tier": "uncommon"},
+    "ilmenite": {"Name": "Ilmenite", "decimalRarity": 1 / 2000, "stringRarity": "1/2000", "tier": "uncommon"},
     "palladium": {"Name": "Palladium", "decimalRarity": 1 / 2500, "stringRarity": "1/2500", "tier": "uncommon"},
     "crystalline": {"Name": "Crystalline", "decimalRarity": 1 / 3000, "stringRarity": "1/3000", "tier": "uncommon"},
+    "obsidian-glass": {"Name": "Obsidian-Glass", "decimalRarity": 1 / 3025, "stringRarity": "1/3025", "tier": "uncommon"},
     "sodium": {"Name": "Sodium", "decimalRarity": 1 / 3050, "stringRarity": "1/3050", "tier": "uncommon"},
     "granite-glass": {"Name": "Granite-Glass", "decimalRarity": 1 / 3450, "stringRarity": "1/3450", "tier": "uncommon"},
     "bornite": {"Name": "Bornite", "decimalRarity": 1 / 4000, "stringRarity": "1/4000", "tier": "uncommon"},
@@ -62,6 +67,7 @@ const oreDef = {
     "coltanite": {"Name": "Coltanite", "decimalRarity": 1 / 13500, "stringRarity": "1/10500", "tier": "rare"},
     "magnesium": {"Name": "Magnesium", "decimalRarity": 1 / 16200, "stringRarity": "1/16200", "tier": "rare"},
     "adurite": { "Name": "Adurite", "decimalRarity": 1 / 19000, "stringRarity": "1/19000", "tier": "rare" },
+    "lithium": { "Name": "Lithium", "decimalRarity": 1 / 19555, "stringRarity": "1/19555", "tier": "rare" },
     "fragment-of-molten-core": {"Name": "Fragment-of-Molten-Core", "decimalRarity": 1 / 20000, "stringRarity": "1/20000", "tier": "rare"},
     "vixuvium": {"Name": "Vixuvium", "decimalRarity": 1 / 21200, "stringRarity": "1/21200", "tier": "rare"},
     "corrodine": {"Name": "Corrodine", "decimalRarity": 1 / 22222, "stringRarity": "1/22222", "tier": "rare"},
@@ -74,6 +80,7 @@ const oreDef = {
     "magneon": {"Name": "Magneon", "decimalRarity": 1 / 35000, "stringRarity": "1/35000", "tier": "rare"},
 
     "helderite": {"Name": "Helderite", "decimalRarity": 1 / 36500, "stringRarity": "1/36500", "tier": "master"},
+    "urleination": {"Name": "Urleination", "decimalRarity": 1 / 39000, "stringRarity": "1/39000", "tier": "master"},
     "bromulite": {"Name": "Bromulite", "decimalRarity": 1 / 42500, "stringRarity": "1/42500", "tier": "master"},
     "cobgenual": {"Name": "Cobgenual", "decimalRarity": 1 / 43525, "stringRarity": "1/43525", "tier": "master"},
     "silidium": {"Name": "Silidium", "decimalRarity": 1 / 50000, "stringRarity": "1/50000", "tier": "master"},
@@ -105,6 +112,7 @@ const oreDef = {
     "chronolium": {"Name": "Chronolium", "decimalRarity": 1 / 888888, "stringRarity": "1/888888", "tier": "unreal"},
 
     "glombo-wombo-v0_001": {"Name": "glombo-wombo-v0_001", "decimalRarity": 1 / 1000000, "stringRarity": "1/1000000", "tier": "exotic"},
+    "casino-glumbus": {"Name": "Casino-Glumbus", "decimalRarity": 1 / 1111111, "stringRarity": "1/1111111", "tier": "exotic"},
     "crystalanium": {"Name": "Crystalanium", "decimalRarity": 1 / 1252020, "stringRarity": "1/1252020", "tier": "exotic"},
     "fractured-shard-of-normality": {"Name": "Fractured-Shard-of-Normality", "decimalRarity": 1 / 1750250, "stringRarity": "1/1750250", "tier": "exotic"},
     "guldovium": {"Name": "Guldovium", "decimalRarity": 1 / 1825002, "stringRarity": "1/1825002", "tier": "exotic"},
@@ -113,6 +121,7 @@ const oreDef = {
     "swagite": {"Name": "Swagite", "decimalRarity": 1 / 2556500, "stringRarity": "1/2556500", "tier": "exotic"},
     "enhanced-chexquartz": {"Name": "Enhanced-Chexquartz", "decimalRarity": 1 / 3090009, "stringRarity": "1/2556500", "tier": "exotic"},
     "convexium": {"Name": "Convexium", "decimalRarity": 1 / 2925200, "stringRarity": "1/2925200", "tier": "exotic"},
+    "fiolumium": {"Name": "Fiolumium", "decimalRarity": 1 / 3002520, "stringRarity": "1/3002520", "tier": "exotic"},
     "iodivultrite": {"Name": "Iodivultrite", "decimalRarity": 1 / 3252002, "stringRarity": "1/3252002", "tier": "exotic"},
     "pulviodirium": {"Name": "Pulviodirium", "decimalRarity": 1 / 4052323, "stringRarity": "1/3452323", "tier": "exotic"},
     "linux": {"Name": "Linux", "decimalRarity": 1 / 4444444, "stringRarity": "1/Linux", "tier": "exotic"},
@@ -130,16 +139,18 @@ const oreDef = {
     "adolium": {"Name": "Adolium", "decimalRarity": 1 / 14200050, "stringRarity": "1/14200050", "tier": "pristine"},
     "fracture-of-normality": {"Name": "Fracture of Normality", "decimalRarity": 1 / 14777777, "stringRarity": "1/14777777", "tier": "pristine"},
     "windows": {"Name": "Windows", "decimalRarity": 1 / 20111985, "stringRarity": "1/Windows", "tier": "pristine"},
+    "urleincarnate": {"Name": "Urleincarnate", "decimalRarity": 1 / 24888888, "stringRarity": "1/24888888", "tier": "pristine"},
     "wombolium": {"Name": "Wombolium", "decimalRarity": 1 / 24999999, "stringRarity": "1/24999999", "tier": "pristine"},
 
     "glombo-wombo-v0_1": {"Name": "glombo-wombo-v0_1", "decimalRarity": 1 / 25000000, "stringRarity": "1/25000000", "tier": "pure"},
     "fire-crystal-abnormal": {"Name": "fire-crystal-abnormal", "decimalRarity": 1 / 26022022, "stringRarity": "1/26022022", "tier": "pure"},
     "cleoistium": {"Name": "Cleoistium", "decimalRarity": 1 / 29440044, "stringRarity": "1/29440044", "tier": "pure"},
+    "aerospark": {"Name": "Aerospark", "decimalRarity": 1 / 30154332, "stringRarity": "1/30154332", "tier": "pure"},
     "azuringalium": {"Name": "Azuringalium", "decimalRarity": 1 / 32112112, "stringRarity": "1/32112112", "tier": "pure"},
     "xynarite": {"Name": "Xynarite", "decimalRarity": 1 / 39122515, "stringRarity": "1/39122515", "tier": "pure"},
     "conflux": {"Name": "Conflux", "decimalRarity": 1 / 41121100, "stringRarity": "1/41121100", "tier": "pure"},
     "vulkivium": {"Name": "Vulkivium", "decimalRarity": 1 / 42165342, "stringRarity": "1/42165342", "tier": "pure"},
-    "fractured aetheal": {"Name": "Fractured Aetheal", "decimalRarity": 1 / 47555555, "stringRarity": "1/47555555", "tier": "pure"},
+    "fractured-aetheal": {"Name": "Fractured Aetheal", "decimalRarity": 1 / 47555555, "stringRarity": "1/47555555", "tier": "pure"},
     "shard-of-normality": {"Name": "Shard-of-Normality", "decimalRarity": 1 / 49025025, "stringRarity": "1/49025025", "tier": "pure"},
     "glacium": {"Name": "Glacium", "decimalRarity": 1 / 49425025, "stringRarity": "1/49425025", "tier": "pure"},
     "erodivite": {"Name": "Erodivite", "decimalRarity": 1 / 49922735, "stringRarity": "1/49922735", "tier": "pure"},
@@ -168,6 +179,7 @@ const oreDef = {
     "scendolia": {"Name": "Scendolia", "decimalRarity": 1 / 725000422, "stringRarity": "1/725000422", "tier": "angelic"},
     "phasecore": {"Name": "Phasecore", "decimalRarity": 1 / 800000000, "stringRarity": "1/725000422", "tier": "angelic"},
       
+    "MALFUNCTION": { "Name": "MALFUNCTION", "decimalRarity": 1 / 450000000, "stringRarity": "1/125000000", "tier": "dreamlike" },
     "fire-Crystal-normal": {"Name": "Fire-Crystal-normal", "decimalRarity": 1 / 1250000000, "stringRarity": "1/1250000000", "tier": "dreamlike"},
     "wanderioum": {"Name": "Wanderioum", "decimalRarity": 1 / 1750000000, "stringRarity": "1/1750000000", "tier": "dreamlike"},
     "ASTHMA": {"Name": "ASTHMA", "decimalRarity": 1 / 2250001616, "stringRarity": "1/2250001616", "tier": "dreamlike"},
@@ -177,17 +189,34 @@ const oreDef = {
     "hsjsedesHhvddfrcsd-glombo-wombo-casino": {"Name": "hsjsedesHhvddfrcsd-glombo-wombo-casino", "decimalRarity": 1 / 7777777777, "stringRarity": "1/7777777777", "tier": "dreamlike"},
     "🚩": { "Name": "🚩", "decimalRarity": 1 / 70766571000, "stringRarity": "🚩", "tier": "dreamlike" },
     "the-end": { "Name": "The-End", "decimalRarity": 1 / 11289329492030, "stringRarity": "1/?????????", "tier": "dreamlike" },
-    "the-truth": { "Name": "The-Truth", "decimalRarity": 1 / 823592384912384293593, "stringRarity": "1/?????????", "tier": "dreamlike" }
+    "the-truth": { "Name": "The-Truth", "decimalRarity": 1 / 8235923849123846, "stringRarity": "1/?????????", "tier": "dreamlike" }
 
 };
 
+// const caveBlockDef = {
+//     "illinality": {"Name": "Illinality", "decimalRarity": 1 / 1, "stringRarity": "Cave Block", "tier": "common"},
+//     "astralinius": {"Name": "Astralinius", "decimalRarity": 1 / 1, "stringRarity": "Cave Block", "tier": "common"},
+//     "hyperstone": {"Name": "Hyperstone", "decimalRarity": 1 / 1, "stringRarity": "Cave Block", "tier": "common"},
+// }
+
 var caveChances = {
-    "standardCave": {"decimalRarity": 1 / 3000, "Name": "Standard Cave"},
-    "illuminousCave": {"decimalRarity": 1 / 5000, "Name": "Illuminous Cave"},
-    "astralCave": {"decimalRarity": 1 / 7000, "Name": "Astral Cave"},
+    "standardCave": {"decimalRarity": 1 / 1500, "Name": "Standard Cave"},
+    "illuminousCave": {"decimalRarity": 1 / 4000, "Name": "Illuminous Cave"},
+    "astralCave": {"decimalRarity": 1 / 6500, "Name": "Astral Cave"},
+    "hyperCave": {"decimalRarity": 1 / 80000, "Name": "Hyper Cave"},
 }
 
+// const caveBlockMap = {
+//     standardCave: () => oreDef["stone"],
+//     illuminousCave: () => caveBlockDef["illinality"],
+//     astralCave: () => caveBlockDef["astralinius"],
+//     hyperCave: () => caveBlockDef["hyperstone"],
+// }
+
+// soon :tm:
+
 function selectRandomOre(ores, luck, quantity) {
+
     let totalWeight = 0;
     let scaledWeights = {};
     let minedOres = {};
@@ -197,6 +226,7 @@ function selectRandomOre(ores, luck, quantity) {
         scaledWeights[ore["Name"]] = scaledWeight;
         totalWeight += scaledWeight;
     });
+
 
     function selOre() {
         let rng = Math.random() * totalWeight;

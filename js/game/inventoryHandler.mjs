@@ -16,7 +16,7 @@ var inventory = {
     //"amber": {obj: {"Name": "Amber", "decimalRarity": 1 / 1000, "stringRarity": "1/1000", "tier": "uncommon"}, quantity: 10},
 }
 
-const inventoryContainer = document.querySelector('.guiInventoryMain');
+const inventoryContainer = document.querySelector('#inventory .panelContent');
 
 function appendToInventoryGUI(updatedOre = null) {
     const tierOrder = {
@@ -44,7 +44,7 @@ function addOreToGUI(oreName, tierOrder) {
     let { obj, quantity } = inventory[oreName];
     let displayName = oreName.replace(/-/g, ' ').replace(/_/g, '.');
 
-    let existingOre = document.querySelector(`.guiInventoryMain .ore-${oreName}`);
+    let existingOre = document.querySelector(`#inventory .panelContent .ore-${oreName}`);
 
     if (existingOre) {
         existingOre.textContent = `${displayName}: ${quantity}`;

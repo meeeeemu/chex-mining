@@ -1,8 +1,10 @@
 import { inventory } from "../inventoryHandler.mjs"
 import { setCurrentGearGame } from "../mainGame.mjs"
 import { bismuthBlastBeverage } from "./gearfiles/bismuthblastbeverage.mjs";
+import { ChexestineNuke } from "./gearfiles/chexestinenuke.mjs";
 import { ChexiumChronograph } from "./gearfiles/chexiumchronograph.mjs";
 import { clayCoil } from "./gearfiles/claycoil.mjs";
+import { DinnerBomb } from "./gearfiles/dinnerbomb.mjs";
 import { magnesiumReactorCore } from "./gearfiles/magnesiumreactorcore.mjs";
 import { whackyWomboChips } from "./gearfiles/whackywombochips.mjs";
 import { wheelOfFate } from "./gearfiles/wheeloffate.mjs";
@@ -50,6 +52,8 @@ var gearRecipesToUpdate = [
     magnesiumReactorCore,
     wheelOfFate,
     ChexiumChronograph,
+    DinnerBomb,
+    ChexestineNuke
 ];
 
 var gearUpdateLoop = setInterval(() => {

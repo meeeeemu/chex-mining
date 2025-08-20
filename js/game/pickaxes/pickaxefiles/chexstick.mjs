@@ -8,6 +8,7 @@ const Chexstick = new Pickaxe(
         "Blocks_Mined": 1
     },
     1,                      // tier
+    null,
     {                       // recipe
         "Chexwood": { quantity: 4 },
         "Silver": { quantity: 10 },
@@ -16,7 +17,8 @@ const Chexstick = new Pickaxe(
         "Clay": { quantity: 350 },
         "Stone": { quantity: 800 },
     },
-    "this... is a stick! it has some chex mix thrown onto it. kinda icky, i dont even wanna think about picking this thing up <br><br> it mines quite a bit though, a good starter stick i'd say <br>"
+    "this... is a stick! it has some chex mix thrown onto it. kinda icky, i dont even wanna think about picking this thing up <br><br> it mines quite a bit though, a good starter stick i'd say <br>",
+    null
 );
 
 export { Chexstick };

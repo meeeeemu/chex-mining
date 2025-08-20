@@ -7,12 +7,14 @@ const gearFiles = [
     "./gearfiles/bismuthblastbeverage.mjs",
     "./gearfiles/whackywombochips.mjs",
     "./gearfiles/magnesiumreactorcore.mjs",
-    "./gearfiles/wheeloffate.mjs",
     "./gearfiles/chexiumchronograph.mjs",
+    "./gearfiles/dinnerbomb.mjs",
+    "./gearfiles/wheeloffate.mjs",
+    "./gearfiles/chexestinenuke.mjs",
 ];
 
-const buttonContainer = document.querySelector('.guiContainerGears .guiGearsMain');
-const mainGuiContainer = document.querySelector('.mainGuiContainer');
+const buttonContainer = document.querySelector('#gears .panelContent');
+const mainGuiContainer = document.querySelector('.mainGUIContainer');
 
 function normalizeName(name) {
     return name.replace(/\s+/g, '-');
@@ -41,33 +43,69 @@ async function initializeGears() {
         buttonContainer.classList.add('buttonGroup');
 
         const gui = document.createElement('div');
-        gui.classList.add('guiContainerGear', normalizedGearName, 'draggable');
+        gui.classList.add('gamePanel', normalizedGearName, 'draggable');
         gui.style.visibility = 'hidden';
 
+        // gui.innerHTML = `
+        //     <div class="guiSubContainer"></div>
+        //     <div class="guiText ${normalizedGearName}"> > ${name} </div>
+        //     <div class="guiGearsMain">
+        //         <div class="guiGearInfo">
+        //             <div>${module.gearDescription || 'No description available.'}</div>
+        //             <br>
+        //             -----------------------------------
+        //             <br><br>
+        //             Abilities:<br><br>
+        //             ${module.bonuses.Luck ? `<div class="luckText">Luck: +${module.bonuses.Luck}x</div>` : ''}
+        //             <div class="bonusText">${module.bonusDescription || ''}</div><br>
+        //             Penalties:<br><br>
+        //             <div class="penaltyText">${module.penaltyDescription || ''}</div>
+        //         </div>
+        //         <div class="guiGearRecipe">
+        //             Recipe:<br>
+        //             ${Object.entries(module.recipe).map(([material, qty]) => `<div class="${material} ${normalizedGearName}">${qty.quantity || 0}/${qty.quantity} ${material}</div>`).join('')}
+        //         </div>
+        //         <div class="guiGearCraftButtonContainer">
+        //             <button class="craftButton ${normalizedGearName}">Craft</button>
+        //         </div>
+        //     </div>
+        // `;
+
         gui.innerHTML = `
-            <div class="guiSubContainer"></div>
-            <div class="guiText ${normalizedGearName}"> > ${name} </div>
-            <div class="guiGearsMain">
-                <div class="guiGearInfo">
-                    <div>${module.gearDescription || 'No description available.'}</div>
+            <div class="panelHeader">
+                <span class="panelTitle"><b>${name}</b></span>
+            </div>
+
+            <div class="panelContent">
+                
+                <div class="gearInfo">
+                    ${module.gearDescription || 'invalid description'}<br>
+                    <hr>
                     <br>
-                    -----------------------------------
-                    <br><br>
-                    Abilities:<br><br>
-                    ${module.bonuses.Luck ? `<div class="luckText">Luck: +${module.bonuses.Luck}x</div>` : ''}
-                    <div class="bonusText">${module.bonusDescription || ''}</div><br>
-                    Penalties:<br><br>
-                    <div class="penaltyText">${module.penaltyDescription || ''}</div>
+                    ${module.bonuses.Luck > 0
+                    ? `<div class="luckText">Luck: +${module.bonuses.Luck}x</div>`
+                    : ''}
+                    <div class="bonusDescription">
+                        ${module.bonusDescription}
+                    </div><br>
+                    <div class="penaltyDescription">
+                        ${module.penaltyDescription}
+                    </div><br>
                 </div>
-                <div class="guiGearRecipe">
+
+                <div class="gearRecipe">
                     Recipe:<br>
                     ${Object.entries(module.recipe).map(([material, qty]) => `<div class="${material} ${normalizedGearName}">${qty.quantity || 0}/${qty.quantity} ${material}</div>`).join('')}
-                </div>
-                <div class="guiGearCraftButtonContainer">
+                </div><br>
+
+                <div class="gearActions">
                     <button class="craftButton ${normalizedGearName}">Craft</button>
                 </div>
             </div>
-        `;
+
+            <div class="panelResizeHandle"></div>
+        `
+
         mainGuiContainer.appendChild(gui);
 
         button.onclick = () => toggleGUI(gui);
@@ -92,6 +130,7 @@ function unequipAllGears() {
             ownedGears[gearName].equipped = false;
             const normalizedGearName = normalizeName(gearName);
             const button = document.querySelector(`.craftButton.${normalizedGearName}`);
+            console.log(button);
             if (button) {
                 button.textContent = "Equip";
                 button.style.color = "lime";
@@ -148,4 +187,25 @@ function handleCraftButtonClick(button, gearObject, craftFunction, equipFunction
     }
 }
 
+function manualGearUpdate() {
+
+    for(let gearName in ownedGears) {
+        const gear = ownedGears[gearName];
+        const normalizedGearName = normalizeName(gearName);
+        const button = document.querySelector(`.craftButton.${normalizedGearName}`);
+
+        if (button && gear) {
+            if(gear.equipped) {
+                button.textContent = "Equipped";
+                button.style.color = "yellow"
+            } else {
+                button.textContent = "Equip";
+                button.style.color = "lime"
+            }
+        }
+    }
+}
+
 document.addEventListener('DOMContentLoaded', initializeGears);
+
+export { manualGearUpdate }

@@ -8,6 +8,7 @@ const TitaniumChexblaster = new Pickaxe(
         "Blocks_Mined": 3
     },
     3,                      // tier
+    null,
     {                       // recipe
         "Chrysoberyl": { quantity: 1 },
         "Chexquartz": { quantity: 3 },
@@ -23,7 +24,8 @@ const TitaniumChexblaster = new Pickaxe(
         "Clay": { quantity: 7000 },
         "Stone": { quantity: 14000 }
     },
-    "well i'll be darned, its a gun. a blaster might i add! you might think blaster = big radius of blocks mined, but it's pretty much a sniper <br><br> holy moly the luck boost on this is nuts! <br><br> due to the low power of chexquartz, this thing takes a WHILE to charge again after firing a shot <br><br> maybe there's a better version of chexquartz that you can find later??? hmm?????????? maybe??????? <br>"
+    "well i'll be darned, its a gun. a blaster might i add! you might think blaster = big radius of blocks mined, but it's pretty much a sniper <br><br> holy moly the luck boost on this is nuts! <br><br> due to the low power of chexquartz, this thing takes a WHILE to charge again after firing a shot <br><br> maybe there's a better version of chexquartz that you can find later??? hmm?????????? maybe??????? <br>",
+    null
 );
 
 export { TitaniumChexblaster };

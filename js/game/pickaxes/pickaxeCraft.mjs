@@ -1,5 +1,6 @@
 import { inventory, removeOre } from "../inventoryHandler.mjs";
 import { saveGame } from "../profileHandler.mjs";
+import { Pickaxe } from "./pickaxeDefaultClass.mjs";
 import { ownedPickaxes } from "./pickaxesMain.mjs";
 
 //         _                 _ _ _ 
@@ -18,7 +19,18 @@ function craftPickaxe(pickaxeObject, recipe) {
     console.log(pickaxeObject)
     if(canCraftPickaxe(inventory, recipe)) {
         if(!ownedPickaxes[pickaxeObject.name]) {
-            ownedPickaxes[pickaxeObject.name] = pickaxeObject;
+
+            const craftedPick = new Pickaxe (
+                pickaxeObject.name,
+                pickaxeObject.bonuses,
+                pickaxeObject.tier,
+                pickaxeObject.effectConfig,
+                pickaxeObject.recipe,
+                pickaxeObject.description,
+                pickaxeObject.bonusDescription
+            )
+
+            ownedPickaxes[pickaxeObject.name] = craftedPick;
             console.log(ownedPickaxes);
             saveGame();
             return true

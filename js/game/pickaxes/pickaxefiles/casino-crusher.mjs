@@ -8,6 +8,7 @@ const CasinoCrusher = new Pickaxe (
         "Blocks_Mined": 2
     },
     5, // tier
+    null,
     { // recipe
         "Essence-of-The-Casino": { "quantity": 1 },
         "glombo-wombo-v0_001": { "quantity": 1 },
@@ -32,7 +33,8 @@ const CasinoCrusher = new Pickaxe (
         "Clay": { "quantity": 190000 },
         "Stone": { "quantity": 400000 }
     },
-    "god damn this hammer is huge, it has the letters 777 engraved on the side. must be pretty lucky  <br><br> i wonder who made this???? "
+    "god damn this hammer is huge, it has the letters 777 engraved on the side. must be pretty lucky  <br><br> i wonder who made this???? ",
+    null
 );
 
 export { CasinoCrusher };

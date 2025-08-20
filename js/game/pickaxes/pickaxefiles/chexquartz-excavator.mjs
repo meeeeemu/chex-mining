@@ -8,6 +8,7 @@ const ChexquartzExcavator = new Pickaxe(
         "Blocks_Mined": 1
     },
     3,                     // tier
+    null,
     {                      // recipe
         "Chexquartz": { quantity: 4 },
         "Cobalt": { quantity: 6 },
@@ -20,7 +21,8 @@ const ChexquartzExcavator = new Pickaxe(
         "Copper": { quantity: 4000 },
         "Clay": { quantity: 7500 }
     },
-    "forged from the elusive chexquartz, which wasnt an ore in this game until i decided to make it now! <br><br> not only does this mine at a good speed, but it has a luck boost! now we're advancing in the game! <br></br>"
+    "forged from the elusive chexquartz, which wasnt an ore in this game until i decided to make it now! <br><br> not only does this mine at a good speed, but it has a luck boost! now we're advancing in the game! <br></br>",
+    null
 );
 
 export { ChexquartzExcavator };

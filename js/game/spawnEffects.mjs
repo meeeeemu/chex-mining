@@ -1,4 +1,5 @@
 import anime from 'animejs';
+import { gameSettings } from './settingsHandler.mjs';
 //         _                 _ _ _ 
 //        | |               | | | |
 //    __ _| |__   ___  _   _| | | |
@@ -11,15 +12,15 @@ import anime from 'animejs';
 // have fun looking through my probably absolutely GARBAGE code :)
 // take what you like if you find it useful, no need for credits
 
+let spawnEffectsDisabled = gameSettings.gameplaySettings.disableSpawnEffects;
 
+const audioElement = document.querySelector('.spawnSound')
+audioElement.volume = gameSettings.audioSettings.spawnSFXVolume || 0.1;
 
-const audioElement = document.querySelector('.audioElement')
-audioElement.volume = 0.35
+const audioElementCaveSpawn = document.querySelector('.caveSpawn')
+audioElementCaveSpawn.volume = gameSettings.audioSettings.spawnSFXVolume || 0.1;
 
-const audioElementCaveSpawn = document.querySelector('.audioElementCaveSpawn')
-audioElementCaveSpawn.volume = 0.35
-
-const topbarAlert = document.querySelector('.topbarAlert')
+const topbarAlert = document.querySelector('.guiAlertBox')
 const effectLayer = document.querySelector('.effectLayer')
 
 const audioSources = {
@@ -40,8 +41,6 @@ const chillSpawnText = {
     "dreamlike": {"text": 'A faint dream forms within your mind...', "color": "rgb(255, 255, 255)"},
 };
 
-let animPlayed = false;
-
 function resetAnimations() {
     anime.remove(topbarAlert);
     anime.remove(effectLayer);
@@ -52,6 +51,8 @@ function resetAnimations() {
 }
 
 function handleSpawnEffects(oreObj) {
+    spawnEffectsDisabled = gameSettings.gameplaySettings.disableSpawnEffects;
+    if(spawnEffectsDisabled === true) return;
     let foundRareOre = false;
 
     Object.values(oreObj).forEach(oreData => {
@@ -72,6 +73,7 @@ function handleSpawnEffects(oreObj) {
 
             topbarAlert.textContent = chillText.text;
             topbarAlert.style.color = chillText.color;
+            topbarAlert.style.visibility = "visible";
             effectLayer.style['background-color'] = chillText.color;
             effectLayer.style.visibility = 'visible';
 
@@ -86,7 +88,7 @@ function handleSpawnEffects(oreObj) {
             });
 
             let effectSpawn = anime.timeline({
-                targets: 'html',
+                targets: 'effectLayer',
                 easing: 'easeInOutExpo',
             });
 
@@ -139,6 +141,8 @@ function caveSpawn(caveSize, caveName) {
     console.log(caveSize, caveName);
     audioElementCaveSpawn.play();
     topbarAlert.textContent = `A cave has spawned! Cave Size: ${caveSize}, Type: ${caveName}`;
+    topbarAlert.style.color = "white";
+    topbarAlert.style.visibility = "visible";
 
     let topbarAnimTimeline = anime.timeline({
         targets: topbarAlert,

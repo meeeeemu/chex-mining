@@ -1,11 +1,21 @@
-import { Gear } from "../gearDefaultClass.mjs";
+import { Gear, EffectConfig } from "../gearDefaultClass.mjs";
 
 const whackyWomboChips = new Gear(
     "Whacky Wombo Chips", // name
     { "Speed": 0, "Luck": 0 }, // bonuses
     {}, // penalties
     2, // tier
-    Gear.getEffectFunction("WhackyWomboChipsEffect"),
+    new EffectConfig({
+        type: 'ore_duplication',
+        triggerChance: 1/100,
+        cooldown: 2000,
+        pauseDuration: 1000,
+        soundFile: './media/sfx/wwc_sfx1.wav',
+        description: "dupe lick ation",
+        customData: {
+            allowedTiers: ["common", "uncommon", "rare", "master"]
+        }
+    }), // effect config
     { // recipe
         "Palladium": { quantity: 2 },
         "Virotite": { quantity: 5},

@@ -1,5 +1,5 @@
-import { resetGame, saveGame } from "./profileHandler.mjs";
 import anime from 'animejs';
+import { saveGame } from './profileHandler.mjs';
 
 //         _                 _ _ _
 //        | |               | | | |
@@ -14,153 +14,233 @@ import anime from 'animejs';
 // take what you like if you find it useful, no need for credits
 
 var gameSettings = {
-    spawnEffVolume: 5,
-    musicVolume: 5,
-    disableSOC: 0,
-    muteGearSounds: 0
+    audioSettings: {
+        musicVolume: 0.1,
+        spawnSFXVolume: 0.1,
+        gearSFXVolume: 0.1
+    },
+
+    gameplaySettings: {
+        enableAFK: false,
+        disableSpawnEffects: false,
+        skipMainMenu: false,
+        disableStopOnChill: false
+    },
+
+    miscSettings: {
+        superChexMode: false,
+        cloudSaveEnabled: false,
+        swagLevel: 0
+    }
 }
 
-function setSavedSettingsValues(spawnEffVolume, musicVolume, disableSOC, muteGearSounds) {
-    gameSettings.spawnEffVolume = spawnEffVolume;
-    gameSettings.musicVolume = musicVolume;
-    gameSettings.disableSOC = disableSOC;
-    gameSettings.muteGearSounds = muteGearSounds;
-}
-
-var slider = document.querySelector('.sliderSpawnVol');
-var sliderBg = document.querySelector('.sliderBgVol');
-var guiTextMainBgVal = document.querySelector('.guiTextMainBgVal');
-var guiTextMainSpVal = document.querySelector('.guiTextMainSpVal');
-var audioElement = document.querySelector('.audioElement');
-var bgMusicElement = document.querySelector('.bgMusic');
-var resetButton = document.querySelector('.resetDataButton');
-var disableSOCCheckbox = document.querySelector('.stopOnChillVal');
-var muteGearSoundsCheckbox = document.querySelector('.muteGearSoundsVal');
-var audioElementCaveSpawn = document.querySelector('.audioElementCaveSpawn');
-var exportDataButton = document.querySelector('.exportDataButton');
-var importDataButton = document.querySelector('.importDataButton');
+const settingsPanel = document.getElementById('gameSettingsPane');
+const tabButtons = settingsPanel.querySelectorAll('.tabBar .tab');
+const settingsPanes = settingsPanel.querySelectorAll('.settingsPane');
+var exportDataButtons = document.querySelectorAll('.exportDataBtn');
+var importDataButtons = document.querySelectorAll('.importDataBtn');
+var resetGameButtons = document.querySelectorAll('.resetGameBtn')
 var fileInputSave = document.querySelector('.importFileInput');
-
 var importingContainer = document.querySelector('.importingSaveContainer')
 
-exportDataButton.onclick = () => {
-    let base64Data = localStorage.getItem('save');
+tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const tab = btn.dataset.tab;
+        tabButtons.forEach(b => b.classList.toggle('active', b === btn));
+        settingsPanes.forEach(pane => {
+            pane.classList.toggle('active', pane.dataset.pane === tab);
+        })
+    })
+})
 
-    let binaryData = atob(base64Data);
-    let binLength = binaryData.length;
-    let bytes = new Uint8Array(binLength);
-
-    for (let i = 0; i < binLength; i++) {
-        bytes[i] = binaryData.charCodeAt(i);
-    }
-
-    let blob = new Blob([bytes], { type: 'application/octet-stream' });
-
-    let dlLink = document.createElement('a');
-    dlLink.href = URL.createObjectURL(blob);
-    dlLink.download = `chexData-${new Date().toISOString().slice(0, 10)}.bin`;
-    dlLink.click();
-
-    URL.revokeObjectURL(dlLink.href);
+const audioRef = {
+    musicVolume: [
+        document.querySelector('.bgMusic'),
+        document.querySelector('.bgIntroMusic'),
+        document.querySelector('.uiHover')
+    ],
+    spawnSFXVolume: [
+        document.querySelector('.spawnSound')
+    ],
+    gearSFXVolume: [
+        document.querySelector('.gearSFX')
+    ]
 }
 
-importDataButton.onclick = () => {
+function updateSliders(key, value) {
+    document.querySelectorAll(`input[type="range"][data-setting="${key}"]`).forEach(slider => {
+        slider.value = Math.round(value * 100);
+        const valueSpan = slider.parentElement.querySelector('.value');
+        if (valueSpan) valueSpan.textContent = slider.value + '%';
+    })
+    saveGame();
+}
 
-    fileInputSave.click();
+document.querySelectorAll('input[type="range"][data-setting]').forEach(slider => {
+    const key = slider.dataset.setting;
+    slider.value = Math.round(gameSettings.audioSettings[key] * 100);
+    const valueSpan = slider.parentElement.querySelector('.value');
+    if (valueSpan) valueSpan.textContent = slider.value + '%';
 
-    fileInputSave.addEventListener('change', (event) => {
+    slider.addEventListener('input', () => {
+        const newValue = slider.value / 100;
+        gameSettings.audioSettings[key] = newValue;
+        updateSliders(key, newValue);
 
-        resetButton.disabled = true;
+        if (audioRef[key]) {
+            (Array.isArray(audioRef[key]) ? audioRef[key] : [audioRef[key]]).forEach(audioEl => {
+                if(audioEl) audioEl.volume = newValue;
+            })
+        }
+    });
+});
 
-        var file = event.target.files[0];
-        var filename = file.name;
-        var extension = file.type;
+function updateCheckboxes() {
+    document.querySelectorAll('input[type="checkbox"][data-setting]').forEach(box => {
+        const key = box.dataset.setting;
 
-        if (extension != "application/octet-stream") {
-            throw("file given was not of type octet-stream");
+        let sectionName = Object.keys(gameSettings).find(section =>
+            Object.prototype.hasOwnProperty.call(gameSettings[section], key)
+        );
+        let section = gameSettings[sectionName];
+        if (!section) return;
+
+        box.checked = !!section[key];
+    });
+    saveGame();
+}
+
+document.querySelectorAll('input[type="checkbox"][data-setting]').forEach(box => {
+    box.addEventListener('change', () => {
+        const key = box.dataset.setting;
+
+        let sectionName = Object.keys(gameSettings).find(section => 
+            Object.prototype.hasOwnProperty.call(gameSettings[section], key)
+        );
+
+        if(!sectionName) return;
+        gameSettings[sectionName][key] = box.checked;
+        updateCheckboxes();
+    })
+
+})
+
+// data exporting and importing and reset shenanigans
+
+exportDataButtons.forEach(exportDataButton => {
+    exportDataButton.onclick = () => {
+        let base64Data = localStorage.getItem('save');
+        if (!base64Data) {
+            console.error("ERR: no save data found, returning");
+            return;
         }
 
-        importingContainer.style.visibility = "visible";
+        let binData = atob(base64Data);
+        let binLength = binData.length;
+        let bytes = new Uint8Array(binLength);
+        for (let i = 0; i < binLength; i++) {
+            bytes[i] = binData.charCodeAt(i);
+        }
 
-        anime({
-            targets: importingContainer,
-            opacity: [0, 1],
-            translateY: [-1000, 0],
-            easing: "easeInOutExpo",
-            duration: 1000,
-        })
+        let blob = new Blob([bytes], { type: 'application/octet-stream' });
+        let dlLink = document.createElement('a');
+        dlLink.href = URL.createObjectURL(blob);
+        dlLink.download = `chexData-${new Date().toISOString().slice(0, 10)}.bin`;
+        dlLink.click();
 
-        if (file && filename) {
-            const reader = new FileReader();
+        console.log("LOG: data successfully exported");
 
-            reader.onload = (e) => {
-                if (e) {
-                    console.error(e);                  
-                }
-                const fileContent = e.target.result;
-
-                let contentToBase64 = btoa(fileContent);
-
-                localStorage.setItem('save', contentToBase64);
-
-                console.log("data imported successfully!!!!!!");
-
-                setTimeout(() => {
-                    location.reload();
-                }, 5000);                
-            }
-
-            reader.readAsText(file);
-        } 
-    })
-}
-
-disableSOCCheckbox.onchange = () => {
-    gameSettings.disableSOC = disableSOCCheckbox.checked ? 1 : 0;
-    saveGame();
-}
-
-muteGearSoundsCheckbox.onchange = () => {
-    gameSettings.muteGearSounds = muteGearSoundsCheckbox.checked ? 1 : 0;
-    saveGame();
-}
-
-setTimeout(() => {
-    guiTextMainSpVal.textContent = gameSettings.spawnEffVolume;
-    audioElement.volume = (gameSettings.spawnEffVolume/100);
-    bgMusicElement.volume = (gameSettings.musicVolume/100);
-    audioElementCaveSpawn.volume = (gameSettings.spawnEffVolume/100);
-    guiTextMainBgVal.textContent = (gameSettings.musicVolume);
-    slider.value = (gameSettings.spawnEffVolume);
-    sliderBg.value = (gameSettings.musicVolume);
-}, 100)
-
-var clickCount = 0;
-
-resetButton.onclick = () => {
-    resetButton.textContent = "all of your data will be gone if you click this again";
-    clickCount += 1;
-    if(clickCount == 2) {
-        resetButton.textContent = "goodbye data!";
-        resetGame();
-    } else {
-        return;
+        setTimeout(() => {
+            URL.revokeObjectURL(dlLink.href);
+        }, 1000);
     }
+})
+
+importDataButtons.forEach(importDataButton => {
+    importDataButton.onclick = () => {
+        fileInputSave.value = '';
+        fileInputSave.click();
+    };
+})
+
+fileInputSave.addEventListener('change', (event) => {
+    let file = event.target.files[0];
+    if (!file) return;
+
+    if (file.type && file.type !== "application/octet-stream") { console.error("ERR: file was not an octet stream, disregarding"); return; }
+
+    importingContainer.classList.add("active");
+
+    anime({
+        targets: importingContainer,
+        opacity: [0, 1],
+        translateY: [-1000, 0],
+        easing: "easeInOutExpo",
+        duration: 1000,
+    })
+
+    var reader = new FileReader();
+    reader.onload = (e) => {
+        let arrayBuffer = e.target.result;
+        let bytes = new Uint8Array(arrayBuffer);
+        let bin = '';
+        for (let i = 0; i < bytes.byteLength; i++) {
+            bin += String.fromCharCode(bytes[i]);
+        }
+        let base64Data = btoa(bin);
+        localStorage.setItem('save', base64Data);
+    }
+    reader.readAsArrayBuffer(file);
+
+    setTimeout(() => {
+        location.reload();
+    }, 5000);     
+});
+
+resetGameButtons.forEach(resetGameButton => {
+    let holdTime = null;
+
+    function startHold() {
+        resetGameButton.textContent = "hold to reset...";
+        holdTime = setTimeout(() => {
+            localStorage.removeItem('save');
+            location.reload();
+        }, 1500);
+    }
+
+    function endHold() {
+        clearTimeout(holdTime);
+        resetGameButton.textContent = "Reset Game";
+    }
+
+    resetGameButton.onmousedown = startHold;
+    resetGameButton.onmouseup = endHold;
+    resetGameButton.onmouseleave = endHold;
+    resetGameButton.ontouchstart = (e) => { e.preventDefault(); startHold(); }
+    resetGameButton.ontouchend = (e) => { e.preventDefault(); endHold(); }
+
+})
+
+function setSavedSettingsValues({
+    musicVolume = 0.1,
+    spawnSFXVolume = 0.1,
+    gearSFXVolume = 0.1,
+    enableAFK = false,
+    disableSpawnEffects = false,
+    superChexMode = false,
+    cloudSaveEnabled = false,
+    swagLevel = 0
+} = {}) {
+    gameSettings.audioSettings.musicVolume = musicVolume;
+    gameSettings.audioSettings.spawnSFXVolume = spawnSFXVolume;
+    gameSettings.audioSettings.gearSFXVolume = gearSFXVolume;
+    gameSettings.gameplaySettings.enableAFK = enableAFK;
+    gameSettings.gameplaySettings.disableSpawnEffects = disableSpawnEffects;
+    gameSettings.miscSettings.superChexMode = superChexMode;
+    gameSettings.miscSettings.cloudSaveEnabled = cloudSaveEnabled;
+    gameSettings.miscSettings.swagLevel = swagLevel;
+    updateSliders();
+    updateCheckboxes();
 }
 
-slider.oninput = () => {
-    audioElement.volume = (slider.value/100);
-    audioElementCaveSpawn.volume = (slider.value/100);
-    guiTextMainSpVal.textContent = (slider.value);
-    gameSettings.spawnEffVolume = Number(slider.value);
-    saveGame()
-}
-
-sliderBg.oninput = () => {
-    bgMusicElement.volume = (sliderBg.value/100);
-    guiTextMainBgVal.textContent = (sliderBg.value);
-    gameSettings.musicVolume = Number(sliderBg.value);
-    saveGame()
-}
-
-export {gameSettings, setSavedSettingsValues}
+export { gameSettings, setSavedSettingsValues, updateSliders, updateCheckboxes }

@@ -8,6 +8,7 @@ const ChexiumMatterManipulator = new Pickaxe(
         "Blocks_Mined": 4 // 4 blocks per 0.5 seconds
     },
     5, // tier
+    null,
     { //recipe
         "Fractured-Shard-of-Normality": { "quantity": 1 },
         "Shard-of-Saturated-Crystal": { "quantity": 2 },
@@ -27,6 +28,7 @@ const ChexiumMatterManipulator = new Pickaxe(
     }
     ,
     "this chex device can manipulate the matter of the ores themselves, allowing you to get the ores you actually want (the luck holy moly) <br><br>",
+    null
 );
 
 export { ChexiumMatterManipulator };

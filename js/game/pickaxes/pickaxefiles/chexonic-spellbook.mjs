@@ -8,6 +8,7 @@ const ChexonicSpellbook = new Pickaxe (
         "Blocks_Mined": 2
     },
     6, // tier
+    null,
     { // recipe
         "Vitrilyx": { "quantity": 1 },
         "Iodivultrite": { "quantity": 1 },
@@ -37,7 +38,8 @@ const ChexonicSpellbook = new Pickaxe (
         "Copper": { "quantity": 100000 },
         "Stone": { "quantity": 400000 },
     },
-    "now hold your horses! this isnt even a pickaxe! <br><br> this spellbook looks mighty useful however, looks like it could cause some Lucky Destruction <br><br> YIKES THAT RECIPE"
+    "now hold your horses! this isnt even a pickaxe! <br><br> this spellbook looks mighty useful however, looks like it could cause some Lucky Destruction <br><br> YIKES THAT RECIPE",
+    null
 );
 
 export { ChexonicSpellbook };

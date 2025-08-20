@@ -18,10 +18,20 @@ import { Gear } from "./gearDefaultClass.mjs";
 function craftGear(gearObject, recipe) {
     if(canCraftGear(inventory, recipe)) {
         if (!ownedGears[gearObject.name]) {
-            if (!gearObject.effect) {
-                gearObject.effect = Gear.getEffectFunction(gearObject.name.replace(/\s/g, "") + "Effect");
-            }
-            ownedGears[gearObject.name] = gearObject;
+
+            const craftedGear = new Gear(
+                gearObject.name,
+                gearObject.bonuses,
+                gearObject.penalties,
+                gearObject.tier,
+                gearObject.effectConfig,
+                gearObject.recipe,
+                gearObject.gearDescription,
+                gearObject.bonusDescription,
+                gearObject.penaltyDescription
+            )
+
+            ownedGears[gearObject.name] = craftedGear;
             console.log(ownedGears[gearObject.name]);
             saveGame();
             return true

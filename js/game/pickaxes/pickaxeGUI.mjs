@@ -2,7 +2,6 @@ import anime from "animejs";
 import { craftPickaxe } from "./pickaxeCraft.mjs";
 import { equipPickaxe, ownedPickaxes } from "./pickaxesMain.mjs";
 
-// Array of pickaxe file paths
 const pickaxeFiles = [
     "./pickaxefiles/the-chexaxe.mjs",
     "./pickaxefiles/chexforge-ravager.mjs",
@@ -14,10 +13,12 @@ const pickaxeFiles = [
     "./pickaxefiles/casino-crusher.mjs",
     "./pickaxefiles/chexium-matter-manipulator.mjs",
     "./pickaxefiles/chexonic-spellbook.mjs",
+    "./pickaxefiles/urleinator-prime.mjs",
+    "./pickaxefiles/chexite-staff.mjs"
 ];
 
-const buttonContainer = document.querySelector('.buttonGroup');
-const mainGuiContainer = document.querySelector('.mainGuiContainer');
+const buttonContainer = document.querySelector('#pickaxes .panelContent');
+const mainGuiContainer = document.querySelector('.mainGUIContainer');
 
 async function initializePickaxes() {
     const pickaxes = [];
@@ -39,37 +40,47 @@ async function initializePickaxes() {
 
         const button = document.createElement('button');
         button.classList.add('pickaxeSelectButton');
-        button.style.width = '100%'
-        button.style.padding = '10px';
-        button.style.marginBottom = '5px';
         button.textContent = `${pickaxe.name} (Tier ${pickaxe.tier})`;
         buttonContainer.appendChild(button);
 
         const gui = document.createElement('div');
-        gui.classList.add('guiContainerPickaxe', normalizedPickaxeName, 'draggable');
+        gui.classList.add('gamePanel', normalizedPickaxeName, 'draggable');
         gui.style.visibility = 'hidden';
 
         gui.innerHTML = `
-            <div class="guiSubContainer"></div>
-            <div class="guiText ${normalizedPickaxeName}"> > ${pickaxe.name} </div>
-            <div class="guiPickaxesMain">
-                <div class="guiPickaxeInfo">
-                    <div>${pickaxe.description || 'No description available.'}</div>
+            <div class="panelHeader">
+                <span class="panelTitle"><b>${pickaxe.name}</b></span>
+            </div>
+
+            <div class="panelContent">
+                
+                <div class="pickaxeInfo">
+                    ${pickaxe.description || 'invalid description'}<br>
+                    <hr>
                     <br>
-                    -----------------------------------
-                    <br><br>
-                    Stats:<br><br>
-                    ${pickaxe.bonuses.Luck > 0 ? `<div class="luckText">Luck: +${pickaxe.bonuses.Luck}x</div>` : ''}
-                    <div class="miningSpeedText">Speed: ${pickaxe.bonuses.Blocks_Mined || 'Undefined'} block(s) every ${pickaxe.bonuses.Speed / 1000 || 'Undefined'}s</div>
+                    ${pickaxe.bonuses.Luck > 0
+                    ? `<div class="luckText">Luck: +${pickaxe.bonuses.Luck}x</div>`
+                    : ''}
+                    <div class="miningSpeedText">
+                    Speed: ${pickaxe.bonuses.Blocks_Mined ?? '—'} block(s)
+                    every ${pickaxe.bonuses.Speed / 1000 ?? '—'} s
+                    </div><br>
+                    <div class="abilityDescription">
+                        ${pickaxe.bonusDescription || ""}
+                    </div><br>
                 </div>
-                <div class="guiPickaxeRecipe">
+
+                <div class="pickaxeRecipe">
                     Recipe:<br>
                     ${Object.entries(pickaxe.recipe).map(([material, qty]) => `<div class="${material} ${normalizedPickaxeName}">${qty.quantity || 0}/${qty.quantity} ${material}</div>`).join('')}
-                </div>
-                <div class="guiPickaxeCraftButtonContainer">
+                </div><br>
+
+                <div class="pickaxeActions">
                     <button class="craftButton ${normalizedPickaxeName}">Craft</button>
                 </div>
             </div>
+
+            <div class="panelResizeHandle"></div>
         `;
         mainGuiContainer.appendChild(gui);
 
@@ -151,4 +162,25 @@ function handleCraftButtonClick(button, pickaxeObject, craftFunction, equipFunct
     }
 }
 
+function manualPickaxeUpdate() {
+    
+    for (let pickaxeName in ownedPickaxes) {
+        const pickaxe = ownedPickaxes[pickaxeName];
+        const normalizedPickaxeName = pickaxeName.replace(/\s+/g, '-');
+        const button = document.querySelector(`.craftButton.${normalizedPickaxeName}`);
+        
+        if (button && pickaxe) {
+            if (pickaxe.equipped) {
+                button.textContent = "Equipped";
+                button.style.color = "gold";
+            } else {
+                button.textContent = "Equip";
+                button.style.color = "lime";
+            }
+        }
+    }
+}
+
 document.addEventListener('DOMContentLoaded', initializePickaxes);
+
+export { manualPickaxeUpdate }

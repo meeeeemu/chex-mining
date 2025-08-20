@@ -1,29 +1,42 @@
-var stats = {
-    blocksMined: 0,
-    timeWasted: 0
+const stats = {
+    timeWasted: 0,
+    blocksMined: 0
 }
 
-//         _                 _ _ _ 
-//        | |               | | | |
-//    __ _| |__   ___  _   _| | | |
-//   / _` | '_ \ / _ \| | | | | | |
-//  | (_| | | | | (_) | |_| |_|_|_|
-//   \__,_|_| |_|\___/ \__, (_|_|_)
-//                      __/ |      
-//                     |___/       
+const timeWasted = document.getElementById('timeWasted');
+const blocksMined = document.getElementById('blocksMined')
 
-// have fun looking through my probably absolutely GARBAGE code :)
-// take what you like if you find it useful, no need for credits
+function secondsToDHMS(seconds) {
+    seconds = Number(seconds);
+    const d = Math.floor(seconds / (3600 * 24));
+    const h = Math.floor((seconds % (3600 * 24)) / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = Math.floor(seconds % 60);
 
-var blocksMinedText = document.querySelector('.blocksMined')
+    return [
+        d > 0 ? `${d}d` : null,
+        h > 0 || d > 0 ? `${h}h` : null,
+        m > 0 || h > 0 || d > 0 ? `${m}m` : null,
+        `${s}s`
+    ].filter(Boolean).join(' ');
+}
 
-function addBlocksMined(amount) {
-    stats.blocksMined += amount;
-    blocksMinedText.textContent = `Blocks Mined: ${stats.blocksMined}`;
+function updateTimeWasted() {
+    timeWasted.innerHTML = `Time Wasted: <b>${secondsToDHMS(stats.timeWasted)}</b>`;
 }
 
 function updateBlocksMined() {
-    blocksMinedText.textContent = `Blocks Mined: ${stats.blocksMined}`;
+    blocksMined.innerHTML = `<b>${stats.blocksMined}</b> Blocks Mined`;
 }
 
-export {stats, addBlocksMined, updateBlocksMined};
+function addBlocksMined(amount) {
+    stats.blocksMined += amount;
+    updateBlocksMined();
+}
+
+setInterval(() => {
+    stats.timeWasted++;
+    updateTimeWasted();
+}, 1000);
+
+export {updateTimeWasted, blocksMined, stats, updateBlocksMined, addBlocksMined}

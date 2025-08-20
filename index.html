@@ -3,12 +3,13 @@
     <head>
         <meta charset="utf-8">
         <title>Chex Mining</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-        <link href="./css/main.css" rel="stylesheet">
+        <link href="./css/new.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     </head>
     <body>
 
@@ -26,11 +27,13 @@
 
         <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js" crossorigin="anonymous"></script>
 
-        <div class="effectLayer"></div>
+        <div class="fadeCover"></div>
 
-        <input type="file" class="importFileInput" style="display: none;">
+        <input type="file" class="importFileInput" hidden />
 
-        <audio class="audioElement">
+        <audio class="bgMusic" src="./media/into-the-mines.mp3"></audio>
+
+        <audio class="spawnSound">
             <source src="./media/exotic.wav" type="audio/wav">
             <source src="./media/pristine.wav" type="audio/wav">
             <source src="./media/pure.wav" type="audio/wav">
@@ -38,813 +41,477 @@
             <source src="./media/angelic.wav" type="audio/wav">
         </audio>
 
-        <audio class="audioElementCaveSpawn" src="./media/cave-found.mp3" preload="auto"></audio>
+        <audio class="caveSpawn" src="./media/cave-found.mp3" preload="auto"></audio>
 
-        <audio class="audioElementSFX" src="./media/sfx/bbb_sfx1.wav" preload="auto"></audio>
+        <audio class="gearSFX" src="./media/sfx/bbb_sfx1.wav" preload="auto"></audio>
 
-        <audio class="bgMusic" src="./media/into-the-mines.mp3"></audio>
+        <audio class="bgIntroMusic" src="./media/menu-loop.mp3"></audio>
 
-        <div class="importingSaveContainer" style="visibility: hidden;">
+        <audio class="uiHover" src="./media/sfx/ui/hover.ogg"></audio>
+
+        <div class="importingSaveContainer">
             <div class="importingSaveText">your save is importing!!! do not refresh or you Will lose your data!!!</div>
         </div>
 
-        <div class="settingsGuiContainer">
-           
-            <div class="guiText"> > Settings </div>
+        <div class="gameIntro"></div>
 
-            <div class="guiSettingsMain">
+        <!-- MAIN MENU -->
 
-                <div class="guiTextMainSpawnEff"> > Spawn Effects Volume: </div> <div class="spawnEffectsVolVal guiTextMainSpVal">35</div>
+        <div id="mainMenu" class="menuOverlay">
+        <canvas id="menuBG" aria-hidden="true"></canvas>
+        <div class="vignette"></div>
 
-                <div class="slidecontainer">
-                    <input type="range" min="0" max="100" value="15" class="sliderSpawnVol">
-                </div>
+        <div class="menuPanel">
+            <header class="menuBrand">
+            <span class="logoText">Web Chex Mining</span>
+            </header>
 
-                <div class="guiTextMainBgMusic"> > Music Volume: </div> <div class="bgMusicVolVal guiTextMainBgVal">5</div>
+            <nav class="menuColumn">
+                <button data-action="play">get mining!!</button>
+                <button data-action="settings">Settings</button>
+                <button data-action="credits">Credits</button>
+            </nav>
 
-                <div class="slidecontainer">
-                    <input type="range" min="0" max="100" value="5" class="sliderBgVol">
-                </div>
-
-
-                <div class="checkboxContainerSOC">
-                    <input type="checkbox" class="stopOnChillVal">
-                    <span class="checkmark"></span>
-                </div> <div class='guiTextSettingsContainerSOC'> > Disable Stop on Chill</div>
-
-                <div class="checkboxContainerMGS">
-                    <input type="checkbox" class="muteGearSoundsVal">
-                    <span class="checkmark"></span>
-                </div> <div class='guiTextSettingsContainerMGS'> > Mute Gear Sounds</div>
-
-                <div class="resetButtonContainer">
-                    <button class="resetDataButton">Reset Data</button>
-                </div>
-
-                <div class="exportDataContainer">
-                    <button class="exportDataButton">Export Data</button>
-                </div>
-
-                <div class="importDataContainer">
-                    <button class="importDataButton">Import Data</button>
-                </div>
-
-                <div class="debugInfoContainer">
-                    <div class="version"></div>
-                </div>
-
-            </div>
-
+            <footer class="menuFooter">
+                <p class="footerLine">v0.3.2 - Alpha</p>
+                <p class="footerLine">Current Song: meeeeemu - A Chexian Dream</p>
+            </footer>
         </div>
 
-        <div class="oreIndexGuiTopbar draggable" style="visibility: hidden;">
+        <section class="contentStrip">
+            <article id="settings" class="card">
+                    <div class="tabBar tabBarSettings">
+                        <button class="tab active" data-tab="audio">Audio</button>
+                        <button class="tab" data-tab="gameplay">Gameplay</button>
+                        <button class="tab" data-tab="misc">Misc</button>
+                    </div> 
 
-            <div class="guiText oreIndex"> > Ore Index </div>
+                    <section class="settingsPane active" data-pane="audio">
+                        <label class="sliderRow">
+                            <span>Music Volume</span>
+                            <input type="range" min="0" max="100" value="10" data-setting="musicVolume" data-location="mainMenu">
+                            <span class="value">10%</span>
+                        </label>
 
-            <input class="guiSearch" type="text" placeholder="Search..">
+                        <label class="sliderRow">
+                            <span>Spawn SFX Volume</span>
+                            <input type="range" min="0" max="100" value="55" data-setting="spawnSFXVolume" data-location="mainMenu">
+                            <span class="value">55%</span>
+                        </label>
 
-            <div class="oreIndexMainContainer">
+                        <label class="sliderRow">
+                            <span>Gear SFX Volume</span>
+                            <input type="range" min="0" max="100" value="55" data-setting="gearSFXVolume" data-location="mainMenu">
+                            <span class="value">55%</span>
+                        </label>
 
+                    </section>
 
+                    <section class="settingsPane" data-pane="gameplay">
 
-            </div>
+                        <label class="checkRow">
+                            <input type="checkbox" data-setting="enableAFK">
+                            <span>Enable AFK Mining (not currently implemented)</span>
+                        </label>
 
+                        <label class="checkRow">
+                            <input type="checkbox" data-setting="disableSpawnEffects">
+                            <span>Disable Spawn Effects</span>
+                        </label>
+
+                        <label class="checkRow">
+                            <input type="checkbox" data-setting="skipMainMenu">
+                            <span>Skip Main Menu</span>
+                        </label>
+
+                        <label class="checkRow">
+                            <input type="checkbox" data-setting="disableStopOnChill">
+                            <span>Disable Stop-on-Chill</span>
+                        </label>
+
+                    </section>
+
+                    <section class="settingsPane" data-pane="misc">
+
+                        <label class="checkRow">
+                            <input type="checkbox" data-setting="superChexMode">
+                            <span>Enable Super Chex Mode</span>
+                        </label>
+
+                        <label class="checkRow">
+                            <input type="checkbox" data-setting="cloudSaveEnabled">
+                            <span>Enable Cloud-save (not currently implemented)</span>
+                        </label>
+
+                        <label class="sliderRow">
+                            <span>Swag Level</span>
+                            <input type="range" min="0" max="100" value="100">
+                            <span class="value">100%</span>
+                        </label>
+
+                        <div class="settingsButtonRow">
+                            <button type="button" class="settingsBtn importDataBtn">Import Data</button>
+                            <button type="button" class="settingsBtn exportDataBtn">Export Data</button>
+                            <button type="button" class="settingsBtn resetGameBtn">Reset Game</button>
+                        </div>
+
+                    </section>
+            </article>
+
+            <article id="credits" class="card">
+
+                <h3>Credits</h3>
+
+                <p>Jarvis9999: Balancer and Help<br><br>
+                    <h3>Music</h3> Tunic OST - Observatory<br>
+                    Tunic OST - Into the Mines<br>
+                    OneShot OST - Geothermal<br>
+                    Spiritfarer OST - At Night<br>
+                    Thingerthing - Heartwarmth<br>
+                    Celeste OST - Quiet and Falling<br>
+                    Spiritfarer OST - Stella's Departure<br>
+                    Scott Buckley - Animation vs Addiction Score<br>
+                    me!!! - A Chexian Dream<br>
+                </p>
+
+                <p>Main Menu Shader: <a href="https://www.shadertoy.com/view/Wf3SWn" target="_blank">https://www.shadertoy.com/view/Wf3SWn</a></p>
+
+            </article>
+
+        </section>
         </div>
 
-        <div class="mainGuiContainer">
+        <!-- TOP BAR -->
 
-            <div class="bgContainer">
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-                <div class="bgSquare"></div>
-            </div>
+        <header class="hudBar" hidden>
 
-            <div class="mainGuiText pickaxeLabel"> > Using Pickaxe: </div> <div class="mainGuiText pickaxeLabelVal">Default Pickaxe (Tier 0)</div>
-            <div class="mainGuiText gearLabel"> > Using Gear: </div> <div class="mainGuiText gearLabelVal"> N/A </div>
+            <span class="hudStat" id="blocksMined"><b>0</b> Blocks Mined</span>
+          
+                <div class="hudButtons">
 
-            <button class="settingsButton"></button>
-            <button class="oreIndexButton"></button>
-            <button class="pickaxeButton notMining"></button>
+                    <button class="hudBtn pickaxeMineButton" data-view="mine"></button>
 
-        </div>
+                    <button class="hudBtn" data-view="pickaxes">
+                        <span class="material-icons-outlined">construction</span>
+                    </button>
 
-        <div class="topGuiContainer">
+                    <button class="hudBtn" data-view="gears">
+                        <span class="material-icons-outlined">build</span>
+                    </button>
 
-            <div class="topBar">
+                    <button class="hudBtn" data-view="inventory">
+                        <span class="material-icons-outlined">inventory_2</span>
+                    </button>
 
-                <div class="blocksMined">Blocks Mined: 0</div>
+                    <button class="hudBtn" data-view="oreindex">
+                        <span class="material-icons-outlined">menu_book</span>
+                    </button>
 
-                <div class="timeWasted">Time Wasted: 0</div>
+                    <button class="hudBtn" data-view="fancyorelog">
+                        <span class="material-icons-outlined">list_alt</span>
+                    </button>
 
-                <div class="topbarAlert">testing</div>
+                    <button class="hudBtn" data-view="statspanel">
+                        <span class="material-icons-outlined">analytics</span>
+                    </button>
 
-            </div>
+                    <button class="hudBtn" data-view="gameSettingsPane">
+                        <span class="material-icons-outlined">settings</span>
+                    </button>
 
-            <div class=""></div>
-
-        </div>
-
-        <div class="titleText">Web Chex Mining</div>
-
-        <div class="guiContainerInventory draggable">
-
-            <div class="guiSubContainer"></div>
-
-            <div class="guiText"> > Inventory </div>
-
-            <div class="guiInventoryMain inventoryGroup">
-
-                <!-- <div class="common">hello!</div>
-                <div class="uncommon">hello!</div>
-                <div class="rare">hello!</div>
-                <div class="master">hello!</div>
-                <div class="unreal">hello!</div>
-                <div class="exotic">hello!</div>
-                <div class="pristine">hello!</div>
-                <div class="pure">hello!</div>
-                <div class="virtuous">hello!</div>
-                <div class="angelic">hello!</div>
-                <div class="dreamlike">hello!</div> -->
+                    <button class="hudBtn" data-view="changelog">
+                        <span class="material-icons-outlined">history</span>
+                    </button>
                 
+                </div>
+          
+            <span class="hudStat" id="timeWasted">Time Wasted:<b>0</b></span>
 
-            </div>
+        </header>
 
+        <div class="statusOverlay" id="statusOverlay">
+            <div class="pickaxeLabelVal">Current Pickaxe: Default Pickaxe (Tier 1)</div>
+            <div class="gearLabelVal">Current Gear: N/A</div>
         </div>
 
-        <!-- ORE LOG GUI STARTS HERE -->
+        <!-- MAIN GUI -->
 
-        <div class="oreLog draggable">
-            <div class="guiSubContainer"></div>
+        <div class="mainGUIContainer">
 
-            <div class="guiText"> > Fancy Ore Log </div>
+            <canvas id="swagBG"></canvas>
 
-            <div class="guiOreLogMain"></div>
-        </div>
+            <div class="guiAlertBox" id="guiAlertBox"></div>
 
-        <!-- PICKAXE GUI STARTS HERE -->
-
-        <div class="guiContainerPickaxes draggable">
-
-            <div class="guiSubContainer"></div>
-
-            <div class="guiText"> > Pickaxes </div>
-
-            <div class="guiPickaxesMain">
-
-                <div class="guiPickaxes buttonGroup">
-                    <!-- <button class="pickaxeButton1">Chexstick (Tier 1)</button>
-                    <button class="pickaxeButton2">The Chexaxe (Tier 2)</button>
-                    <button class="pickaxeButton3">Chexforge Ravager (Tier 2)</button>
-                    <button class="pickaxeButton4">Chexquartz Excavator (Tier 3)</button>
-                    <button class="pickaxeButton5">Titanium Chexblaster (Tier 3)</button>
-                    <button class="pickaxeButton6">Womboaxe (Tier 4)</button>
-                    <button class="pickaxeButton7">Chexglow Dagger (Tier 4)</button>
-                    <button class="pickaxeButton8">Casino Crusher (Tier 5)</button>
-                    <button class="pickaxeButton9 hidden">Chexnihilator (Tier 6)</button> -->
+            <div class="gamePanel hidden" id="pickaxes">
+                <div class="panelHeader">
+                    <span class="panelTitle"><b>Pickaxes</b></span>
                 </div>
-
-            </div>
-
-        </div>
-
-        <!-- <div class="guiContainerPickaxe Chexstick draggable" style="visibility: hidden;">
-
-            <div class="guiSubContainer"></div>
-
-            <div class="guiText Chexstick"> > Chexstick </div>
-
-            <div class="guiPickaxesMain">
-
-                <div class="guiPickaxeInfo">
-
-                    this... is a stick! it has some chex mix thrown onto it. kinda icky, i dont even wanna think about picking this thing up <br><br>
-                    
-                    it mines quite a bit though, a good starter stick i'd say <br>
-                    -----------------------------------
-                    <br><br>
-
-                    Stats:<br><br>
-
-                    <div class="miningSpeedText">Breaks 1 block 0.25 seconds.</div>
-
-                </div>
-
-                <div class="guiPickaxeRecipe">
-                    Recipe:<br>
-                    <div class="Chexwood Chexstick">0/4 Chexwood</div>
-                    <div class="Silver Chexstick">0/10 Silver</div>
-                    <div class="Coal Chexstick">0/65 Coal</div>
-                    <div class="Chexium Chexstick">0/120 Chexium</div>
-                    <div class="Clay Chexstick">0/350 Clay</div>
-                    <div class="Stone Chexstick">0/800 Stone</div>
-                </div>
-
-                <div class="guiPickaxeChexstickCraftButtonContainer">
-                    <button class="craftButton Chexstick">Craft</button>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="guiContainerPickaxe Chexaxe draggable" style="visibility: hidden;">
-
-            <div class="guiSubContainer"></div>
-
-            <div class="guiText Chexaxe"> > The Chexaxe </div>
-
-            <div class="guiPickaxesMain">
-
-                <div class="guiPickaxeInfo">
-
-                    your first Real pickaxe in the entire game!!! <br><br>
-                    
-                    it mines a block a second, and even comes with a luck boost <br>
-                    -----------------------------------
-                    <br><br>
-
-                    Stats:<br><br>
-
-                    <div class="luckText">15% Luck Boost</div>
-
-                    <div class="miningSpeedText">Breaks 1 block 0.33 seconds.</div>
-
-                </div>
-
-                <div class="guiPickaxeRecipe">
-                    Recipe:<br>
-                    <div class="Chexerite Chexaxe">0/1 Chexerite</div>
-                    <div class="Virotite Chexaxe">0/5 Virotite</div>
-                    <div class="Emerald Chexaxe">0/8 Emerald</div>
-                    <div class="Diamond Chexaxe">0/17 Diamond</div>
-                    <div class="Silver Chexaxe">0/80 Silver</div>
-                    <div class="Coal Chexaxe">0/430 Coal</div>
-                    <div class="Tin Chexaxe">0/600 Tin</div>
-                    <div class="Copper Chexaxe">0/1100 Copper</div>
-                    <div class="Stone Chexaxe">0/4000 Stone</div>
-                </div>
-
-                <div class="guiPickaxeChexaxeCraftButtonContainer">
-                    <button class="craftButton Chexaxe">Craft</button>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="guiContainerPickaxe CR draggable" style="visibility: hidden;">
-
-            <div class="guiSubContainer"></div>
-
-            <div class="guiText CR"> > Chexforge Ravager </div>
-
-            <div class="guiPickaxesMain">
-
-                <div class="guiPickaxeInfo">
-
-                    your second pickaxe in the entire game!! (unless you chose to go with this first) <br><br>
-                    
-                    it mines at a good speed! oh... where's the luck boost... there is none... :[ <br>
-                    -----------------------------------
-                    <br><br>
-
-                    Stats:<br><br>
-
-                    <div class="miningSpeedText">Breaks 1 blocks every 0.166 seconds.</div>
-
-                </div>
-
-                <div class="guiPickaxeRecipe">
-                    Recipe:<br>
-                    <div class="Chexerite Chexforge-Ravager">0/1 Chexerite</div>
-                    <div class="Amber Chexforge-Ravager">0/6 Amber</div>
-                    <div class="Diamond Chexforge-Ravager">0/15 Diamond</div>
-                    <div class="Gold Chexforge-Ravager">0/42 Gold</div>
-                    <div class="Quartz Chexforge-Ravager">0/60 Quartz</div>
-                    <div class="Iron Chexforge-Ravager">0/210 Iron</div>
-                    <div class="Coal Chexforge-Ravager">0/450 Coal</div>
-                    <div class="Tin Chexforge-Ravager">0/550 Tin</div>
-                    <div class="Clay Chexforge-Ravager">0/2200 Clay</div>
-                </div>
-
-                <div class="guiPickaxeChexforgeRavagerCraftButtonContainer">
-                    <button class="craftButton ChexforgeRavager">Craft</button>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="guiContainerPickaxe CE draggable" style="visibility: hidden;">
-
-            <div class="guiSubContainer"></div>
-
-            <div class="guiText CE"> > Chexquartz Excavator </div>
-
-            <div class="guiPickaxesMain">
-
-                <div class="guiPickaxeInfo">
-
-                    forged from the elusive chexquartz, which wasnt an ore in this game until i decided to make it now! <br><br>
-                    
-                    not only does this mine at a good speed, but it has a luck boost! now we're advancing in the game! <br>
-                    -----------------------------------
-                    <br><br>
-
-                    Stats:<br><br>
-
-                    <div class="luckText">10% Luck Boost</div>
-
-                    <div class="miningSpeedText">Breaks 1 block every 0.15 seconds.</div>
-
-
-
-                </div>
-
-                <div class="guiPickaxeRecipe">
-                    Recipe:<br>
-                    <div class="Chexquartz Chexquartz-Excavator">0/4 Chexquartz</div>
-                    <div class="Cobalt Chexquartz-Excavator">0/6 Cobalt</div>
-                    <div class="Chexerite Chexquartz-Excavator">0/8 Chexerite</div>
-                    <div class="Virotite Chexquartz-Excavator">0/22 Virotite</div>
-                    <div class="Quartz Chexquartz-Excavator">0/250 Quartz</div>
-                    <div class="Iron Chexquartz-Excavator">0/850 Iron</div>
-                    <div class="Tin Chexquartz-Excavator">0/2200 Tin</div>
-                    <div class="Rhodochrosite Chexquartz-Excavator">0/3000 Rhodochrosite</div>
-                    <div class="Copper Chexquartz-Excavator">0/4000 Copper</div>
-                    <div class="Clay Chexquartz-Excavator">0/7500 Clay</div>
-                </div>
-
-                <div class="guiPickaxeChexquartzExcavatorCraftButtonContainer">
-                    <button class="craftButton ChexquartzExcavator">Craft</button>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="guiContainerPickaxe TC draggable" style="visibility: hidden;">
-
-            <div class="guiSubContainer"></div>
-
-            <div class="guiText TC"> > Titanium Chexblaster </div>
-
-            <div class="guiPickaxesMain">
-
-                <div class="guiPickaxeInfo">
-
-                    well i'll be darned, its a gun. a blaster might i add! you might think blaster = big radius of blocks mined, but it's pretty much a sniper <br><br>
-                    
-                    holy moly the luck boost on this is nuts! <br><br>
-
-                    due to the low power of chexquartz, this thing takes a WHILE to charge again after firing a shot <br><br>
-
-                    maybe there's a better version of chexquartz that you can find later??? hmm?????????? maybe??????? <br>
-
-                    -----------------------------------
-                    <br><br>
-
-                    Stats:<br><br>
-
-                    <div class="luckText">50% Luck Boost</div>
-
-                    <div class="miningSpeedText">Breaks 3 blocks every second.</div>
-
-                </div>
-
-                <div class="guiPickaxeRecipe">
-                    Recipe:<br>
-                    <div class="Chrysoberyl Titanium-Chexblaster">0/1 Chrysoberyl</div>
-                    <div class="Chexquartz Titanium-Chexblaster">0/3 Chexquartz</div>
-                    <div class="Titanite Titanium-Chexblaster">0/5 Titanite</div>
-                    <div class="Chexerite Titanium-Chexblaster">0/9 Chexerite</div>
-                    <div class="Combrolium Titanium-Chexblaster">0/17 Combrolium</div>
-                    <div class="Amber Titanium-Chexblaster">0/23 Amber</div>
-                    <div class="Emerald Titanium-Chexblaster">0/32 Emerald</div>
-                    <div class="Quartz Titanium-Chexblaster">0/260 Quartz</div>
-                    <div class="Iron Titanium-Chexblaster">0/1000 Iron</div>
-                    <div class="Rhodochrosite Titanium-Chexblaster">0/2900 Rhodochrosite</div>
-                    <div class="Copper Titanium-Chexblaster">0/3900 Copper</div>
-                    <div class="Clay Titanium-Chexblaster">0/7000 Clay</div>
-                    <div class="Stone Titanium-Chexblaster">0/14000 Stone</div>
-                </div>
-
-                <div class="guiPickaxeTitaniumChexblasterCraftButtonContainer">
-                    <button class="craftButton TitaniumChexblaster">Craft</button>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="guiContainerPickaxe WA draggable" style="visibility: hidden;">
-
-            <div class="guiSubContainer"></div>
-
-            <div class="guiText WA"> > Womboaxe </div>
-
-            <div class="guiPickaxesMain">
-
-                <div class="guiPickaxeInfo">
-
-                    goodness GRACIOUS this recipe is nuts! but i'll tell you somethin this thing can mine! <br><br>
-
-                    two blocks mined at once AND a luck boost! this thing is nuts! its not even slow either! <br><br>
-
-                    we dont entirely know what it is, (what is wombo), but it sure can mine
-
-                    -----------------------------------
-                    <br><br>
-
-                    Stats:<br><br>
-
-                    <div class="luckText">40% Luck Boost</div>
-
-                    <div class="miningSpeedText">Breaks 1 blocks every 0.14 seconds.</div>
-
-                </div>
-
-                <div class="guiPickaxeRecipe">
-                    Recipe:<br>
-                    <div class="glombo-wombo-v0_0001 Womboaxe">0/1 glombo wombo v0.0001</div>
-                    <div class="Vergulium Womboaxe">0/1 Vergulium</div>
-                    <div class="Vanaon Womboaxe">0/2 Vanaon</div>
-                    <div class="Ice-Fragment Womboaxe">0/5 Ice Fragment</div>
-                    <div class="Magnesium Womboaxe">0/7 Magnesium</div>
-                    <div class="Uranium Womboaxe">0/15 Uranium</div>
-                    <div class="Cobalt Womboaxe">0/17 Cobalt</div>
-                    <div class="Crystalline Womboaxe">0/27 Crystalline</div>
-                    <div class="Bismuth Womboaxe">0/50 Bismuth</div>
-                    <div class="Amber Womboaxe">0/72 Amber</div>
-                    <div class="Emerald Womboaxe">0/100 Emerald</div>
-                    <div class="Quartz Womboaxe">0/925 Quartz</div>
-                    <div class="Iron Womboaxe">0/4000 Iron</div>
-                    <div class="Rhodochrosite Womboaxe">0/12500 Rhodochrosite</div>
-                    <div class="Copper Womboaxe">0/17000 Copper</div>
-                    <div class="Stone Womboaxe">0/70000 Stone</div>
-                </div>
-
-                <div class="guiPickaxeWomboaxeCraftButtonContainer">
-                    <button class="craftButton Womboaxe">Craft</button>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="guiContainerPickaxe CD draggable" style="visibility: hidden;">
-
-            <div class="guiSubContainer"></div>
-
-            <div class="guiText CD"> > Chexglow Dagger </div>
-
-            <div class="guiPickaxesMain">
-
-                <div class="guiPickaxeInfo">
-
-                    a tiny lil dagger! and since it's small, good lord it can MINE <br><br>
-
-                    it's kinda shiny too, i guess they dont call it chexglow for nothing
-                    -----------------------------------
-                    <br><br>
-
-                    Stats:<br><br>
-
-                    <div class="miningSpeedText">Breaks 3 blocks every 0.2 seconds.</div>
-
-                </div>
-
-                <div class="guiPickaxeRecipe">
-                    Recipe:<br>
-                    <div class="Glumbology-Incarnate Chexglow-Dagger">0/1 Glumbology Incarnate</div>
-                    <div class="Bromulite Chexglow-Dagger">0/3 Bromulite</div>
-                    <div class="Adurite Chexglow-Dagger">0/7 Adurite</div>
-                    <div class="Chexquartz Chexglow-Dagger">0/11 Chexquartz</div>
-                    <div class="Radiosolite Chexglow-Dagger">0/15 Radiosolite</div>
-                    <div class="Chiron Chexglow-Dagger">0/20 Chiron</div>
-                    <div class="Granite-Glass Chexglow-Dagger">0/38 Granite Glass</div>
-                    <div class="Palladium Chexglow-Dagger">0/58 Palladium</div>
-                    <div class="Virotite Chexglow-Dagger">0/100 Virotite</div>
-                    <div class="Diamond Chexglow-Dagger">0/350 Diamond</div>
-                    <div class="Silver Chexglow-Dagger">0/1700 Silver</div>
-                    <div class="Coal Chexglow-Dagger">0/6500 Coal</div>
-                    <div class="Tin Chexglow-Dagger">0/8500 Tin</div>
-                    <div class="Chexium Chexglow-Dagger">0/15000 Chexium</div>
-                    <div class="Clay Chexglow-Dagger">0/40000 Clay</div>
-                </div>
-
-                <div class="guiPickaxeCDCraftButtonContainer">
-                    <button class="craftButton ChexglowDagger">Craft</button>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="guiContainerPickaxe CC draggable" style="visibility: hidden;">
-
-            <div class="guiSubContainer"></div>
-
-            <div class="guiText CC"> > Casino Crusher </div>
-
-            <div class="guiPickaxesMain">
-
-                <div class="guiPickaxeInfo">
-
-                    god damn this hammer is huge, it has the letters 777 engraved on the side. must be pretty lucky  <br><br>
-
-                    i wonder who made this???? 
-                    -----------------------------------
-                    <br><br>
-
-                    Stats:<br><br>
-
-                    <div class="luckText">> 10% Luck Boost</div>
-
-                    <div class="miningSpeedText">> Mines 2 blocks every 0.11 seconds.</div>
-
-                </div>
-
-                <div class="guiPickaxeRecipe">
-                    Recipe:<br>
-                    <div class="Essence-of-The-Casino Casino-Crusher">0/1 Essence of The Casino</div>
-                    <div class="glombo-wombo-v0_001 Casino-Crusher">0/1 glombo wombo v0.001</div>
-                    <div class="Ferexium Casino-Crusher">0/2 Ferexium</div>
-                    <div class="Vergulium Casino-Crusher">0/4 Vergulium</div>
-                    <div class="Carium Casino-Crusher">0/5 Carium</div>
-                    <div class="Magmatite Casino-Crusher">0/7 Magmatite</div>
-                    <div class="Silidium Casino-Crusher">0/10 Silidium</div>
-                    <div class="Bohrium Casino-Crusher">0/15 Bohrium</div>
-                    <div class="Ice-Fragment Casino-Crusher">0/19 Ice Fragment</div>
-                    <div class="Magnesium Casino-Crusher">0/30 Magnesium</div>
-                    <div class="Radiosolite Casino-Crusher">0/50 Radiosolite</div>
-                    <div class="Chiron Casino-Crusher">0/65 Chiron</div>
-                    <div class="Crystalline Casino-Crusher">0/150 Crystalline</div>
-                    <div class="Bismuth Casino-Crusher">0/320 Bismuth</div>
-                    <div class="Amber Casino-Crusher">0/450 Amber</div>
-                    <div class="Gold Casino-Crusher">0/5200 Gold</div>
-                    <div class="Quartz Casino-Crusher">0/7000 Quartz</div>
-                    <div class="Silver Casino-Crusher">0/8500 Silver</div>
-                    <div class="Tin Casino-Crusher">0/5000 Tin</div>
-                    <div class="Copper Casino-Crusher">0/115000 Copper</div>
-                    <div class="Clay Casino-Crusher">0/190000 Clay</div>
-                    <div class="Stone Casino-Crusher">0/400000 Stone</div>
+                <div class="panelContent">
                     
                 </div>
+                <div class="panelResizeHandle"></div>
+            </div>
 
-                <div class="guiPickaxeCCCraftButtonContainer">
-                    <button class="craftButton CasinoCrusher">Craft</button>
+            <div class="gamePanel hidden" id="gears">
+                <div class="panelHeader">
+                    <span class="panelTitle"><b>Gears</b></span>
                 </div>
+                <div class="panelContent">
 
+                </div>
+                <div class="panelResizeHandle"></div>
+            </div>
+            
+            <div class="gamePanel hidden" id="inventory">
+                <div class="panelHeader">
+                    <span class="panelTitle"><b>Inventory</b></span>
+                </div>
+                <div class="panelContent">
+
+                </div>
+                <div class="panelResizeHandle"></div>
             </div>
 
-        </div> -->
-
-        <!-- GEAR GUI STARTS HERE -->
-
-        <div class="guiContainerGears draggable">
-
-            <div class="guiSubContainer"></div>
-        
-            <div class="guiText"> > Gears </div>
-        
-            <div class="guiGearsMain">
-                <!-- <div class="guiGears buttonGroup">
-                    <button class="gearButton1">Clay Coil (Tier 1)</button>
-                    <button class="gearButton2">Bismuth Blast Beverage (Tier 2)</button>
-                    <button class="gearButton3">Whacky Wombo Chips (Tier 2)</button>
-                    <button class="gearButton4">Magnesium Reactor Core (Tier 3)</button>
-                </div> -->
+            <div class="gamePanel hidden" id="oreindex" data-maxheight="50vh">
+                <div class="panelHeader">
+                    <span class="panelTitle"><b>Ore Index</b></span>
+                    <input class="oreSearch" placeholder="Search..."></input>
+                </div>
+                <div class="panelContent">
+                    <div class="oreIndexContainer"></div>
+                </div>
+                <div class="panelResizeHandle"></div>
             </div>
-        
+
+
+            <div class="gamePanel hidden" id="fancyorelog">
+                <div class="panelHeader">
+                    <span class="panelTitle"><b>Ore Tracker</b></span>
+                </div>
+                <div class="panelContent">
+
+                </div>
+                <div class="panelResizeHandle"></div>
+            </div>
+
+            <div class="gamePanel hidden" id="statspanel">
+                <div class="panelHeader">
+                    <span class="panelTitle"><b>Mining Stats</b></span>
+                </div>
+                <div class="panelContent">
+                    <div class="statRow">
+                        <div class="statLabel">
+                             Mining Speed
+                        </div>
+                        <div class="statValue speed" id="statMiningSpeed">400ms</div>
+                    </div>
+                    <div class="statRow">
+                        <div class="statLabel">
+                            Luck Multiplier
+                        </div>
+                        <div class="statValue luck" id="statLuckBonus">1.0x</div>
+                    </div>
+                    <div class="statRow">
+                        <div class="statLabel">
+                            Blocks per Mine
+                        </div>
+                        <div class="statValue positive" id="statBlocksPerCycle">1</div>
+                    </div>
+                    <div class="statRow">
+                        <div class="statLabel">
+                            Gear Proc Rate
+                        </div>
+                        <div class="statValue" id="statGearProcRate">N/A</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gamePanel hidden" id="gameSettingsPane">
+                <div class="panelHeader">
+                    <span class="panelTitle"><b>Settings</b></span>
+                </div>
+                <div class="panelContent">
+                    <div class="tabBar">
+                        <button class="tab active" data-tab="audio">Audio</button>
+                        <button class="tab" data-tab="gameplay">Gameplay</button>
+                        <button class="tab" data-tab="misc">Misc</button>
+                    </div> 
+
+                    <section class="settingsPane active" data-pane="audio">
+                        <label class="sliderRow">
+                            <span>Music Volume</span>
+                            <input type="range" min="0" max="100" value="40" data-setting="musicVolume" data-location="inGame">
+                            <span class="value">40%</span>
+                        </label>
+
+                        <label class="sliderRow">
+                            <span>Spawn SFX Volume</span>
+                            <input type="range" min="0" max="100" value="55" data-setting="spawnSFXVolume" data-location="inGame">
+                            <span class="value">55%</span>
+                        </label>
+
+                        <label class="sliderRow">
+                            <span>Gear SFX Volume</span>
+                            <input type="range" min="0" max="100" value="55" data-setting="gearSFXVolume" data-location="inGame">
+                            <span class="value">55%</span>
+                        </label>
+
+                    </section>
+
+                    <section class="settingsPane" data-pane="gameplay" data-maxheight="20vh" data-maxwidth="40vw">
+
+                        <label class="checkRow">
+                            <input type="checkbox" data-setting="enableAFK" data-location="inGame">
+                            <span>Enable AFK Mining (not currently implemented)</span>
+                        </label>
+
+                        <label class="checkRow">
+                            <input type="checkbox" data-setting="disableSpawnEffects" data-location="inGame">
+                            <span>Disable Spawn Effects</span>
+                        </label>
+
+                        <label class="checkRow">
+                            <input type="checkbox" data-setting="skipMainMenu" data-location="inGame">
+                            <span>Skip Main Menu</span>
+                        </label>
+
+                        <label class="checkRow">
+                            <input type="checkbox" data-setting="disableStopOnChill" data-location="inGame">
+                            <span>Disable Stop-on-Chill</span>
+                        </label>
+
+                    </section>
+
+                    <section class="settingsPane" data-pane="misc">
+
+                        <label class="checkRow">
+                            <input type="checkbox" data-setting="superChexMode" data-location="inGame">
+                            <span>Enable Super Chex Mode</span>
+                        </label>
+
+                        <label class="checkRow">
+                            <input type="checkbox" data-setting="cloudSaveEnabled" data-location="inGame">
+                            <span>Enable Cloud-save (not currently implemented)</span>
+                        </label>
+
+                        <label class="sliderRow">
+                            <span>Swag Level</span>
+                            <input type="range" min="0" max="100" value="100">
+                            <span class="value">100%</span>
+                        </label>
+
+                        <div class="settingsButtonRow">
+                            <button type="button" class="settingsBtn importDataBtn">Import Data</button>
+                            <button type="button" class="settingsBtn exportDataBtn">Export Data</button>
+                            <button type="button" class="settingsBtn resetGameBtn">Reset Game</button>
+                        </div>
+
+                    </section>
+
+                </div>
+                <div class="panelResizeHandle"></div>
+            </div>
+
+            <div class="gamePanel hidden" id="changelog">
+                <div class="panelHeader">
+                    <span class="panelTitle"><b>Version Changelog</b></span>
+                </div>
+                <div class="panelContent">
+                    <h4><u>THE BIGGEST CHEX UPDATE TO EVER... V0.3.2</u></h4>
+
+                    i genuinely cannot even begin to describe all the changes that has happened to this game since i last updated it<br>
+                    literally all i can say is that absolutely everything and i mean <b>EVERYTHING</b> has changed, from the way gears are handled, to the literal luck itself <br>
+                    (the luck was broken for a really long time lol) <br>
+                    here are a couple <b>MAJOR</b> changes:<br><br>
+                    
+                    <h4>New Gears</h4>
+
+                    + Wheel of Fate (Tier 5) - Has a 1/300 chance to pause mining and spin a wheel which contains many effects.<br><br> 
+                    + Dinner Bomb (Tier 4) - Has a 1/65 chance to mine 70 - 120 blocks on each block broken.<br><br> 
+                    + Chexium Chronograph (Tier 4) - Has a 1/200 chance to give +0.01x to +0.2x luck for 10 seconds depending on the time of day. <br> (+0.2x happens at 12:00PM, +0.01x happens at 12:00AM, times are local to your timezone)<br><br> 
+                    + Chexestine Nuke (Tier 5) - Has a 1/280 chance to mine 250 - 650 blocks on each block broken.<br><br>
+
+                    <h4>New Pickaxes</h4>
+
+                    + Urleinator Prime (Tier 6)<br> 
+                    --- Luck: +0.125x<br> 
+                    --- Speed: 135ms<br> 
+                    --- Blocks Mined: 3<br><br>
+
+                    + Chexite Staff (Tier 7)<br> 
+                    --- Luck: +0.125x<br> 
+                    --- Speed: 135ms<br> 
+                    --- Blocks Mined: 3<br>
+                    --- Ability: Has a 1/100 chance on every block mined to temporarily boost a stat for a random duration of time, this boost stacks with other temporary buffs. <br> > Has a 1/1200 chance to activate chex-fusion-burst mode for 12 seconds, causing all stats to be heavily infused with chex. (+0.4x luck, -15ms mining speed, +2 blocks mined) <br><br>
+
+                    yep! you saw correctly! Ability! not only can pickaxes have abilities now, its easier than ever for me to add them!<br>
+                    the entire way this game is structured has been completely rewritten to allow for even more modularity than we had before!<br>
+                    now allowing for pickaxe abilities, gear abilities, and quite literally interaction with any aspect of the game<br><br>
+
+                    you may be wondering, why are gears lagging behind in terms of tier!<br> because i havent thought of any tier 6 gears yet :)<br><br>
+
+                    now for some less important stuff but still a little important!<br><br>
+
+                    <h4>Improved Features, General Fixes, and Additions</h4>
+
+                    + completely rewrote the saving system to be much safer, handle old save files, differences between versions, and even newer save files!<br>
+                    + completely reworked the way gears and pickaxes are handled, a player is now given a new pickaxe Instance instead of an object! fancy!<br>
+                    + as you can probably tell, recreated the entire game's gui<br>
+                    + fixed luck (seriously it was broken)<br>
+                    + remade the index gui, its alot less buggy now and functions ALOT better!!!!<br>
+                    + fixed a bug with gui elements being able to be thrown out of the game so you cant grab them anymore<br>
+                    + added seperation between gear temporary effects and pickaxe temporary effects<br>
+                    + added a new Main Menu!!!! isnt that background shader awesomesauce!<br>
+                    + added a new mining stats tab so you can FINALLY know your stats!!!! (gear proc rate is not used right now)<br>
+                    + reworked calculations for the chexium chronograph<br>
+                    + added a few new ores so you cant just insta craft the gears and pickaxes :)<br>
+                    + edited a few stats for several gears and pickaxes, chances are there have been quite a few changes<br>
+                    + added a new gear sound for chexestine nuke<br>
+                    + added SUPER CHEX MODE...<br>
+                    + implemented the code needed for cloud saving, will only be active when the game is actually on galaxy.click though<br>
+                    + added Swag Level... (Important)<br>
+                    + added the ability to: skip the main menu, disable stop on chil, and disable all spawn effects and sounds<br>
+                    ~ i promise afk mining will come soon<br>
+                    + remade the import, export, and reset game buttons. should be safer to import now<br>
+
+                    and MUCH MORE!!!!!!<br><br>
+                    
+                    and that's about it! have fun :)<br><br>
+
+                    <h4>next on the agenda:</h4>
+                    
+                    - adding more gears (catching up to pickaxes)<br>
+                    - inventory rework + ore mutations<br>
+                    - some New Progression Features...<br>
+                    - going above tier 7 for gears and pickaxes<br>
+                    - removing all the music i totally have rights to, replacing it, and putting the game on galaxy.click<br>
+                    - spawn effects revamp<br>
+                    - The Big One: World 2 (three dimensions if i can)<br>
+
+                </div>
+                <div class="panelResizeHandle"></div>
+            </div>
+
+            <div class="effectLayer"></div>
         </div>
 
-        <!-- <div class="guiContainerGear Clay-Coil draggable" style="visibility: hidden;">
+        <!-- SCRIPTS -->
 
-            <div class="guiSubContainer"></div>
-        
-            <div class="guiText Clay-Coil"> > Clay Coil </div>
-        
-            <div class="guiGearsMain">
-        
-                <div class="guiGearInfo">
-        
-                    wow!! gears!! who would've thought<br><br>
-                    
-                    dude this coil is made of CLAY, who the fuck thought to make a Clay Coil, it BARELY helps but it does<br>
-                    -----------------------------------
-                    <br><br>
-        
-                    Abilities:<br><br>
-        
-                    <div class="miningSpeedText">> Boosts mining speed by 20ms.</div><br>
-
-                    Penalties:<br><br>
-
-                    <div class="penaltyText">> Has a 1/100 chance to pause your mining for two seconds when mining a block.</div>
-                    <div class="penaltyText small">(only happens once when using a pickaxe that mines several blocks)</div>
-        
-                </div>
-        
-                <div class="guiGearRecipe">
-                    Recipe:<br>
-                    <div class="Quartz Clay-Coil">0/8 Quartz</div>
-                    <div class="Coal Clay-Coil">0/55 Coal</div>
-                    <div class="Tin Clay-Coil">0/70 Tin</div>
-                    <div class="Copper Clay-Coil">0/150 Copper</div>
-                    <div class="Clay Clay-Coil">0/275 Clay</div>
-                    <div class="Stone Clay-Coil">0/500 Stone</div>
-                </div>
-        
-                <div class="guiGearCraftButtonContainer">
-                    <button class="craftButton Clay-Coil">Craft</button>
-                </div>
-        
-            </div>
-        
-        </div>
-
-        <div class="guiContainerGear Bismuth-Blast-Beverage draggable" style="visibility: hidden;">
-
-            <div class="guiSubContainer"></div>
-        
-            <div class="guiText Bismuth-Blast-Beverage"> > Bismuth Blast Beverage </div>
-        
-            <div class="guiGearsMain">
-        
-                <div class="guiGearInfo">
-        
-                    this drink tastes like raw metal. but i'll be damned if it doesn't look rainbow and cool<br><br>
-                    
-                    why do people drink this shit, it tastes unlucky!<br><br>
-
-                    i bet it's incredibly destructive on your immune system
-                    -----------------------------------
-                    <br><br>
-        
-                    Abilities:<br><br>
-        
-                    <div class="miningSpeedText">> Has a 1/100 chance to mine 40 - 50 blocks on each block broken.</div><br>
-
-                    Penalties:<br><br>
-
-                    <div class="penaltyText">> 0.85x luck to blocks mined with this gear</div>
-        
-                </div>
-        
-                <div class="guiGearRecipe">
-                    Recipe:<br>
-                    <div class="Bismuth Bismuth-Blast-Beverage">0/2 Bismuth</div>
-                    <div class="Amber Bismuth-Blast-Beverage">0/4 Amber</div>
-                    <div class="Emerald Bismuth-Blast-Beverage">0/6 Emerald</div>
-                    <div class="Silver Bismuth-Blast-Beverage">0/80 Silver</div>
-                    <div class="Coal Bismuth-Blast-Beverage">0/430 Coal</div>
-                    <div class="Tin Bismuth-Blast-Beverage">0/570 Tin</div>
-                    <div class="Rhodochrosite Bismuth-Blast-Beverage">0/700 Rhodochrosite</div>
-                    <div class="Copper Bismuth-Blast-Beverage">0/900 Copper</div>
-                    <div class="Stone Bismuth-Blast-Beverage">0/3500 Stone</div>
-                </div>
-        
-                <div class="guiGearCraftButtonContainer">
-                    <button class="craftButton Bismuth-Blast-Beverage">Craft</button>
-                </div>
-        
-            </div>
-        
-        </div>
-
-        <div class="guiContainerGear Whacky-Wombo-Chips draggable" style="visibility: hidden;">
-
-            <div class="guiSubContainer"></div>
-        
-            <div class="guiText Whacky-Wombo-Chips"> > Whacky Wombo Chips </div>
-        
-            <div class="guiGearsMain">
-        
-                <div class="guiGearInfo">
-        
-                    these chips taste like... grape? that's really fuckin whacky if you ask me, why do they do what they do? they're chips! <br><br>
-                    
-                    atleast they're better than the drink i want a refund on that shit<br><br>
-
-                    -----------------------------------
-                    <br><br>
-        
-                    Abilities:<br><br>
-        
-                    <div class="miningSpeedText">> Has a 1/100 chance to duplicate any mined Master-tier ore (or below)</div><br>
-
-                    Penalties:<br><br>
-
-                    <div class="penaltyText">> Upon duplication, mining is paused for one second.</div>
-        
-                </div>
-        
-                <div class="guiGearRecipe">
-                    Recipe:<br>
-                    <div class="Palladium Whacky-Wombo-Chips">0/2 Palladium</div>
-                    <div class="Virotite Whacky-Wombo-Chips">0/5 Virotite</div>
-                    <div class="Amber Whacky-Wombo-Chips">0/6 Amber</div>
-                    <div class="Gold Whacky-Wombo-Chips">0/60 Gold</div>
-                    <div class="Silver Whacky-Wombo-Chips">0/100 Silver</div>
-                </div>
-        
-                <div class="guiGearCraftButtonContainer">
-                    <button class="craftButton Whacky-Wombo-Chips">Craft</button>
-                </div>
-        
-            </div>
-        
-        </div>
-
-        <div class="guiContainerGear Magnesium-Reactor-Core draggable" style="visibility: hidden;">
-
-            <div class="guiSubContainer"></div>
-        
-            <div class="guiText Magnesium-Reactor-Core"> > Magnesium Reactor Core </div>
-        
-            <div class="guiGearsMain">
-        
-                <div class="guiGearInfo">
-        
-                    remember the clay coil? turns out they did some chemistry on the clay, turned it into magnesium! <br><br>
-                    
-                    turns out this magnesium has some pretty awesome effects!<br><br>
-
-                    -----------------------------------
-                    <br><br>
-        
-                    Abilities:<br><br>
-        
-                    <div class="miningSpeedText">> Boosts mining speed by 30ms</div><br>
-                    <div class="luckText">> 10% Additive Luck Boost (pickaxe luck + 10%)</div><br>
-
-                    Penalties:<br><br>
-
-                    <div class="penaltyText">> When mining a block, 1/150 chance to pause mining for two seconds.</div>
-        
-                </div>
-        
-                <div class="guiGearRecipe">
-                    Recipe:<br>
-                    <div class="Magnesium Magnesium-Reactor-Core">0/1 Magnesium</div>
-                    <div class="Chroma-Contaris Magnesium-Reactor-Core">0/6 Chroma Contaris</div>
-                    <div class="Palladium Magnesium-Reactor-Core">0/10 Palladium</div>
-                    <div class="Bismuth Magnesium-Reactor-Core">0/15 Bismuth</div>
-                    <div class="Diamond Magnesium-Reactor-Core">0/65 Diamond</div>
-                    <div class="Silver Magnesium-Reactor-Core">0/350 Silver</div>
-                    <div class="Coal Magnesium-Reactor-Core">0/1800 Coal</div>
-                    <div class="Chexium Magnesium-Reactor-Core">0/3400 Chexium</div>
-                </div>
-        
-                <div class="guiGearCraftButtonContainer">
-                    <button class="craftButton Magnesium-Reactor-Core">Craft</button>
-                </div>
-        
-            </div>
-        
-        </div> -->
-        
-        
-
+        <script type="module" src="./js/game/mainGame.mjs"></script>
+        <script type="module" src="./js/musicHandler.js"></script>
+        <script type="module" src="./js/interactionHandler.js"></script>
+        <script type="module" src="./js/gui/statsUpdate.mjs"></script>
+        <script type="module" src="./js/gui/topbarHandler.js"></script>
         <script type="module" src="./js/game/settingsHandler.mjs"></script>
-        <script type="module" src="./js/background.js"></script>
-        <script type="module" src="./js/smoothDrag.js"></script>
-        <script type="module" src="./js/game/timer.js"></script>   
-        <script type="module" src="./js/main.mjs"></script>  
-        <script type="module" src="./js/game/gears/gearsMain.mjs"></script>
-        <script type="module" src="./js/game/gears/gearsGUI.mjs"></script>
         <script type="module" src="./js/game/pickaxes/pickaxesMain.mjs"></script>
         <script type="module" src="./js/game/pickaxes/pickaxeGUI.mjs"></script>
-        <script type="module" src="./js/game/spawnEffects.mjs"></script>
+        <script type="module" src="./js/game/gears/gearsMain.mjs"></script>
+        <script type="module" src="./js/game/gears/gearsGUI.mjs"></script>
+        <script type="module" src="./js/swagBG.js"></script>
         <script type="module" src="./js/game/indexGuiHandler.mjs"></script>
-        <script type="module" src="./js/game/mainGame.mjs"></script>
+        <script type="module" src="./js/mainMenu.js"></script>
+        <script type="module" src="./js/game/saveInterval.mjs"></script>
+        
+
     </body>
 </html>

@@ -11,6 +11,8 @@ import { Chexstick } from "./pickaxefiles/chexstick.mjs";
 import { CasinoCrusher } from "./pickaxefiles/casino-crusher.mjs";
 import { ChexiumMatterManipulator } from "./pickaxefiles/chexium-matter-manipulator.mjs";
 import { ChexonicSpellbook } from "./pickaxefiles/chexonic-spellbook.mjs";
+import { UrleiantorPrime } from "./pickaxefiles/urleinator-prime.mjs";
+import { ChexiteStaff } from "./pickaxefiles/chexite-staff.mjs";
 
 //         _                 _ _ _ 
 //        | |               | | | |
@@ -63,7 +65,7 @@ function updateAllGUIRecipes(inventory, pickaxes) {
     });
 }
 
-var gearRecipesToUpdate = [
+var pickaxeRecipesToUpdate = [
     Chexstick,
     Chexaxe,
     ChexforgeRavager,
@@ -73,11 +75,13 @@ var gearRecipesToUpdate = [
     ChexglowDagger,
     CasinoCrusher,
     ChexiumMatterManipulator,
-    ChexonicSpellbook
+    ChexonicSpellbook,
+    UrleiantorPrime,
+    ChexiteStaff
 ];
 
 var pickaxeUpdateLoop = setInterval(() => {
-    updateAllGUIRecipes(inventory, gearRecipesToUpdate);
+    updateAllGUIRecipes(inventory, pickaxeRecipesToUpdate);
 }, 500);
 
 export {updateGUIRecipe, ownedPickaxes, equipPickaxe};
