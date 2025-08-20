@@ -7,7 +7,7 @@ const ChexestineNuke = new Gear(
     5, // tier
     new EffectConfig({
         type: 'bonus_mining',
-        triggerChance: 1/250,
+        triggerChance: 1/280,
         cooldown: 2000,
         minBlocks: 250,
         maxBlocks: 650,

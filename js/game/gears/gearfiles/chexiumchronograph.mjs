@@ -7,7 +7,7 @@ const ChexiumChronograph = new Gear(
     4,
     new EffectConfig({
         type: 'time_based_boost',
-        triggerChance: 1/2,
+        triggerChance: 1/200,
         cooldown: 10000,
         duration: 10000,
         description: "time.....",
