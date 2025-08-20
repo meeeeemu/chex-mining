@@ -127,11 +127,6 @@ function handleSpawnEffects(oreObj) {
             });
         }
     });
-
-    // reset animPlayed so effects always trigger
-    if (foundRareOre) {
-        animPlayed = false;
-    }
 }
 
 function caveSpawn(caveSize, caveName) {
