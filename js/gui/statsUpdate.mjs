@@ -7,7 +7,7 @@ function updateStatPanel() {
 
     document.getElementById('statBlocksPerCycle').textContent = blocksPerCycle.toString();
     document.getElementById('statMiningSpeed').textContent = `${miningSpeed}ms`;
-    document.getElementById('statLuckBonus').textContent = `${totalLuck.toFixed(2)}x`;
+    document.getElementById('statLuckBonus').textContent = `${totalLuck.toFixed(3)}x`;
 
 }
 
