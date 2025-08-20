@@ -1,5 +1,6 @@
 import anime from 'animejs';
 import { saveGame } from './profileHandler.mjs';
+import { stopAutoSave } from './saveInterval.mjs';
 
 //         _                 _ _ _
 //        | |               | | | |
@@ -168,6 +169,8 @@ fileInputSave.addEventListener('change', (event) => {
     if (!file) return;
 
     if (file.type && file.type !== "application/octet-stream") { console.error("ERR: file was not an octet stream, disregarding"); return; }
+
+    stopAutoSave();
 
     importingContainer.classList.add("active");
 
