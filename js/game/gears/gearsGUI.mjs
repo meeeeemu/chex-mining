@@ -11,6 +11,7 @@ const gearFiles = [
     "./gearfiles/dinnerbomb.mjs",
     "./gearfiles/wheeloffate.mjs",
     "./gearfiles/chexestinenuke.mjs",
+    "./gearfiles/handheldchexiumportal.mjs"
 ];
 
 const buttonContainer = document.querySelector('#gears .panelContent');

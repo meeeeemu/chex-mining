@@ -75,13 +75,11 @@ gameMusic.addEventListener('ended', gameMusicLoop);
 document.addEventListener('startGame', () => {
   const step = 0.03;
   const fade = setInterval(() => {
-    if (menuMusic.volume <= step) {
-      menuMusic.volume = 0;
+    menuMusic.volume = Math.max(0, menuMusic.volume - step);
+    if (menuMusic.volume === 0) {
       clearInterval(fade);
       menuMusic.pause();
       gameMusicLoop();
-    } else {
-      menuMusic.volume -= step;
     }
   }, 50);
 });

@@ -74,8 +74,6 @@ function closeTile(tile, details) {
 function tileToggle(tile) {
     const details = tile.querySelector('.oreDetails');
 
-    tile.isOpen = false;
-
     tile.addEventListener('click', () => {
         tile.isOpen ? closeTile(tile, details) : openTile(tile, details);
     })
@@ -148,7 +146,7 @@ function buildOreIndex(oreDef, container = guiOreIndexMain) {
 
     let activeTier = 'all';
 
-    let searchTerm = ''
+    let searchTerm = '';
 
     searchBar.addEventListener('input', e => {
         searchTerm = e.target.value.trim().toLowerCase();

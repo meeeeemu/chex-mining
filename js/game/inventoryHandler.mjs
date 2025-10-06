@@ -37,7 +37,7 @@ function appendToInventoryGUI(updatedOre = null) {
 
 function addOreToGUI(oreName, tierOrder) {
     if (!inventory[oreName]) {
-        console.warn(`Warning: ${oreName} not found in inventory.`);
+        console.warn(`warning: ${oreName} not found in inventory.`);
         return;
     }
 
@@ -73,7 +73,7 @@ function addOreToGUI(oreName, tierOrder) {
 
 
 function addOrefromSaveData(oreObject, quantity) {
-    var oreName = oreObject.Name; 
+    let oreName = oreObject.Name; 
 
     inventory[oreName] = {"obj": oreObject, "quantity": quantity}
 
@@ -91,10 +91,8 @@ function addOre(oreObject, isMined) {
         if(inventory[oreName]) {
             inventory[oreName].quantity += oreData.quantity;
         } else {
-            inventory[oreName] = {"obj": oreData, "quantity": 1}
+            inventory[oreName] = {"obj": oreData, "quantity": oreData.quantity}
         }
-    
-        var inventoryOreTier = inventory[oreName]['obj'].tier
     
         appendToInventoryGUI(oreName);
 
@@ -108,7 +106,7 @@ function removeOre(oreName, quantity) {
         inventory[oreName].quantity -= Number(quantity);
 
         if(inventory[oreName].quantity <= 0) {
-            delete inventory[oreName];
+            delete inventory[oreName]
         }
 
         appendToInventoryGUI();

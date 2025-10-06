@@ -2,6 +2,7 @@ import { addOre } from "../inventoryHandler.mjs";
 import anime from 'animejs';
 import { startMining, stopMining, isMining, audioElementSFX, calcTotalBonuses, temporaryGearBonuses, handleOreText, BASE_LUCK, temporaryPickaxeBonuses } from "../mainGame.mjs";
 import { oreDef, selectRandomOre } from "../oreDef.mjs";
+import { handleSpawnEffects } from "../spawnEffects.mjs";
 import { gameSettings } from "../settingsHandler.mjs";
 import { Wheel } from 'spinwheel.js';
 import { easeOutCubic } from '../../lib/easing.js';
@@ -22,7 +23,8 @@ class EffectConfig {
         speedModifier = 0,
         pauseDuration = 0,
         soundFile = null,
-        description = ""
+        description = "",
+        customData = null
     }) {
         this.type = type;
         this.triggerChance = triggerChance;
@@ -35,6 +37,7 @@ class EffectConfig {
         this.pauseDuration = pauseDuration;
         this.soundFile = soundFile;
         this.description = description;
+        this.customData = customData;
     }
 }
 
@@ -328,6 +331,94 @@ class WheelEffect extends BaseEffect {
     }
 }
 
+class PortalEffect extends BaseEffect {
+    constructor(config) {
+        super(config);
+        this.isAccumulating = false;
+        this.accumulatedLuck = 0;
+        this.tierLuckValues = config.customData?.tierLuckValues || {};
+        this.accumulationDuration = config.customData?.accumulationDuration || 10000;
+        this.payoutBlocks = config.customData?.payoutBlocks || 10;
+        this.maxLuckCap = config.customData?.maxLuckCap || 4.0;
+    }
+
+    execute(button, oreobj) {
+        if(!this.canTrigger() || this.isAccumulating) return;
+
+        console.log("activated luck!!!");
+        console.log("tierLuckValues:", this.tierLuckValues);
+        this.isAccumulating = true;
+        this.accumulatedLuck = 0;
+
+        this.startAccumulation(button);
+
+        setTimeout(() => {
+            this.endAccumulation(button);
+        }, this.accumulationDuration)
+    }
+
+    startAccumulation(button) {
+        const indicator = document.createElement('div');
+        indicator.id = 'portal-indicator';
+        indicator.className = 'portalIndicator';
+        indicator.innerHTML = `
+            <div class="title">CHEXIUM EPIC SAUCE PORTAL ACTIVATED...</div>
+            <div class="luckValue">+0.00x</div>
+        `;
+        document.body.appendChild(indicator);
+
+        anime({
+            targets: indicator,
+            bottom: ['-200px', '80px'],
+            duration: 600,
+            easing: 'easeOutExpo'
+        });
+
+        window.portalActive = true;
+        window.portalAccumulateLuck = (oreobj) => {
+            Object.values(oreobj).forEach(ore => {
+                const tierValue = this.tierLuckValues[ore.tier] || 0;
+                const luckGain = tierValue * ore.quantity;
+                this.accumulatedLuck = Math.min(this.maxLuckCap, this.accumulatedLuck + luckGain);
+
+                if(this.accumulatedLuck >= 5.0) {
+                    this.endAccumulation(button);
+                }
+
+                const luckValueEl = indicator.querySelector('.luckValue');
+                if (luckValueEl) {
+                    luckValueEl.textContent = `+${this.accumulatedLuck.toFixed(2)}x`;
+                }
+            });
+        }
+    }
+
+    endAccumulation(button) {
+        this.isAccumulating = false;
+        window.portalActive = false;
+
+        const indicator = document.getElementById('portal-indicator');
+        if (indicator) {
+            anime({
+                targets: indicator,
+                bottom: ['80px', '-200px'],
+                duration: 500,
+                easing: 'easeInExpo',
+                complete: () => {
+                    indicator.remove();
+                }
+            });
+        }
+
+        console.log(`luck accumulated: ${this.accumulatedLuck.toFixed(2)}`);
+        const selectedOres = selectRandomOre(oreDef, BASE_LUCK + this.accumulatedLuck, this.payoutBlocks);
+        addOre(selectedOres, true);
+        handleOreText(selectedOres, true);
+        handleSpawnEffects(selectedOres);
+        this.playSound();
+    }
+}
+
 class ChronographEffect extends BaseEffect {
     execute(button, oreobj) {
         if (!this.canTrigger()) return;
@@ -387,7 +478,8 @@ class Gear {
             'ore_duplication': () => new OreDuplicationEffect(effectConfig),
             'temporary_boost': () => new TemporaryBoostEffect(effectConfig),
             'wheel': () => new WheelEffect(effectConfig),
-            'time_based_boost': () => new ChronographEffect(effectConfig)
+            'time_based_boost': () => new ChronographEffect(effectConfig),
+            'portal_effect': () => new PortalEffect(effectConfig)
         };
 
         const effectCreator = effects[effectConfig.type];

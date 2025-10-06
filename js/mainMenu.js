@@ -236,14 +236,15 @@ overlay.addEventListener('click', e=>{
 hover.volume = gameSettings.audioSettings.musicVolume;
 
 buttons.forEach(btn=>{
-  btn.addEventListener('mouseenter', () => {
-    hover.currentTime = 0;
-    hover.play();
-    anime({
-        targets: btn,
-        scale: 1.08,
-        duration: 100,
-        easing: 'easeOutQuad'
+    btn.addEventListener('mouseenter', () => {
+      hover.currentTime = 0;
+      hover.play();
+      anime({
+          targets: btn,
+          scale: 1.08,
+          duration: 100,
+          easing: 'easeOutQuad'
+      });
     });
 
     btn.addEventListener('mouseleave', () => {
@@ -254,7 +255,6 @@ buttons.forEach(btn=>{
         easing: 'easeOutQuad'
         });
     });
-  });
 });
 
 function activate(targetTab) {

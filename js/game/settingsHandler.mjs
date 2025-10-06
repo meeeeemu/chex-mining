@@ -230,6 +230,8 @@ function setSavedSettingsValues({
     gearSFXVolume = 0.1,
     enableAFK = false,
     disableSpawnEffects = false,
+    skipMainMenu = false,
+    disableStopOnChill = false,
     superChexMode = false,
     cloudSaveEnabled = false,
     swagLevel = 0
@@ -239,6 +241,8 @@ function setSavedSettingsValues({
     gameSettings.audioSettings.gearSFXVolume = gearSFXVolume;
     gameSettings.gameplaySettings.enableAFK = enableAFK;
     gameSettings.gameplaySettings.disableSpawnEffects = disableSpawnEffects;
+    gameSettings.gameplaySettings.skipMainMenu = skipMainMenu;
+    gameSettings.gameplaySettings.disableStopOnChill = disableStopOnChill;
     gameSettings.miscSettings.superChexMode = superChexMode;
     gameSettings.miscSettings.cloudSaveEnabled = cloudSaveEnabled;
     gameSettings.miscSettings.swagLevel = swagLevel;

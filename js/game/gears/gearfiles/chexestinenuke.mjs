@@ -28,7 +28,7 @@ const ChexestineNuke = new Gear(
         "Uranium": { quantity: 150 },
         "Bismuth": { quantity: 500 },
         "Silver": { quantity: 2500 },
-        "Chexium": { quantity: 15000 }
+        "Chexium": { quantity: 11000 }
     },
     "this is a nuclear bomb! how the hell did chex get their hands on a nuclear bomb <br><br> what i will say is that this bomb sure can mine!",
     "> Has a 1/280 chance to mine 250 - 650 blocks on each block broken.",

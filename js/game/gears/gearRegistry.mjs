@@ -5,6 +5,7 @@ import { magnesiumReactorCore } from "./gearfiles/magnesiumreactorcore.mjs";
 import { ChexiumChronograph } from "./gearfiles/chexiumchronograph.mjs";
 import { wheelOfFate } from "./gearfiles/wheeloffate.mjs";
 import { ChexestineNuke } from "./gearfiles/chexestinenuke.mjs";
+import { HandheldChexiumPortal } from "./gearfiles/handheldchexiumportal.mjs";
 
 const GEAR_REGISTRY = {
     "Clay Coil": clayCoil,
@@ -13,7 +14,8 @@ const GEAR_REGISTRY = {
     "Magnesium Reactor Core": magnesiumReactorCore,
     "Chexium Chronograph": ChexiumChronograph,
     "Wheel of Fate": wheelOfFate,
-    "Chexestine Nuke": ChexestineNuke
+    "Chexestine Nuke": ChexestineNuke,
+    "Handheld Chexium Portal": HandheldChexiumPortal
 };
 
 export function getCurrentGearDefinition(gearName) {

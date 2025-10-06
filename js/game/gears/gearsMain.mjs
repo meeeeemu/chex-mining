@@ -5,6 +5,7 @@ import { ChexestineNuke } from "./gearfiles/chexestinenuke.mjs";
 import { ChexiumChronograph } from "./gearfiles/chexiumchronograph.mjs";
 import { clayCoil } from "./gearfiles/claycoil.mjs";
 import { DinnerBomb } from "./gearfiles/dinnerbomb.mjs";
+import { HandheldChexiumPortal } from "./gearfiles/handheldchexiumportal.mjs";
 import { magnesiumReactorCore } from "./gearfiles/magnesiumreactorcore.mjs";
 import { whackyWomboChips } from "./gearfiles/whackywombochips.mjs";
 import { wheelOfFate } from "./gearfiles/wheeloffate.mjs";
@@ -53,7 +54,8 @@ var gearRecipesToUpdate = [
     wheelOfFate,
     ChexiumChronograph,
     DinnerBomb,
-    ChexestineNuke
+    ChexestineNuke,
+    HandheldChexiumPortal
 ];
 
 var gearUpdateLoop = setInterval(() => {

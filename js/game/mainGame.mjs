@@ -22,9 +22,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadGame()
 })
 
-const SAVE_VERSION = 0.32;
+const SAVE_VERSION = 0.33;
 
 // addOre({"Name": "Fire Crystal normal", "decimalRarity": 1 / 1250000000, "stringRarity": "1/??????????", "tier": "dreamlike"}, 1 , true)
+
+// import { HandheldChexiumPortal } from './gears/gearfiles/handheldchexiumportal.mjs';
+// import { ChexiteStaff } from './pickaxes/pickaxefiles/chexite-staff.mjs';
+// window.debugGivePortal = async () => {
+//     const mainGame = await import('./mainGame.mjs');
+//     mainGame.setCurrentGearGame(HandheldChexiumPortal);
+//     console.log('Handheld Chexium Portal equipped!');
+// };
+// window.debugGiveStaff = async () => {
+//     const mainGame = await import('./mainGame.mjs');
+//     mainGame.setCurrentPickGame(ChexiteStaff);
+//     console.log('Chexite Staff equipped!');
+// };
 
 const mineButton = document.querySelector('.pickaxeMineButton')
 
@@ -59,7 +72,7 @@ audioElement.volume = 0.35
 const audioElementSFX = document.querySelector('.gearSFX')
 audioElementSFX.volume = 0.1
 
-var isMining = 0;
+var isMining = false;
 var miningInterval;
 
 function stopMining() {
@@ -206,8 +219,8 @@ function debounce(fn, delay = 120, immediate = true) {
 }
 
 function mineButtonClick() {
-    if(isMining == 0) {
-        isMining = 1;
+    if(isMining == false) {
+        isMining = true;
         mineButton.classList.remove('notMining')
         mineButton.classList.add('mining')
         startMining();
@@ -237,11 +250,15 @@ function startMining() {
             CURRENT_PICKAXE.applyEffect(mineButton, selectedOreObject);
         }
 
-        handleOreText(selectedOreObject);
-        handleSpawnEffects(selectedOreObject);
-        stopMiningifChill(selectedOreObject, miningInterval);
-        addOre(selectedOreObject, true);
-        saveGame();
+        if (window.portalActive && window.portalAccumulateLuck) {
+            window.portalAccumulateLuck(selectedOreObject);
+        } else {
+            handleOreText(selectedOreObject);
+            handleSpawnEffects(selectedOreObject);
+            stopMiningifChill(selectedOreObject, miningInterval);
+            addOre(selectedOreObject, true);
+            saveGame();
+        }
 
         setTimeout(mineCycle, MINING_SPEED);
     }

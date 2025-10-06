@@ -43,10 +43,10 @@ function serializeCollection(collection) {
                 const jsonData = item.toJSON();
                 serialized[key] = jsonData;
             } catch (error) {
-                console.error(`Failed to serialize item ${key}:`, error);
+                console.error(`failed to serialize item ${key}:`, error);
             }
         } else {
-            console.warn(`Item ${key} missing toJSON method:`, item);
+            console.warn(`item ${key} missing toJSON method:`, item);
         }
     });
     
@@ -146,7 +146,7 @@ function downloadBackup(b64Save, reason = 'unknown error') {
 
 function saveGame() {
     try {
-    
+
         var dataToSave = {
             version: SAVE_VERSION,
             playerinventory: JSON.stringify(inventory),
@@ -157,8 +157,15 @@ function saveGame() {
             gamesettings: structuredClone(gameSettings),
             firsttime: 1
         };
-    
-        localStorage.setItem("save", toB64(JSON.stringify(dataToSave)));
+
+        const encoded = toB64(JSON.stringify(dataToSave));
+        localStorage.setItem("save", encoded);
+
+        const verification = localStorage.getItem("save");
+        if (verification !== encoded) {
+            throw new Error("save verification failed - data mismatch");
+        }
+
     } catch (err) {
         console.error('save failed:', err);
         const raw = localStorage.getItem('save') ?? '';
